@@ -9,6 +9,13 @@ https://mtempleheald.github.io/
 
 Some links to pages where I will talk about some things I've tried, what I liked about them, what I didn't, whether I'd use again by choice.
 
+* Agile red flags
+* Frameworks versus libraries
+* Test-driven development
+
 ### Projects
 
 Some links to open source repositories I've contributed to.
+* Haskell solver for Aristotle's number puzzle
+* Go LinkedIn scraper and CV generator using Latex
+* Rust darts scoreboard, serverless backend and web assembly front end.
