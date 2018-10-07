@@ -1,38 +1,34 @@
 # Mark Temple-Heald
 
-Some stuff about me.\
-Some more stuff about me.\
-A general introduction to this site.
-https://mtempleheald.github.io/
+An IT professional focussing on software development, data modelling and application design.  
 
-### Opinions
+I'm motivated by the desire to solve real world problems and to automate as much as possible.  The automation aspect scares many people, but the way I look at it, automating the boring stuff allows you to focus on the new and interesting stuff.  The pace of innovation is ever increasing and it is impossible to keep up with everything, but I try, some of my investigations and experiments are linked below.  
 
-Some links to pages where I will talk about some things I've tried, what I liked about them, what I didn't, whether I'd use again by choice.
 
-* [Agile Development Practices](agile.md)
-* [Information Radiators](information-radiators.md)
-* Frameworks versus libraries
-* Test-driven development
-* [Programming Languages](programming/index.md)
+## Topics of interest
 
-### Projects
+* [Programming languages](programming/index.md)  
+  * Frameworks versus libraries - APEX ruined by not being opinionated wrt standards, BTS too opinionated?
+  * Run-time versus compile-time errors - Java's Null Pointer Exceptions, BizTalk's no subscribers found ...
+  * Debugging versus unit testing
+* Software Development Processes
+  * [Agile](topics/development-practices/agile.md)  
+  * [Test-driven development](topics/development-practices/tdd.md)
+  * [Information Radiators](topics/development-practices/information-radiators.md)
+* [Artificial Intelligence](topics/ai.md)  
+* [Blockchain](topics/blockchain.md)  
+* [Container technology](topics/containers.md)  
+* [Serverless cloud development](topics/serverless.md)  
+* Cloud comparisons - equivalents, design choices...
+* Modern web development - ES modules, web components, web assembly, myriad frameworks...
+* Automation - dacpac, jenkins, azure devops, arm templates...
+* Data abstraction - ORM, Linq, Diesel...
+
+
+## Projects
 
 Some links to open source repositories I've contributed to.
 * Haskell solver for Aristotle's number puzzle
 * Go LinkedIn scraper and CV generator using Latex
 * Rust darts scoreboard, serverless backend and web assembly front end.
-
-
-
-
-
-Topics
-
-* Web frameworks and the development of JavaScript and web assembly
-* Java's Null Pointer Exceptions, BizTalk's no subscribers found ... the perils of run-time errors
-* ORM, Linq, Diesel..
-* Serverless
-* APEX - poor standards ruin a great framework
-* Cloud comparisons, considerations
-* Automation, dacpac, jenkins, azure devops, arm templates...
 
