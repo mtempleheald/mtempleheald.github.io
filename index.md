@@ -21,3 +21,18 @@ Some links to open source repositories I've contributed to.
 * Haskell solver for Aristotle's number puzzle
 * Go LinkedIn scraper and CV generator using Latex
 * Rust darts scoreboard, serverless backend and web assembly front end.
+
+
+
+
+
+Topics
+
+* Web frameworks and the development of JavaScript and web assembly
+* Java's Null Pointer Exceptions, BizTalk's no subscribers found ... the perils of run-time errors
+* ORM, Linq, Diesel..
+* Serverless
+* APEX - poor standards ruin a great framework
+* Cloud comparisons, considerations
+* Automation, dacpac, jenkins, azure devops, arm templates...
+
