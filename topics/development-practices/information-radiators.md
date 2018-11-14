@@ -1,4 +1,7 @@
-# Information Radiators
+---
+title: Information Radiators
+last-updated: 2018-11-12
+---
 
 "Information radiator" is a generic term for a publicly visible representation of a project.
 

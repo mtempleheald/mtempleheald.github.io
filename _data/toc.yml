@@ -1,0 +1,34 @@
+- label: Technology
+  path: /technology/index.html
+  children:
+    - label: cloud functions
+      path: /comparisons/cloud-functions.html
+    - label: cloud storage
+      path: /comparisons/cloud-storage.html
+    - label: cloud workflow
+      path: /comparisons/cloud-workflow.html
+- label: Approach
+  path: /topics/development-practices/index.html
+  children:
+    - label: Agile
+      path: /topics/development-practices/agile.html
+    - label: Information Radiators
+      path: /topics/development-practices/information-radiators.html
+    - label: Test-Driven Development (TDD)
+      path: /topics/development-practices/tdd.html
+- label: Programming
+  path: /programming/index.html
+  children:
+    - label: Go
+      path: /programming/go.html
+    - label: Haskell
+      path: /programming/haskell.html
+    - label: Rust
+      path: /programming/rust.html
+- label: Projects
+  path: /projects/index.html
+  children:
+    - label: AQA
+      path: /projects/aqa.html   
+- label: Blog
+  path: /blog

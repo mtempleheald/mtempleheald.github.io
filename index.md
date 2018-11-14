@@ -1,9 +1,17 @@
-# Mark Temple-Heald
+---
+title: Introduction
+last-updated: 2018-11-12
+---
 
-An IT professional focussing on software development, data modelling and application design.  
+## Mark Temple-Heald
 
-I'm motivated by the desire to solve real world problems and to automate as much as possible.  The automation aspect scares many people, but the way I look at it, automating the boring stuff allows you to focus on the new and interesting stuff.  The pace of innovation is ever increasing and it is impossible to keep up with everything, but I try, some of my investigations and experiments are linked below.  
+An IT professional with experience of software development, data modelling, data warehousing, automation and integration.  
 
+I'm motivated by the desire to solve real world problems and to automate as much as possible.  The automation aspect scares many people, but the way I look at it, automating the boring stuff allows you to focus on the new and interesting stuff.  
+
+The pace of innovation is ever increasing and it is impossible to keep up with everything, but this site represents my attempts to do just that.  
+
+The information contained here is for personal benefit, replacing multiple stores of information and is only guaranteed to represent the author's opinions at the time of writing.  This is public on the off-chance that it helps someone else or in some other way promotes a learning opportunity.
 
 ## Topics of interest
 

@@ -1,4 +1,7 @@
-# Artificial Intelligence
+---
+title: Artificial Intelligence
+last-updated: 2018-11-12
+---
 
 I think that it is fair to say that Artificial intelligence is currently just a marketing term, fashionable with the media at present.  
 Some neural networks are more advanced than others, deep learning is progressing quickly, but as for truly independent, intelligent machines, not yet.

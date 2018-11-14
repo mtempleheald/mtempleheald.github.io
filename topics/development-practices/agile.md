@@ -1,6 +1,7 @@
-# Agile Development Practices
-
-## Introduction
+---
+title: Agile Development Practices
+last-updated: 2018-11-12
+---
 
 I've been working in software development now for a decade, using a multitude of technologies to provide solutions within many business areas.  I've been directly involved in data modelling, testing (manual and automated), technical analysis, development (UI and backend services) and DevOps environment automation.  
 During this time I've picked up on a few things (in no particular order):
