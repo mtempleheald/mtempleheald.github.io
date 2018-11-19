@@ -25,10 +25,12 @@
       path: /programming/haskell.html
     - label: Rust
       path: /programming/rust.html
-- label: Projects
-  path: /projects/index.html
+- label: Experience
+  path: /experience/index.html
   children:
+    - label: personal
+      path: /experience/personal.html
     - label: AQA
-      path: /projects/aqa.html   
+      path: /experience/aqa.html 
 - label: Blog
   path: /blog
