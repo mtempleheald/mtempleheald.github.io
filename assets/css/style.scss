@@ -69,11 +69,13 @@ header h1 a {
     color: inherit;
 }
 h1, h2, h3, h4, h5, h6 {
-    margin: 0.5em 0;
-    color: var(--light);
+    margin: 1em 0;
+    color: var(--light);    
+    font-weight: 300;
+}
+h1, h2 {
     border-bottom: 1px solid var(--light);
     border-top: 1px solid var(--light);
-    font-weight: 300;
 }
 
 nav {
@@ -156,8 +158,10 @@ i.fas {
 // Standard markdown lists, get the indents right
 ul, ol {
     display: block;
-    list-style-type: disc;
     padding-inline-start: 2em;
+}
+ul {
+    list-style-type: disc;
 }
 li {
     display: list-item;
@@ -173,6 +177,7 @@ th, td {
     border-style: solid;
     border-color: var(--light);
     padding: 0.5em;
+    text-align: left;
 }
 
 // paragraphs
@@ -186,4 +191,7 @@ p {
 }
 .highlight .kd {
     color: tomato;
+}
+.highlighter-rouge {
+    border: 1px solid var(--mid);
 }

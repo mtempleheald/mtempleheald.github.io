@@ -31,6 +31,8 @@ I believe that putting more effort in early on can drastically reduce future eff
 
 I find the technical aspects of my work more interesting than the application, however I am always aligned to the holistic, strategic vision.  I am continually improving my technical skills by exploring alternatives, for example I'm currently learning Haskell, refreshing my knowledge of front end JavaScript libraries and working on a couple of small projects using Golang.
 
+
+
 Over the years I've worked on quite a few projects, no two projects are ever the same:
 * Process
     * Waterfall vs Agile (or something in between)

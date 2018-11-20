@@ -1,12 +1,12 @@
 - label: Technology
   path: /technology/index.html
   children:
-    - label: cloud functions
-      path: /comparisons/cloud-functions.html
+    - label: FaaS
+      path: /technology/faas.html
     - label: cloud storage
-      path: /comparisons/cloud-storage.html
-    - label: cloud workflow
-      path: /comparisons/cloud-workflow.html
+      path: /technology/cloud-storage.html
+    - label: cloud orchestrations
+      path: /technology/cloud-orchestrations.html
 - label: Approach
   path: /topics/development-practices/index.html
   children:

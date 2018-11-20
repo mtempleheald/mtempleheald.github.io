@@ -15,11 +15,10 @@ kramdown:
 future: true
 jailed: false
 theme: jekyll-theme-primer
-# theme: jekyll-theme-midnight # Indicate theme to use for this blog/ information store/ whatever
 gfm_quirks: paragraph_end
 
 
-# Set variables accepted by the midnight theme https://github.com/pages-themes/midnight
+# Set variables accepted by the theme
 title: mtempleheald.github.io
 description: Assorted technology-related musings, investigations and projects
 lang: en-GB
