@@ -21,7 +21,7 @@
     <ul>
       {% for parent in site.data.toc %}
       <li>
-        <span>{{parent.label}}</span>
+        <span><a href="{{parent.path}}">{{parent.label}}</a></span>
         <ul>
           {% for child in parent.children %}
           <li>
