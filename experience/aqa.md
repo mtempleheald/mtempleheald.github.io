@@ -61,17 +61,21 @@ Cross-site collaboration with elements of Waterfall, Scrum and Kanban:
 * independent cross-site test team
 * internal infrastructure team
 
+🔑 Azure - BizTalk - C# - .NET - MSSQL - Oracle - Agile - Scrum - DevOps - SOAP - REST - JSON - XML - IIS - SpecFlow
+
+
 ## AQA - Electronic coursework mark submission (development)
 📆 *2015 – 2016*
 
-💡 Electronic marking is a key component of exam processing, faster and more reliable than traditional marking.  
-Provide a customer facing web application for coursework mark capture to allow us to diversify our online marking portfolio.  
+💡 Electronic marking is a key component of exam processing, faster and more reliable than traditional marking.  Provide a customer facing web application for coursework mark capture to allow us to diversify our online marking portfolio.  
 
 * Delivered by a third party supplier as part of a waterfall project, significant work required prior to production release.  
 * Reworked all aspects of the application to ensure that it met business requirements including:
     * authentication mechanism involving token exchange with bespoke applications and active directory
     * rewriting key sampling algorithm for multiple execution, improving performance and supportability
     * fixing UI performance issues caused by the use of inefficient queries and unnecessary caching.  
+
+🔑 Oracle - APEX - Integration - Performance Tuning
 
 
 ## AQA - Electronic coursework mark submission (performance testing)
@@ -82,6 +86,8 @@ Provide a customer facing web application for coursework mark capture to allow u
 * Scripting of automation tests using Neoload for critical paths identified during manual testing, requiring an unusual collection of knowledge (Oracle APEX, JavaScript, regular expressions, HTTP).
 * Profiling of script execution, establishing acceptance criteria and identifying pinch points.
 * Collaborating with colleagues across many technical disciplines; network, engineering, security, development, quality assurance in order to provide solutions to critical issues encountering during performance testing, this was not a trivial exercise.  
+
+🔑 Oracle - APEX - Performance Testing - JavaScript - Neoload - RegExp - HTTP
 
 
 ## AQA - Electronic marks processing
@@ -96,6 +102,8 @@ Provide a solution which integrates with our partner organisation's system to al
     * Early estimates were for up to 30 million marks in June 2015 with future expansion anticipated.  
     * Actual numbers were roughly half this, there have been no performance issues up until Nov 2018.  
     * Benchmarked to ~ 6 hours for processing 3,000,000 item marks, well within require parameters.
+
+🔑 Oracle - Forms - XML - SOAP - Performance Tuning
 
 
 ## Item aggregation rules engine
@@ -113,6 +121,8 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
     * update grading application with aggregated marks ~ 2 hours
     * send item mark data to data warehouse for further reporting ~ 4 minutes  
 
+🔑 Oracle - Forms - Performance Tuning - Integration - Agile
+
 
 ## AQA - Subversion rollout
 📆 *2014 – 2015*
@@ -120,6 +130,8 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
 💡 Implement a standardised version control system to improve consistency and confidence across all internal platforms.    
 
 * Defined the structure for a new set of SVN repositories for all internal systems, balancing usability with the need for deployment automation.
+
+🔑 SVN - Oracle
 
 
 ## AQA - Automated build generation tool
@@ -136,6 +148,9 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
         1. automatically transfer build scripts to the remote server via secure copy (scp)
         2. manually login to the server and execute the deployment (command provided in step 1).  
            Deployment mechanism itself is written in the server's shell; Linux Bash or VMS DCL.
+
+🔑 SVN - Golang - Oracle - Linux - HTML - CSS - VMS - Putty
+
 
 ## APEX application architecture - authentication and authorisation
 📆 *2012 – 2013*
@@ -154,7 +169,9 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
     * Authorisation is entirely data-driven and managed by key users, thus reducing technical operations' admin costs.
     * Fine-grained access (dbms_rls) ensures that unauthorised users cannot access data in protected tables, even from applications which have not yet been developed.
 
-&#8192; 
+🔑 Oracle - APEX - Authentication - Authorisation - Technical Design - Architecture - LDAP
+
+
 ## APEX application architecture - common code
 📆 *2012 – 2013*
 
@@ -168,6 +185,8 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
         * Developers encouraged to unit test more thoroughly
         * Testers can narrow down the cause of defects thus reducing time taken to correct.
         * Systems administrators can quickly identify the cause of production issues, highlight pain points.
+
+🔑 Oracle - APEX - Technical Design - Architecture
 
 
 ## APEX application architecture - development framework
@@ -183,6 +202,8 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
     * use of custom HTML, CSS and JavaScript
     * use of common (business non-specific) code
     * version control and deployment  
+    
+🔑 Oracle - APEX - Technical Design - Architecture
 
 
 ## APEX application architecture - theme
@@ -200,7 +221,9 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
     * Reduced development complexity and enforced adherence to a common standard.
     * Reduced development time for re-skin.
     * Reduced regression testing time after re-skin compared with the adoption of a new theme.
-    * Faster loading times due to fewer images and use of newer features.
+    * Faster loading times due to fewer images and use of newer features.  
+
+🔑 Oracle - APEX - Technical Design - HTML5 - CSS3 - JavaScript
 
 
 ## AQA - Management information data warehouse
@@ -231,6 +254,8 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
 * Supported end users during report production
 * Reviewed code submitted by contract developers, both ETL and OBIEE  
 
+🔑 Oracle - ETL - Dimensional data modelling - Technical Design - Architecture - Performance Tuning
+
 
 ## AQA - Customer profile reporting application
 📆 *2012*
@@ -239,6 +264,8 @@ Provide an algorithm to efficiently aggregate item marks for a question paper ba
 
 * Delivered new web application to act as a dashboard of information, leveraging Oracle APEX interactive report capabilities.
 * Implemented set of ETL routines to consolidate customer information from various sources including order and invoice summary.
+
+🔑 Oracle - APEX - ETL - Technical Design
 
 
 ## AQA - Event management workflow application
@@ -251,6 +278,8 @@ Provide an application to handle this flexibility and reduce administrative burd
 * Delivered a suite of tokenised email and letter templates to handle all communication centrally.
 * Integrated with finance application by extending existing CSV interface.
 
+🔑 Oracle - APEX - BI Publisher - Technical Design - Relational data modelling - Integration - Agile
+
 
 ## AQA - Finance enhancements
 📆 *2011*
@@ -258,6 +287,8 @@ Provide an application to handle this flexibility and reduce administrative burd
 💡 Update all outgoing communications from Oracle e-Business Suite AR/AP modules to align with current organisation standards.  
 
 * Delivered several key components using XML Publisher; Statements, Invoices and Remittance Advice. 
+
+🔑 Oracle - BI Publisher - e-Business Suite
 
 
 ## AQA - HR reimplementation
@@ -270,6 +301,8 @@ Provide an application to handle this flexibility and reduce administrative burd
 * Enhanced bespoke Discoverer implementation to provide improved HR reporting.
 * Collaboration between internal staff and external consultants.
 
+🔑 Oracle - BI Publisher - e-Business Suite - Discoverer - WebADI
+
 
 ## AQA - Management information data warehouse pilot
 📆 *2011*
@@ -278,6 +311,8 @@ Provide an application to handle this flexibility and reduce administrative burd
 
 * Evaluated third party built Oracle 10g data warehouse with OWB-generated ETL, custom PL/SQL scheduling and an OBIEE business/ reporting layer.
 * IT-led, outsourced, waterfall delivery which ultimately failed to achieve stated objectives.
+
+🔑 Oracle - OWB - OBIEE
 
 
 ## AQA - Survey feedback reporting application
@@ -289,6 +324,8 @@ Provide an application to handle this flexibility and reduce administrative burd
 * Developed APEX web application to facilitate event customisation.
 * Delivered PL/SQL parser and graphical reporting using XSLT and Oracle BI Beans Graph in BI Publisher. 
 
+🔑 Oracle - APEX - BI Publisher - XML - XSLT - Technical Design - Agile
+
 
 ## AQA - Teacher malpractice web application
 📆 *2010*
@@ -296,6 +333,8 @@ Provide an application to handle this flexibility and reduce administrative burd
 💡 Provide an integrated solution for the administration of legal proceedings stemming from abuse of the examination process to ensure that individuals involved are excluded from further engagements with the organisation.  
 
 * Delivered a secure Oracle APEX application for storing sensitive legal information and provided deep integration with the recruitment system to prevent inappropriate recruitment without compromising details of legal proceedings.
+
+🔑 Oracle - APEX - Integration - Technical Design
 
 
 ## AQA - Oracle Job monitoring
@@ -305,6 +344,8 @@ Provide an application to handle this flexibility and reduce administrative burd
 
 * Delivered ETL routines and an APEX dashboard to report across Oracle's dbms scheduler, e-Business suite's concurrent manager and BI Publisher's Quartz scheduler.  
 
+🔑 Oracle - APEX - BI Publisher - e-Business Suite - Integration - Technical Design
+
 
 ## AQA - Recruitment workflow application
 📆 *2008*  
@@ -313,3 +354,5 @@ Provide an application to handle this flexibility and reduce administrative burd
 
 * Delivered new Oracle APEX workflow application with deep integration to existing systems, pixel-perfect reporting using BI Publisher.  
 * Agile delivery leveraging established working relationships with end users.
+
+🔑 Oracle - APEX - BI Publisher - Integration - Technical Design - Agile

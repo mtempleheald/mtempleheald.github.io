@@ -65,7 +65,7 @@ A list of some of the more noteworthy projects are listed below.
 
 🛠 *ways of working* <!--  &#128736; -->  
 * Key contributions
-
+🔑 Keywords
 
 ## Serverless darts scoreboard app (Rust, web assembly, Azure)
 📆 *2018*  
