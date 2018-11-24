@@ -1,9 +1,27 @@
-So, I quit work a week ago, in preparation for *Operation Life Admin*.  
-There are multiple facets to that, one of which is improving my online presence from a professional standpoint.  
-I've made a few attempts at this in the past (my own php blog platform, WordPress...), but I either get bored or the tools frustrate me, either way it tends to fade away.  
+```
+As a software professional with a limited public presence
+I require a public area in which to capture technical notes, investigations and anything else worth sharing
+In order to reduce time wasting and search repetition
+```
 
-When I found out about [GitHub Pages](https://pages.github.com/) I thought it worth trying again.  
-There are two elements to this; blogging which is time-dependent for an external audience and structuring useful information for my own purposes, but I don't see why these can't co-exist in one platform.  
+I've got code and technical documentation all over the place:
+* Google drive
+* OneNote
+* An ancient php blogging platform I wrote and forgot about, inspired by WordPress 
+* External hard drives
+* GitHub
+* BitBucket
+* Email
+* Private Slack channels
+
+I needed to consolidate in such a way as to make it future proof, it must also be easy and consistent or else I'll stop using it.  
+When I found out about [GitHub Pages](https://pages.github.com/) I was almost excited; automated deployment, version control built in, I get to write in markdown in my favourite editor (VS Code), this could work...
+
+I'm trying to address only the public stuff here, but there are 2 elements to consider:
+* Structured store of useful information - to replace bookmarks, reduce search repetition and consolidate thoughts
+* Blogging - time-dependent information, written for an external audience, or just don't know where else to put it
+I see no reason why these 2 elements can't co-exist, so that's what I'm working towards, a structure platform of information with an attached blog.  
+
 
 ### Initial Setup
 
