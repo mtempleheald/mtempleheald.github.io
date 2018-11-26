@@ -18,13 +18,6 @@
       path: /topics/development-practices/tdd.html
 - label: Programming
   path: /programming/index.html
-  children:
-    - label: Go
-      path: /programming/go.html
-    - label: Haskell
-      path: /programming/haskell.html
-    - label: Rust
-      path: /programming/rust.html
 - label: Experience
   path: /experience/index.html
   children:
