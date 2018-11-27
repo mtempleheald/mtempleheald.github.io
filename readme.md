@@ -1,19 +1,7 @@
-Structure:
+GitHub Page hosted at https://mtempleheald.github.io
 
-Opting to avoid blog structure, preferring more formal structure where I can find my own useful notes.
+To run locally there are prequisites:
+1. Ruby, required by jekyll
+2. Jekyll, static website and blog 
 
-Index   
-    > Topics
-        > Short topic
-            [topic name](topic index)
-        > Longer Topic
-            [topic name](topic index)
-                > [section name](section page)
-    > Projects
-        > Project 1
-        > Project 2
-
-Maintenance:
-
-Each page should have last modified date and created date.  
-Possibly pull the latter from original commit in post-commit hook, the other may need to be manually maintained, unless Jekyll can pull latest commit from Git repo.
+For instructions see https://jekyllrb.com/docs/
