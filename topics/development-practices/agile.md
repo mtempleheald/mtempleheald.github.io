@@ -35,7 +35,7 @@ During this time I've picked up on a few things (in no particular order):
 
 ---
 
-## Agile Manifesto
+### Agile Manifesto
 
 It turns out that there's a term for working in the way I prefer - Agile.  
 There's little to disagree with in the [Agile Manifesto](http://agilemanifesto.org/).
@@ -49,7 +49,7 @@ It is important to note here, however, that it says __over__ not __instead of__.
 
 ---
 
-## Agile in practice
+### Agile in practice
 
 My experience since the agile buzzword came to my attention is that people who go around advocating it are generally the least agile of all, especially those in managerial positions.  More often than not the word is used to justify a lack of direction and ownership, both of which are essential elements for successful delivery.  
 
@@ -65,7 +65,7 @@ In a nutshell I consider an agile approach to favour understanding over planning
 
 ---
 
-## Agile Methodologies
+### Agile Methodologies
 
 It is rare for people to advocate Agile without subscribing to a formal methodology.  This bothers me more than I like to admit, since everybody is different this seems to fly directly in the face of "Individuals and interactions over processes and tools".  That being said, many of the processes that these methodologies advocate can be useful and effective if used appropriately.
 
@@ -93,17 +93,17 @@ On the face of it this sounds great, but again there are some red flags to watch
 
 ---
 
-## Red flags
+### Red flags
 
 
-### Using Agile and Scrum interchangeably.
+#### Using Agile and Scrum interchangeably.
 
 Agile does not force any processes on the team, given a steer and some face-to-face time with the requirement holders, the team works together to get the right stuff done.  
 Scrum on the other hand is very process heavy.  The team must attend stand-ups, must maintain a backlog, refine it and plan upcoming work in fixed sprints.  These aren't necessarily bad ideas, but forcing the team to follow them is fundamentally not in the spirit of agile.  
 Based upon several attempts to implement Scrum, I believe that Scrum is a stop-gap between traditional delivery and true agility, there to engender trust between management and a team that cannot yet be considered self-organising.
 
 
-### User stories written about a system or other technical entity (not human/role).
+#### User stories written about a system or other technical entity (not human/role).
 
 ```
 as a <system> 
@@ -136,7 +136,7 @@ Which aids:
 * estimation processes
 * effective prioritisation
 
-### Information radiators which don’t radiate information.
+#### Information radiators which don’t radiate information.
 
 The name of a ticket should clearly describe its purpose.  
 If more context is required, then a description should also be added.  
@@ -145,7 +145,7 @@ Simple things like adding a verb can aid estimation processes and remove the nee
 Ultimately this can only be fixed by the team and only if they are engaged and empowered to do this.  
 This can also be hampered by overly complicated board structures/ hierarchies, I've seen this several times.
 
-### Sprint commitments not being understood by all team members.
+#### Sprint commitments not being understood by all team members.
 
 If you are working in sprints, then you are required to commit to a sprint goal, in order to do this you must understand the work in the sprint, the technology involved and any dependencies.  
 This is a collaboration exercise during backlog refinement, prior to sprint planning.  
@@ -154,7 +154,7 @@ Repeated failure to meet sprint goals is typically caused by:
 * Noise, interruption, other commitments coming from outside the team, indicating that the wider organisation hasn't embraced the Scrum ideology.
 * The individual in question is not up to scratch.
 
-### At the stand-up the focus is on people not on work
+#### At the stand-up the focus is on people not on work
 
 The aim of the standup is not to justify your position in the team, it is to ensure that work is progressing at an acceptable pace and that any blockers are removed.  
 It can be useful to have the Kanban board visible during these, but resist the urge to filter on individuals to encourage a collective ownership.
@@ -162,7 +162,7 @@ This is especially important when trying to implement agile practices or when pe
 Another sign here is that comments are directed to an individual, probably senior member of the group, a slippery slope towards micro-management.
 
 
-### Sprint planning and backlog refinement are not treated as distinct processes
+#### Sprint planning and backlog refinement are not treated as distinct processes
 
 This is a big mistake, these processes serve 2 different purposes:
 * Backlog refinement is about developing a common understanding, rough priority order of activities and reasoned estimates.
@@ -173,7 +173,7 @@ I have found that backlog refinement often gets missed, or is quickly skimmed ov
 * Inaccurate estimates
 * A lack of commitment to the sprint.
 
-### Reluctance to leave behind other habits
+#### Reluctance to leave behind other habits
 
 For example, regular scheduled meetings which aren’t the standup, e.g. test triage.  
 What is a bug if not a blocker on completion?  
