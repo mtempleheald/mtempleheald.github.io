@@ -43,6 +43,7 @@ https://github.com/cfenollosa/os-tutorial
 https://auth0.com/
 https://github.com/yiransheng/rust-snake-wasm
 https://github.com/atech/postal
+[Git Credential Manager](https://github.com/Microsoft/Git-Credential-Manager-for-Windows/)
 
 Hosting
 http://www.openshells.net/shell-server
