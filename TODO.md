@@ -79,26 +79,6 @@ https://gethttpsforfree.com/
 https://community.letsencrypt.org/
 https://letsencrypt.org/getting-started/
 
-Golang links
-http://marcio.io/2015/07/handling-1-million-requests-per-minute-with-golang/
-https://gist.github.com/denji/12b3a568f092ab951456
-https://blog.bracelab.com/achieving-perfect-ssl-labs-score-with-go
-https://hub.openshift.com/quickstarts/29-go-language
-https://blog.cloudflare.com/go-has-a-debugger-and-its-awesome/
-https://peter.bourgon.org/go-in-production/
-http://thenewstack.io/make-a-restful-json-api-go/
-https://github.com/SermoDigital/jose
-http://www.josephspurrier.com/golang-asterisk-and-ampersand-cheatsheet/
-https://dave.cheney.net/2016/11/13/do-not-fear-first-class-functions
-http://www.jtolds.com/writing/2016/03/go-channels-are-bad-and-you-should-feel-bad/
-https://github.com/leanovate/gopter
-https://medium.com/@geisonfgfg/functional-go-bc116f4c96a4
-https://dave.cheney.net/2014/10/17/functional-options-for-friendly-apis
-http://www.golangpatterns.info/home
-https://medium.com/@matryer/5-simple-tips-and-tricks-for-writing-unit-tests-in-golang-619653f90742
-https://jacobmartins.com/2016/03/07/practical-golang-using-websockets/
-https://blog.gopheracademy.com/advent-2017/go-wasm/
-https://www.admintome.com/blog/deploying-go-applications-using-docker-containers/
 
 Haskell links
 http://learnyouahaskell.com/chapters
