@@ -60,7 +60,7 @@ footer {
     background-color: var(--mid); 
 }
 header h1 {
-    font-size: 48px;
+    font-size: 36px;
     color: var(--light);
     margin: 0;
     border: 0;
@@ -99,10 +99,10 @@ nav li ul {
     background-color: var(--dark);
     transition-duration: 0.5s;
     transition: all 0.5s ease; /* revisit https://css-tricks.com/solved-with-css-dropdown-menus/ */
-    border-bottom: 1px solid var(--link);
+    border-bottom: 1px solid var(--light);
 }
 nav li li {
-    border-top: 1px solid var(--link);
+    border-top: 1px solid var(--light);
 }
 nav li:hover ul {
     display: block; // display only when parent is active/ hover
@@ -182,7 +182,7 @@ th, td {
 
 // paragraphs
 p {
-    margin: 0.5em 0;
+    margin: 1em 0;
 }
 
 // Syntax highlighting

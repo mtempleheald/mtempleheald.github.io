@@ -1,29 +1,12 @@
+- label: Links
+  path: /links/index.html
 - label: Technology
   path: /technology/index.html
-  children:
-    - label: FaaS
-      path: /technology/faas.html
-    - label: cloud storage
-      path: /technology/cloud-storage.html
-    - label: cloud orchestrations
-      path: /technology/cloud-orchestrations.html
-- label: Approach
-  path: /topics/development-practices/index.html
-  children:
-    - label: Agile
-      path: /topics/development-practices/agile.html
-    - label: Information Radiators
-      path: /topics/development-practices/information-radiators.html
-    - label: Test-Driven Development (TDD)
-      path: /topics/development-practices/tdd.html
+- label: Process
+  path: /process/index.html
 - label: Programming
   path: /programming/index.html
 - label: Experience
   path: /experience/index.html
-  children:
-    - label: personal
-      path: /experience/personal.html
-    - label: AQA
-      path: /experience/aqa.html 
 - label: Blog
   path: /blog.html

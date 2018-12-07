@@ -9,22 +9,12 @@ Summary or Comparison articles to write:
 * ORM (LINQ, Diesel.rs ...)
 * Automation - dacpac, jenkins, azure devops, arm templates...
 
-
-
 ## Topics of interest
 
 * [Programming languages](programming/index.md)  
   * Frameworks versus libraries - APEX ruined by not being opinionated wrt standards, BTS too opinionated?
   * Run-time versus compile-time errors - Java's Null Pointer Exceptions, BizTalk's no subscribers found ...
   * Debugging versus unit testing
-* Software Development Processes
-  * [Agile](topics/development-practices/agile.md)  
-  * [Test-driven development](topics/development-practices/tdd.md)
-  * [Information Radiators](topics/development-practices/information-radiators.md)
-* [Artificial Intelligence](topics/ai.md)  
-* [Blockchain](topics/blockchain.md)  
-* [Container technology](topics/containers.md)  
-* [Serverless cloud development](topics/serverless.md)  
 
 
 
