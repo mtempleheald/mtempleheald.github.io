@@ -1,4 +1,8 @@
-# Serverless architecture
+---
+title: Serverless Architecture
+last-updated: 2018-12-07
+---
+  
 
 
 Utilising PaaS offerings from cloud providers to avoid any infrastructure maintenance work.  

@@ -60,7 +60,7 @@ footer {
     background-color: var(--mid); 
 }
 header h1 {
-    font-size: 36px;
+    font-size: 30px;
     color: var(--light);
     margin: 0;
     border: 0;
@@ -123,26 +123,21 @@ article {
     align-self: center;
     display: flex;
     align-items: center;
-    padding: 2em 0;
+    padding: 2em 0;/* Small gap below header, above footer */
     background-color: black;
+    display: grid; 
+    grid-template-areas: ". s .";
+    grid-template-columns: 1fr minmax(100px, 1000px) 1fr; /* No margin below a certain screen size, but don't scale indefinitely */
 }
 section {
-    width: 90%;
-    margin: auto;
+    grid-area: s;
     background-color: var(--dark);
     padding: 1em;
 }
-@media (min-width: 700px) {
-    section, nav {
-        width: 70%;
-    }
-}
-@media (min-width: 900px) {
-    section, nav {
-        width: 50%;
-    }
-}
 a {
+    color: var(--light);
+}
+a:hover, a:active {
     color: var(--link);
 }
 

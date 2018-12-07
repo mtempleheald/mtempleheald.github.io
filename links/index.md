@@ -3,10 +3,14 @@ title: Links to useful resources
 last-updated: 2018-12-07
 ---
 
-[Rust](rust.html)  
-[Go](go.html)  
-[LaTex](latex.html)  
-[Haskell](haskell.html)
+A collection of links I've found useful which are all tech or process related.  
+This replaces my browser-specific bookmarks and reliance on other documentation systems, so hopefully now I can keep it organised.  
+I am in no way recommending anything I've linked to.  
+
+[Rust-related links](rust.html)  
+[Go-related links](go.html)  
+[LaTex-related links](latex.html)  
+[Haskell-related links](haskell.html)
 
 
 ### Mind Mapping
