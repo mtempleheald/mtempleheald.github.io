@@ -12,9 +12,9 @@ So what is a microservice?
 Microservices are notoriously ill-defined, but ultimately microservices are an evolution of SOA, microservices typically:
 * are fine-grained, small, modular
 * communicate with one another via protocols which are technology agnostic, e.g. JSON/REST
-* tend to go hand-in-hand with container technologies such as Docker, Kubernetes, Azure Service Fabric
+* exist in separate containers using container technologies such as Docker, Kubernetes, Azure Service Fabric
 * may be written using different technologies/ languages/ frameworks but there will be a default position for any company for resourcing reasons
-* are loosely coupled, allowing them to be deployed independently
+* are loosely coupled, allowing them to be scaled and deployed independently
 
 This all makes a lot of sense, different areas of any business move at different speeds at different times, requirements vary greatly.  
 So being able to rapidly develop and deploy a fast-moving area without affecting other, stable and sensitive areas is a fantastic capability to have.  
