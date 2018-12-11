@@ -1,21 +1,51 @@
 ---
 title: Introduction
-last-updated: 2018-11-26
+last-updated: 2018-12-11
 ---
 
-This site serves several purposes.  
-1. Dumping ground of information that I've considered useful at some point or think that I will do in the future.  
-   The pace of innovation is ever increasing and it is impossible to keep up with everything, but this site represents my attempts to do just that, or at least focus my efforts.  
-2. Portal/ hub for any open source work I've done that I think may be useful or interesting to others.  
-   I read a lot of technical documentation, but the best way to learn is by doing, this approach ties my investigations to my hands-on experience.  
-3. Part of a wider programme of self improvement.  
-   Specifically implementing a single source of the truth to organise my life, separating public from private, personal from professional and removing repetition.  
+[Mark Temple-Heald](https://www.linkedin.com/in/mtempleheald) is an experienced polyglot software developer living in Manchester, UK.  
 
-The site is entirely for my benefit, but if it helps me get work then great, an incentive to keep things public.  
+Technology agnostic but favour code over configuration, libraries over frameworks and automation whenever possible.  
 
-The site is set up in a way that should encourage me to keep it up to date regularly, however I'm not promising that either the facts written or my opinions haven't changed since writing.  
+Methodology agnostic but favour prioritisation over planning, collaboration over co-ordination and focus on common understanding throughout.  
 
-My approach is therefore not to repeat all the useful and detailed information out there that I've in many cases read multiple times over, but instead to summarise succinctly and reference the original source instead.  This should be the best of both worlds.  
 
-I'm keen to avoid the blog mentality, where the first half of each entry is explaining the purpose, the useful information disappearing in a sea of text further down, I should instead be able to reference high level concepts with a simple link.  
+## Website Purpose
 
+This website serves many purposes, including:
+* public face for my professional work which affords more flexibility than LinkedIn
+* centralised list of useful technical references, replacing browser bookmarks and enabling a clear separation of work and home
+* centralised information store for technology and processes for which I feel justified to have an opinion
+* blog of ongoing investigations where sharing is appropriate or could benefit others
+* single source of truth of data for LinkedIn, CV and other professional entities
+* encouraging a continuous process of self improvement
+
+
+## Design choices
+
+I spend a lot of time reading technical reference manuals, blogs and videos.  
+I have developed quite strong opinions on what amongst these works well.  
+With this in mind I've structured this website according to the following principles:  
+* Video is a no-go, there is a wealth of information available in video form but this is not an efficient way to learn, I always look for the written transcript.
+* Blog only is insufficient, very focused points are great, if you're trying to achieve the same thing, but at least it is timely.
+* Topical documentation is useful, but there must be an indication of timeliness or the information can't be trusted, added last update date for this purpose.  
+* Succinct - I'm sick of reading long introductions and caveats in blogs, this is written for my level of understanding not as click bait.
+* Detailed - when reading an article back to myself, I shouldn't need to go off-site to fill in *important* gaps, the document should stand alone.
+* Focussed - documentation should be modular just as code should, if an unexpected dependency pops up, split the details into a separate document.
+* Avoid repetition - if there's a good, detailed blog somewhere else for the same topic, just reference that and add benefit.
+* Mobile-friendly is important, cosmetics and user experience not so much, I am the target audience.
+
+
+## Commitment
+
+I've spend a considerable amount of time configuring this site to suit my needs and facilitate simple ongoing maintenance.  
+
+I have every intention of keeping this (or a future version of this) up to date for the rest of my career.  
+However, I can not and will not promise to succeed in this aim.
+
+My only commitment is that the information provided here was true to the best of my knowledge at the time of writing.  
+Each page should clearly indicate when it was last updated.  
+
+My opinions are my own and they are in constant flux.  
+You may disagree with something I have written, that is absolutely fine, it is entirely possible that I also do now.  
+I am always interested in learning, feel free to contact me on LinkedIn if you think we have something to offer each other in this respect.  
