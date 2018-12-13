@@ -64,27 +64,29 @@ last-updated: 2018-12-07
 [Rust](https://github.com/rust-lang/rust/)  
 [Cargo](https://github.com/rust-lang/cargo/)  
 
-[toml-rs - TOML encoding/decoding in Rust](https://github.com/alexcrichton/toml-rs)  
+[toml-rs](https://github.com/alexcrichton/toml-rs) - TOML encoding/decoding in Rust  
 
-[Tide - Modular web framework, bleeding edge](https://github.com/rust-net-web/tide)  
-[Rocket - modern, lightweight web framework, requires nightly](https://rocket.rs/)  
-[Iron Framework - heavyweight web framework](http://ironframework.io/)  
+[Tide](https://github.com/rust-net-web/tide) - Modular web framework, bleeding edge  
+[Rocket](https://rocket.rs/) - modern, lightweight web framework, requires nightly  
+[Iron Framework](http://ironframework.io/) - heavyweight web framework  
 
-[rustwasm - Official WASM code including wasm-bindgen](https://github.com/rustwasm)  
-[stdweb - Rust bindings to the Web APIs for Rust-JS interoperability](https://github.com/koute/stdweb/)  
+[rustwasm](https://github.com/rustwasm) - Official WASM code including wasm-bindgen  
+[stdweb](https://github.com/koute/stdweb/) - Rust bindings to the Web APIs for Rust-JS interoperability  
 
-[QuickCheck - property based testing](https://github.com/BurntSushi/quickcheck)  
+[QuickCheck](https://github.com/BurntSushi/quickcheck) - property based testing  
 
-[Diesel - ORM & query building in Rust](http://diesel.rs/)  
+[Diesel](http://diesel.rs/) - ORM & query building in Rust  
 
-[Piston - game engine](http://www.piston.rs/)  
+[Piston](http://www.piston.rs/) - game engine  
 
 [TensorFlow in Rust](https://github.com/tensorflow/rust)  
 [Juice - The Hacker's Machine Learning Engine (formerly known as leaf) ](https://github.com/spearow/juice)  
 
-[Android RS Glue - Rust on Android](https://github.com/tomaka/android-rs-glue)  
+[Android RS Glue](https://github.com/tomaka/android-rs-glue) - Rust on Android  
 
-[Snake game written in Rust + WebAssembly](https://github.com/yiransheng/rust-snake-wasm)  
+[rust-snake-wasm](https://github.com/yiransheng/rust-snake-wasm) - Snake game written in Rust + WebAssembly  
+
+[Terrarium by Fastly Labs](https://www.fastly.com/blog/edge-programming-rust-web-assembly) - Edge Programming with Rust and WebAssembly  
 
 ### Other sites of use  
 

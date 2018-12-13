@@ -48,4 +48,4 @@ Each page should clearly indicate when it was last updated.
 
 My opinions are my own and they are in constant flux.  
 You may disagree with something I have written, that is absolutely fine, it is entirely possible that I also do now.  
-I am always interested in learning, feel free to contact me on LinkedIn if you think we have something to offer each other in this respect.  
+I am always interested in learning, feel free to contact me on [LinkedIn](https://www.linkedin.com/in/mtempleheald) if you think we have something to offer each other in this respect.  
