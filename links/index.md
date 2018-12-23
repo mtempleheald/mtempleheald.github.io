@@ -92,6 +92,11 @@ This is why I'm not sure that mind mapping is for me; I tend to have a few topic
 [Serverless](https://serverless.com/learn/quick-start/) - Platform-agnostic serverless deployment framework, template-driven  
 [Serverless chat](https://github.com/claudiajs/serverless-chat) - Chat platform built in JavaScript + AWS IOT Platform  
 
+[Terraform](https://www.terraform.io/) - standardised cloud deployment workflow (still required independent cloud configuration)  
+[Pulumi](https://dev.to/kylegalbraith/how-pulumi-compares-to-terraform-for-infrastructure-as-code-434j?fbclid=IwAR3DZp4m8aJfiUGKhUjvhNkXe3CoOIX2vLez8v5CWuwQOBt7WG85qZbZ7z0) - alternative to Terraform which uses more familiar tools/ scripting languages  
+
+[ARM templates dos and don'ts](https://blog.mexia.com.au/arm-template-lifecycle-management-dos-and-donts?fbclid=IwAR0lfYf_VuCHEW6AmZ7hcw0PVL9b1rf2EilTBuZ7oP7bLihF6l-6RpToS-Q)  
+
 [Zapier](https://zapier.com/) - Automated connected workflow, equivalent to Azure Logic Apps  
 
 
@@ -129,3 +134,30 @@ This is why I'm not sure that mind mapping is for me; I tend to have a few topic
 
 
 
+
+
+### To be sorted
+
+[Terraform](https://github.com/hashicorp/terraform) cloud agnostic deployment WORKFLOW  
+
+
+
+https://cloud.google.com/blog/products/containers-kubernetes/knative-bringing-serverless-to-kubernetes-everywhere  
+
+
+https://www.javaadvent.com/2018/12/docker-and-the-jvm.html  
+
+
+https://hackernoon.com/from-mvc-to-modern-web-frameworks-8067ec9dee65  
+
+
+https://theappsolutions.com/blog/development/machine-learning-algorithm-types/  
+
+
+https://dev.to/caiorcferreira/difference-between-state-and-state-p6g  
+
+
+[Build Go dev env in Docker](https://hackernoon.com/building-a-development-environment-for-golang-with-docker-3ccc620c4920)  
+
+
+[Word to Tex](https://www.chikrii.com/products/word2tex/)  

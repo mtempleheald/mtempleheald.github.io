@@ -22,6 +22,8 @@ last-updated: 2018-12-07
 [Tips to not fighting the borrow checker (Reddit)](https://www.reddit.com/r/rust/comments/5ny09j/tips_to_not_fight_the_borrow_checker/)  
 [Understanding Vec for efficiency](https://markusjais.com/unterstanding-rusts-vec-and-its-capacity-for-fast-and-efficient-programs/)  
 
+[Rust 2018 Macros](https://l.facebook.com/l.php?u=https%3A%2F%2Fblog.rust-lang.org%2F2018%2F12%2F21%2FProcedural-Macros-in-Rust-2018.html%3Ffbclid%3DIwAR1pRgVLEt_6d9hpqvN4aHL8icgeP_v_uEJs3MrXc9JXtiXaImBw1k4Fosc&h=AT2AA8lcsV5jjUU1fy9y4ULr3kfT3DPUHUUAbYMQCantil-jcbvVeio1_vim7qw0FoIu-IPhjrscURf6jN-4rPZiMg2nqhLc7guqmQfkXF9zFNU1rX6IcEwntWJGGGfcSg)  
+
 
 ### Strings
 

@@ -35,7 +35,7 @@ Deliver an enterprise service bus to fulfil this role working with our off-shore
     * Formulated technical cauterisation strategy for legacy systems out of digital transformation scope
     * Performed functional analysis of integration units, current and future    
 * Design
-    * Introduced mechanism for definining over 300 integration units and provided most definitions
+    * Introduced mechanism for defining over 300 integration units and provided most definitions
     * Constructed 9 canonical schemas (XSD) to represent key business areas and maximise reusability
     * Constructed 12 canonical data contracts (JSON API) to support interfaces with the future platform    
     * Curated list of integration endpoints (single source of truth) to facilitate cross-team collaboration
