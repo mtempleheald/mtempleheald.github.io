@@ -186,11 +186,16 @@ p {
 
 // Syntax highlighting
 .highlight {
-    background-color: black;
+    background-color: var(--dark);
+    padding: 0.25em;
 }
 .highlight .kd {
     color: tomato;
 }
 .highlighter-rouge {
     border: 1px solid var(--mid);
+    overflow-y: hidden;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--light) var(--dark);
 }
