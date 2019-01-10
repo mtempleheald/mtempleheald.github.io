@@ -345,9 +345,9 @@ It all revolves around API controllers (hardly surprising), which behave as foll
 1. Respond to an HTTP action upon a given route, configured by [attribute routing](https://docs.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2#why-attribute-routing) 
 2. Do some stuff, in practice deferring the logic to other processes
 3. Return an appropriate response, e.g.
-    * ActionResult<IEnumerable<string>> for multiple values
-    * ActionResult<string> for a single value
-    * void for no response, e.g. to a delete action
+    * ```ActionResult<IEnumerable<string>>``` for multiple values
+    * ```ActionResult<string>``` for a single value
+    * ```void``` for no response, e.g. to a delete action
 
 
 ## Summary 
@@ -355,7 +355,7 @@ It all revolves around API controllers (hardly surprising), which behave as foll
 I like what I've seen (and read) so far, .Net Core feels a lot more modern and efficient than .NET Framework.  
 The dependency management, build, testing all feel similar to the approach used by newer programming languages such as Go and Rust which is significantly less complex than my experience using .NET Framework, user experience can no doubt be improved upon using an IDE, but this is not required.  
 
-Cross-compilation is a key component of the framework, this allows it to compete directly with other modern languages in this time of container based development and microservices.  I'm particularly interested in [Blazor](https://blazor.net/) as a competitor of [Go WebAssembly](https://github.com/golang/go/wiki/WebAssembly) and [Rust Wasm](https://github.com/rustwasm).  I think the future requires client side and server side to share logic offline, the thought of using JavaScript on the backend ([Node](https://nodejs.org/en/)) fills me with dread, so web assembly is a key part of this.  
+Cross-compilation is a key component of the framework, this allows it to compete directly with other modern languages in this time of container based development and microservices.  I'm particularly interested in [Blazor](https://blazor.net/) as a competitor of [Go WebAssembly](https://github.com/golang/go/wiki/WebAssembly) and [Rust Wasm](https://github.com/rustwasm).  I think the future requires client side and server side to share logic offline, the thought of using JavaScript on the backend ([Node](https://nodejs.org/en/)) fills me with dread, so web assembly is a key part of solving this problem.  
 
 Compatibility with .NET Framework provides experienced Microsoft developers with the confidence to switch and 16 years of Microsoft development effort is not lost during migration.  
 
@@ -363,11 +363,10 @@ I have in the past found Microsoft's documentation to be pretty damn awful if I'
 They seem to have fixed that, I'm having no trouble finding official answers to sensible questions.  
 The fact that it is now open source too means that if something isn't well documented I can still get to the answer.
 I think that something is still missing on the big picture front though, I want to understand the underlying architecture decisions, not just how to throw together a dummy app.  
-In particular I struggle to picture how exactly [Dependency Injection](https://docs.microsoft.com/en-gb/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2) has been implemented, not helped by the fact that helper methods seem to obfuscate the implementation at times.  I'm not worried, there are plenty of answers out there, e.g. [these](https://medium.com/volosoft/asp-net-core-dependency-injection-best-practices-tips-tricks-c6e9c67f9d96) best practices.  
 
 As with any framework it is quite opinionated, but that's not a bad thing if you happen to agree with the opinions or are naturally pragmatic.  
-In some cases I think this is a good thing, e.g. [ASP.NET Core MVC controllers should request their dependencies explicitly via their constructors](https://docs.microsoft.com/en-gb/aspnet/core/mvc/controllers/dependency-injection?view=aspnetcore-2.2) as this is the Core development team telling us how they expect the framework to be used.  
-In others I feel less positive, see the encouraged use of bootstrap and jQuery above.  I'm not saying there's anything wrong with these decisions, only that they should be the developer's decisions to make, including them in templates feels like programming by numbers, potentially stifling individuality and ultimately competition.  
+In some cases I think this is a good thing, e.g. [ASP.NET Core MVC controllers should request their dependencies explicitly via their constructors](https://docs.microsoft.com/en-gb/aspnet/core/mvc/controllers/dependency-injection?view=aspnetcore-2.2) as this is the Core development team telling us how they expect the framework to be used.  [Here](https://medium.com/volosoft/asp-net-core-dependency-injection-best-practices-tips-tricks-c6e9c67f9d96) is another 
+In others I feel less positive, see the encouraged use of bootstrap and jQuery above.  I'm not saying there's anything wrong with these decisions, only that they should be the project team's decisions to make, including them in templates feels like programming by numbers, potentially stifling individuality and ultimately competition.  
 
 I was favouring [Go](www.golang.org) over C#/ .Net Framework when considering a new web api application for several reasons:
 * open source, with enough time it is definitely possible to find a solution to whatever the problem is
@@ -376,5 +375,5 @@ I was favouring [Go](www.golang.org) over C#/ .Net Framework when considering a 
 * cross platform, I'm just not very comfortable with Windows as a server environment
 * it just seemed relatively "cool"
 
-However none of these points are particularly valid anymore and around here at least there seems to be more work in .Net than in Go.  
+However none of these points are particularly valid anymore and around here at least there seems to be more work in .Net Core than in Go.  
 I think .NET Core has a bright future ahead of it.  
