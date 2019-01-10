@@ -15,7 +15,7 @@ Key principles:
 * Establish clear cost management, arguably the most important factor regarding practicality.  
 * Minimum Viable Product (MVP) - A working application with no data persistence and limited security.
 
-[Live application](https://mthcricket01ui.z6.web.core.windows.net/).  
+[Live application](https://mthcricket01ui.z16.web.core.windows.net/).  
 
 ## Application Logic
 
@@ -482,7 +482,7 @@ My intention was to use the [consumption plan](https://azure.microsoft.com/en-gb
 
 ## Summary
 
-This project has been fairly successful so far, zero to [Live application](https://mthcricket01uistorage.z6.web.core.windows.net/) in under a month.  
+This project has been fairly successful so far, zero to [Live application](https://mthcricket01ui.z16.web.core.windows.net/) in under a month.  
 I've also quite enjoyed bringing together lots of different elements I've used to varying degrees to build something real.
 
 It isn't perfect of course, there are some known issues:
