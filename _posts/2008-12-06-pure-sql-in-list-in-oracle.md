@@ -8,12 +8,13 @@ Just remember to add a comment to that effect, this isn't easy to read at a glan
 
 ```PLSQL
 SELECT SUBSTR (strCSV,
-               INSTR (strCSV, \',\', 1, LEVEL) + 1,
-               INSTR (strCSV, \',\', 1, LEVEL + 1) - INSTR (strCSV, \',\', 1, LEVEL) - 1 
+               INSTR (strCSV, ',', 1, LEVEL) + 1,
+               INSTR (strCSV, ',', 1, LEVEL + 1) - INSTR (strCSV, ',', 1, LEVEL) - 1 
               ) as fieldname
-FROM  (SELECT \',\'||&STRING||\',\' strCSV
+FROM  (SELECT ','||&STRING||',' strCSV
        FROM   dual)
-CONNECT BY LEVEL <= LENGTH(&STRING) - LENGTH(REPLACE(&STRING,\',\',\'\')) + 1
+CONNECT BY LEVEL <= LENGTH(&STRING) - LENGTH(REPLACE(&STRING,',','')) + 1
+ORDER BY fieldname
 ```
 
 #### An alternative is available in the DBMS_UTILITY package
@@ -23,7 +24,7 @@ DECLARE
   v_arr dbms_utility.uncl_array;
   v_cnt BINARY_INTEGER;
 BEGIN
-  dbms_utility.comma_to_table(\'A,B,C,F,D\',v_cnt,v_arr);
+  dbms_utility.comma_to_table('A,B,C,F,D',v_cnt,v_arr);
   FOR i IN 1 .. v_cnt LOOP
     dbms_output.put_line(v_arr(i));
   END loop;
@@ -36,15 +37,15 @@ END;
 WITH data
 AS   (SELECT fieldname
       ,      order_by
-      FROM (SELECT UPPER(SUBSTR (forenames, INSTR (forenames, \' \', 1, LEVEL) + 1, 1 )) fieldname
+      FROM (SELECT UPPER(SUBSTR (forenames, INSTR (forenames, ' ', 1, LEVEL) + 1, 1 )) fieldname
             ,      level                                                               order_by
-            FROM  (SELECT \' \'||&FNAME||\' \' forenames
+            FROM  (SELECT ' '||&FNAME||' ' forenames
                    FROM   dual
                   )
-            CONNECT BY LEVEL <= LENGTH(&FNAME) - LENGTH(REPLACE(&FNAME,\' \',\'\')) + 1
+            CONNECT BY LEVEL <= LENGTH(&FNAME) - LENGTH(REPLACE(&FNAME,' ','')) + 1
            )
       )
-SELECT REGEXP_REPLACE(REPLACE(SYS_CONNECT_BY_PATH(fieldname,\',\'),\',\',\'\'),\'( ){1,}\') initials
+SELECT REGEXP_REPLACE(REPLACE(SYS_CONNECT_BY_PATH(fieldname,','),',',''),'( ){1,}') initials
 FROM   data
 WHERE  order_by = (SELECT MAX(order_by)
                    FROM   data)

@@ -21,24 +21,24 @@ This website serves many purposes, including:
 * encouraging a continuous process of self improvement
 
 
-## Design choices
+## Website Structure and design choices
 
 I spend a lot of time reading technical reference manuals, blogs and videos.  
 I have developed quite strong opinions on what amongst these works well.  
 With this in mind I've structured this website according to the following principles:  
-* Video is a no-go, there is a wealth of information available in video form but this is not an efficient way to learn, I always look for the written transcript.
-* Blog only is insufficient, very focused points are great, if you're trying to achieve the same thing, but at least it is timely.
-* Topical documentation is useful, but there must be an indication of timeliness or the information can't be trusted, added last update date for this purpose.  
-* Succinct - I'm sick of reading long introductions and caveats in blogs, this is written for my level of understanding not as click bait.
-* Detailed - when reading an article back to myself, I shouldn't need to go off-site to fill in *important* gaps, the document should stand alone.
-* Focussed - documentation should be modular just as code should, if an unexpected dependency pops up, split the details into a separate document.
-* Avoid repetition - if there's a good, detailed blog somewhere else for the same topic, just reference that and add benefit.
-* Mobile-friendly is important, cosmetics and user experience not so much, I am the target audience.
+* **No video** there is a wealth of information available in video form but this is not an efficient way to learn, I always look for the written transcript.
+* **Blog insufficient** on its own - very focused points are great, if you're trying to achieve the same thing, but at least it is timely.
+* **Topical documentation useful** but there must be an indication of timeliness or the information can't be trusted, added last update date for this purpose.  
+* **Succinct** - I'm sick of reading long introductions and caveats in blogs, this is written for my level of understanding not as click bait.
+* **Detailed** - when reading an article back to myself, I shouldn't need to go off-site to fill in *important* gaps, the document should stand alone.
+* **Focussed** - documentation should be modular just as code should, if an unexpected dependency pops up, split the details into a separate document.
+* **Avoid repetition** - if there's a good, detailed blog somewhere else for the same topic, just reference that and add benefit.
+* **Mobile-friendly** is important, cosmetics and user experience not so much, I am the target audience.
 
 
 ## Commitment
 
-I've spend a considerable amount of time configuring this site to suit my needs and facilitate simple ongoing maintenance.  
+I've spent a considerable amount of time configuring this site to suit my needs and facilitate simple ongoing maintenance.  
 
 I have every intention of keeping this (or a future version of this) up to date for the rest of my career.  
 However, I can not and will not promise to succeed in this aim.
