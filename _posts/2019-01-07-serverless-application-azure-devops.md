@@ -474,10 +474,8 @@ It feels right to me that this lives within the storage account creation templat
 ## Costs
 
 This was never meant to be a serious production application, I'm certainly not expecting it to scale to fully utilise serverless scaling capabilities.  
-Therefore I was expecting it to be free or very close to.  
-What I'm actually seeing is that in the couple of weeks that I've had something running I've accrued £0.09 on API storage and nearly £5 on an App Service Plan.  
-
-My intention was to use the [consumption plan](https://azure.microsoft.com/en-gb/pricing/details/app-service/plans/) but I think that something has gone wrong in my ARM deployment.  My priority is now therefore to address this, since my free month's trial is about to expire.  This is directly related to what I already knew was my weakpoint; understanding Azure internal workings.
+My intention was to use the [consumption plan](https://azure.microsoft.com/en-gb/pricing/details/app-service/plans/), therefore I was expecting it to be free or very close to.    
+What I actually witnessed was that in the couple of weeks that I've had something running I accrued £0.09 on API storage and nearly £5 on an App Service Plan.  I've now addressed this, the ARM template was wrong, fixed by manually recreating all, viewing the generated Azure *automation script* and tweaking settings accordingly.
 
 
 ## Summary
@@ -487,14 +485,14 @@ I've also quite enjoyed bringing together lots of different elements I've used t
 
 It isn't perfect of course, there are some known issues:
 * ~~Scores continue adding on even if all ticked off - API logic wrong~~ Fixed
+* ~~Plan costing money, something isn't right about the functionapp deployment yet, consumption plan should be free (at low volumes).~~
 * Clicking too quickly misrepresents the status as evidenced by the history of throws - 2 choices (possibly both):
-    * throttling within Angular controller, checksum-esque
+    * throttling within Angular controller, checksum-esque, possibly store actions in local queue before calling API (web worker?)
     * incremement version within the API, check that requests are received in order, depends upon data persistence but may be better solution
 * Skip function totally broken (symptom of the above)
-* Initial load is extremely slow (several seconds) and it appears to be broken.  Possibly send a dummy request in the background to hide this from the user.
-* Buttons jump about a bit due to flexbox/ grid layout, would be nice to fix this
-* Plan costing money, something isn't right about the functionapp deployment yet, consumption plan should be free (at low volumes).
+* Initial load is extremely slow (several seconds) and it *appears* to be broken.  Possibly send a dummy request in the background to hide this from the user.
+* Buttons jump about a bit due to flexbox/ grid layout and conditional display of skip, would be nice to fix this
 
 There's also outstanding work to do:  
 * Deployments building up in storage, no need to keep history of deployments so need to add clear step to release pipeline (start).
-* Truly understand functionapp ARM deployment to get a handle on costs.
+* Better understand Azure's inner workings, or terminology at least, I feel that I'm missing something (or the documentation is).  Possibly I'm just more pedantic than most users, I want to understand it, not just get it working.
