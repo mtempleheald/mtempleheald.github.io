@@ -15,7 +15,7 @@ Key principles:
 * Establish clear cost management, arguably the most important factor regarding practicality.  
 * Minimum Viable Product (MVP) - A working application with no data persistence and limited security.
 
-[Live application](https://mthcricket01ui.z16.web.core.windows.net/).  
+### [Live application](https://mthcricket01ui.z16.web.core.windows.net/).  
 
 ## Application Logic
 

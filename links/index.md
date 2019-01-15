@@ -161,3 +161,6 @@ https://dev.to/caiorcferreira/difference-between-state-and-state-p6g
 
 
 [Word to Tex](https://www.chikrii.com/products/word2tex/)  
+
+[OO Design Patterns (C# examples)]()  
+[The above on GitHub](https://github.com/alwalker/GoF/tree/master/CSharp/GoFPatterns/DoFactory.GangOfFour)  
