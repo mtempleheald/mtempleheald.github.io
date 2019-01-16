@@ -363,7 +363,17 @@ Hereafter release pipeline tasks simply need to refer to this connection and it 
 
 ### Release pipeline steps 
 
-* [ARM deployment](https://github.com/Microsoft/azure-pipelines-tasks/blob/master/Tasks/AzureResourceGroupDeploymentV2/README.md) - all infrastructure elements within the resource group (I'm only using one)
+* [ARM deployment](https://github.com/Microsoft/azure-pipelines-tasks/blob/master/Tasks/AzureResourceGroupDeploymentV2/README.md) - all infrastructure elements within the resource group, the equivalent of using the command line tools:  
+```
+$resourceGroup = 'mthtest01'
+$storageAccount = "$($resourceGroup)apistorage"
+$appServiceplan = "$($resourceGroup)plan"
+$functionApp = "$($resourceGroup)api"
+az group create --name $resourceGroup --location westeurope
+az storage account create --name $storageAccount --location westeurope --resource-group $resourceGroup --sku Standard_LRS
+az appservice plan create --name $appServiceplan --resource-group $resourceGroup --sku B1 --is-linux
+az functionapp create --resource-group $resourceGroup --plan $appServiceplan --name $functionApp --storage-account $storageAccount --runtime dotnet
+```
 * [Azure App Service Deploy (Preview)](https://aka.ms/azurermwebdeployreadme) - azure function deployment to function app
 * [Azure File Copy (Preview)](https://aka.ms/azurefilecopyreadme) - static website copied to $web blob container
 * [Azure CLI](https://github.com/Microsoft/azure-pipelines-tasks/blob/master/Tasks/AzureCLIV1/Readme.md) - using the az command line tools to turn the blob container into a static website:  
@@ -374,7 +384,7 @@ az storage blob service-properties update --account-name "$(resourceGroup)ui" --
 
 ## ARM templates for continuous deployment
 
-I have come across ARM templates before and know that they're the recommended approach for deploying Azure artifacts in a consistent fashion, but I've never built any from scratch, so it is time to investigate.  My aim here is to develop a pattern which I can use again for another serverless app in Azure, without having to think about this stuff again.  This has been easily the most time-consuming part of this project.  
+I have come across ARM templates before and know that they're the recommended approach for (re)deploying Azure artifacts in a consistent fashion, but I've never built any from scratch, so it is time to investigate.  My aim here is to develop a pattern which I can use again for another serverless app in Azure, without having to think about this stuff again.  This has been easily the most time-consuming part of this project.  
 
 I want a single ARM template containing all aspects of the serverless application MVP:
 * Storage account for static file hosting
