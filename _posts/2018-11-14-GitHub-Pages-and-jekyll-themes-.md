@@ -79,3 +79,7 @@ So now I've got a static web page running, which is:
 * A home page referencing all public projects I've been working on, in a manner of my choosing.
 
 The future's bright, the future's GitHub Pages.
+
+### Upgrading Jekyll (edit)
+
+I recently had a github security warning relating to one of Jekyll's dependencies (nokogiri).  I'm not a Ruby developer so fixing this wasn't quite as obvious as you'd hope.  For future reference the approach is to simply run `bundle update jekyll` or just `bundle update`.  Bundle is the Ruby package (gem) manager so obviously requires Ruby to be installed but I'd removed this during a tidyup.  After installation though everything just worked and the security warning has gone
