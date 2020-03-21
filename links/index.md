@@ -162,5 +162,16 @@ https://dev.to/caiorcferreira/difference-between-state-and-state-p6g
 
 [Word to Tex](https://www.chikrii.com/products/word2tex/)  
 
-[OO Design Patterns (C# examples)]()  
+[OO Design Patterns (C# examples)](https://www.dofactory.com/net/design-patterns)  
 [The above on GitHub](https://github.com/alwalker/GoF/tree/master/CSharp/GoFPatterns/DoFactory.GangOfFour)  
+
+[Entity Framework Core Introduction](https://stackify.com/entity-framework-core-tutorial/)  
+[EF Core with CosmosDB](https://csharp.christiannagel.com/2018/09/05/efcorecosmos/)  
+
+[UI-API security - see Step 4: Securing API keys](http://billpatrianakos.me/blog/2016/02/15/securing-api-keys-in-a-javascript-single-page-app/)  
+
+[C# await/async](http://blog.stephencleary.com/2012/02/async-and-await.html)  
+[Async main C# 7.1](https://blogs.msdn.microsoft.com/mazhou/2017/05/30/c-7-series-part-2-async-main/)  
+
+
+[RAML](https://raml.org/)  
