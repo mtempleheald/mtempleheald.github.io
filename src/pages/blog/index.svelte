@@ -2,4 +2,4 @@
   import { url } from "@sveltech/routify";
 </script>
 
-Blog home page 
+Blog home page
