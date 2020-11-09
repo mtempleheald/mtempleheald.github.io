@@ -4,17 +4,12 @@ import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import { routify } from '@sveltech/routify';
+import clear from 'rollup-plugin-clear';
 
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
 	input: 'src/main.js',
-	// output: {
-	// 	sourcemap: true,
-	// 	format: 'iife',
-	// 	name: 'app',
-	// 	file: 'docs/build/bundle.js'
-	// },
 	output: {
     sourcemap: true,
     format: 'esm',
@@ -22,6 +17,11 @@ export default {
     dir: 'docs/bundle',
   },
 	plugins: [
+		clear({
+			targets: ['docs/bundle'],
+			// optional, whether clear the directores when rollup recompile on --watch mode.
+			watch: true, // default: false
+		}),
 		routify({
 			sourceDir: 'docs',
       singleBuild: production,
@@ -66,23 +66,6 @@ export default {
 };
 
 function serve() {
-	// let server;
-	
-	// function toExit() {
-	// 	if (server) server.kill(0);
-	// }
-
-	// return {
-	// 	writeBundle() {
-	// 		if (server) return;
-	// 		server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-	// 			stdio: ['ignore', 'inherit', 'inherit'],
-	// 			shell: true
-	// 		});
-	// 		process.on('SIGTERM', toExit);
-	// 		process.on('exit', toExit);
-	// 	}
-	// };
 	let started = false;
 
   return {
