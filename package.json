@@ -4,11 +4,16 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv docs"
+    "__dev": "run-p watch:routify watch:rollup",
+    "__prebuild": "routify --single-build",
+    "__watch:rollup": "rollup -c -w",
+    "__watch:routify": "routify",
+    "start": "sirv docs --single"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
+    "@sveltech/routify": "^1.9.10",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-serve": "^1.1.0",
@@ -18,7 +23,6 @@
   },
   "dependencies": {
     "sirv-cli": "^1.0.0",
-    "snarkdown": "^2.0.0",
-    "svelte-spa-router": "^3.0.5"
+    "snarkdown": "^2.0.0"
   }
 }

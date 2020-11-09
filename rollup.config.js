@@ -3,38 +3,30 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import { routify } from '@sveltech/routify';
 
 const production = !process.env.ROLLUP_WATCH;
 
-function serve() {
-	let server;
-	
-	function toExit() {
-		if (server) server.kill(0);
-	}
-
-	return {
-		writeBundle() {
-			if (server) return;
-			server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-				stdio: ['ignore', 'inherit', 'inherit'],
-				shell: true
-			});
-			process.on('SIGTERM', toExit);
-			process.on('exit', toExit);
-		}
-	};
-}
-
 export default {
 	input: 'src/main.js',
+	// output: {
+	// 	sourcemap: true,
+	// 	format: 'iife',
+	// 	name: 'app',
+	// 	file: 'docs/build/bundle.js'
+	// },
 	output: {
-		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		file: 'docs/build/bundle.js'
-	},
+    sourcemap: true,
+    format: 'esm',
+    name: 'app',
+    dir: 'docs/bundle',
+  },
 	plugins: [
+		routify({
+			sourceDir: 'docs',
+      singleBuild: production,
+      dynamicImports: true,
+    }),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
@@ -72,3 +64,37 @@ export default {
 		clearScreen: false
 	}
 };
+
+function serve() {
+	// let server;
+	
+	// function toExit() {
+	// 	if (server) server.kill(0);
+	// }
+
+	// return {
+	// 	writeBundle() {
+	// 		if (server) return;
+	// 		server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+	// 			stdio: ['ignore', 'inherit', 'inherit'],
+	// 			shell: true
+	// 		});
+	// 		process.on('SIGTERM', toExit);
+	// 		process.on('exit', toExit);
+	// 	}
+	// };
+	let started = false;
+
+  return {
+    writeBundle() {
+      if (!started) {
+        started = true;
+
+        require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+          stdio: ['ignore', 'inherit', 'inherit'],
+          shell: true
+        });
+      }
+    }
+  };
+}

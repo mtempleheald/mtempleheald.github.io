@@ -32,21 +32,24 @@ I get to write in markdown, this gets built into raw JS during dev and I check t
 
 # Routing
 
-Version 1 using `npm install svelte-spa-router` found at [GitHub](https://github.com/ItalyPaleAle/svelte-spa-router)
-- Hash-based routing
-- Centrally managed by import on App.svelte and any nested components that have sub-routing
-- Required to tell svelte compiler that this should `use:link` to insert #, else will break the app.
+Tried [svelte-spa-router](https://github.com/ItalyPaleAle/svelte-spa-router)
+- Hash-based routing, need to specify `use:link`, bit clunky to use
 
-Considering `npm install svelte-router-spa` found at [GitHub](https://github.com/jorgegorka/svelte-router)
+Considered [svelte-router-spa](https://www.npmjs.com/package/svelte-router-spa) 
+- [GitHub](https://github.com/jorgegorka/svelte-router)
 - Seems cleverer, more user friendly and with less boilerplate, with the routing config in one place and available when needed.
 
-Also [Routify](https://github.com/roxiness/routify) but __without__ SSR (Server-side rendering)
+Settled on [Routify](https://routify.dev)
+- [GitHub](https://github.com/roxiness/routify)
 - Recommended on Reddit
-- Routes managed by folder structure, aligns with my general approach quite well
+- "proper" routing, also aligned to folder structure, my kind of approach, KISS
 
 # Useful links
 
 [Svelte](https://svelte.dev)
-[Rollup](https://rollupjs.org)
 [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode)
+
+[Rollup](https://rollupjs.org)
+[Rollup flags](https://rollupjs.org/guide/en/#command-line-flags)
+
 [Snarkdown](https://github.com/developit/snarkdown/blob/master/test/index.js)
