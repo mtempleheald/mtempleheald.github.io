@@ -20,9 +20,11 @@ Download project from the [REPL](https://svelte.dev/repl) to new project folder 
 Run the project locally `npm run dev`
 
 This project is destined for GitHub Pages which only support root or /docs for website root.
-Since I want source code in here too, /docs is the only option.
-So update rollup.config.js to change output file from `public/build/bundle.js` to `docs/build/bundle.js`
-Also update the watch directory, from `!production && livereload('public')` to `!production && livereload('docs')`
+Since I want source code in here too, /docs is the only option, therefore:
+- Remove `/public/build` from .gitignore, don't replace it with a 'docs' equivalent.
+- Update rollup.config.js to change output file from `public/build/bundle.js` to `docs/build/bundle.js`
+- Update the watch directory, from `!production && livereload('public')` to `!production && livereload('docs')`
+
 
 
 # Useful links
