@@ -14,7 +14,8 @@ export default {
     sourcemap: true,
     format: 'esm',
     name: 'app',
-    dir: 'docs/bundle',
+		dir: 'docs/bundle',
+		preserveModules: true
   },
 	plugins: [
 		clear({

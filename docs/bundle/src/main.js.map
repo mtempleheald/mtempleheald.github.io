@@ -1,0 +1,1 @@
+{"version":3,"file":"main.js","sources":["../../../src/main.js"],"sourcesContent":["import App from './App.svelte';\n\nconst app = new App({\n\ttarget: document.body\n});\n\nexport default app;"],"names":["app","App","target","document","body"],"mappings":"+BAEK,MAACA,EAAM,IAAIC,EAAI,CACnBC,OAAQC,SAASC"}
