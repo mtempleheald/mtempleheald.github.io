@@ -14,8 +14,9 @@ export default {
     sourcemap: true,
     format: 'esm',
     name: 'app',
-		dir: 'docs/bundle',
-		preserveModules: true
+		dir: 'docs/bundle'
+		// preserveModules: true,
+    // preserveModulesRoot: 'src'
   },
 	plugins: [
 		clear({
@@ -23,10 +24,12 @@ export default {
 			// optional, whether clear the directores when rollup recompile on --watch mode.
 			watch: true, // default: false
 		}),
+		// https://github.com/roxiness/routify/blob/v1.9.10/config.defaults.json
 		routify({
 			sourceDir: 'docs',
-      singleBuild: production,
+			routifyDir: 'docs/routify',
       dynamicImports: true,
+      singleBuild: production,
     }),
 		svelte({
 			// enable run-time checks when not in production
