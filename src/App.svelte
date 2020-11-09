@@ -7,13 +7,14 @@
 	import Footer from './components/Footer.svelte';
 	import Topic from './components/Topic.svelte';
 	import Blog from './components/Blog.svelte';
+	import NotFound from './components/NotFound.svelte';
 
 	const routes = {
 		'/': Index,
-		'/blog': Blog,
-		'/topic/*': Topic,
+		'/topic/:topic': Topic,
+		'/blog': Blog,		
 
-    '*': Index // must be last route
+    '*': NotFound // must be last route
 	}
 	
 	// onMount(() => {

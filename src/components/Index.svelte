@@ -1,11 +1,13 @@
 <script>
-
+	import snarkdown from 'snarkdown';
 </script>
 
 
 
 <section>
-	Index Page
+
+	<h1>Home</h1>
+	<p>The mentality of musing while meandering</p>
 
 </section>
 

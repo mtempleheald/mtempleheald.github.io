@@ -24,12 +24,29 @@ Since I want source code in here too, /docs is the only option, therefore:
 - Remove `/public/build` from .gitignore, don't replace it with a 'docs' equivalent.
 - Update rollup.config.js to change output file from `public/build/bundle.js` to `docs/build/bundle.js`
 - Update the watch directory, from `!production && livereload('public')` to `!production && livereload('docs')`
+- Update package.json, from `"start": "sirv public"` to `"start": "sirv docs"`
+
+Checking in built code is not usually my style, but it works in this case.
+I get to write in markdown, this gets built into raw JS during dev and I check the two in together without thinking about it.
 
 
+# Routing
+
+Version 1 using `npm install svelte-spa-router` found at [GitHub](https://github.com/ItalyPaleAle/svelte-spa-router)
+- Hash-based routing
+- Centrally managed by import on App.svelte and any nested components that have sub-routing
+- Required to tell svelte compiler that this should `use:link` to insert #, else will break the app.
+
+Considering `npm install svelte-router-spa` found at [GitHub](https://github.com/jorgegorka/svelte-router)
+- Seems cleverer, more user friendly and with less boilerplate, with the routing config in one place and available when needed.
+
+Also [Routify](https://github.com/roxiness/routify) but __without__ SSR (Server-side rendering)
+- Recommended on Reddit
+- Routes managed by folder structure, aligns with my general approach quite well
 
 # Useful links
 
 [Svelte](https://svelte.dev)
 [Rollup](https://rollupjs.org)
 [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode)
-
+[Snarkdown](https://github.com/developit/snarkdown/blob/master/test/index.js)
