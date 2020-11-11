@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import { routify } from '@sveltech/routify';
+//import { routify } from '@sveltech/routify';
 import clear from 'rollup-plugin-clear';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -25,12 +25,12 @@ export default {
 			watch: true, // default: false
 		}),
 		// https://github.com/roxiness/routify/blob/v1.9.10/config.defaults.json
-		routify({
-			sourceDir: 'docs',
-			routifyDir: 'docs/routify',
-      dynamicImports: true,
-      singleBuild: production,
-    }),
+		// routify({
+		// 	sourceDir: 'docs',
+		// 	routifyDir: 'docs/routify',
+    //   dynamicImports: true,
+    //   singleBuild: production,
+    // }),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,

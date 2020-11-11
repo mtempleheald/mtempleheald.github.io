@@ -4,10 +4,6 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "__dev": "run-p watch:routify watch:rollup",
-    "__prebuild": "routify --single-build",
-    "__watch:rollup": "rollup -c -w",
-    "__watch:routify": "routify",
     "start": "sirv docs --single"
   },
   "devDependencies": {
