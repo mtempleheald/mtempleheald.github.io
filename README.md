@@ -44,6 +44,10 @@ Settled on [Routify](https://routify.dev)
 - Recommended on Reddit
 - "proper" routing, also aligned to folder structure, my kind of approach, KISS
 
+Couldn't get Routify working so switched to [svelte-navigator](https://github.com/mefechoel/svelte-navigator)
+- Simple, clean, clear split of SPA vs SSR in documentation and I don't want SSR for github pages
+- Uses History API instead of hash routing
+
 # Useful links
 
 [Svelte](https://svelte.dev)

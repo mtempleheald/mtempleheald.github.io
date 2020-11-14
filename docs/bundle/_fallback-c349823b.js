@@ -1,2 +1,0 @@
-import{S as t,i as e,s as a,e as n,a as s,b as o,n as r,d as i}from"./main-805550fd.js";function u(t){let e,a,u;return{c(){e=n("h1"),e.textContent="Page not found",a=s(),u=n("p"),u.textContent="What on Earth were you trying to achieve?"},m(t,n){o(t,e,n),o(t,a,n),o(t,u,n)},p:r,i:r,o:r,d(t){t&&i(e),t&&i(a),t&&i(u)}}}export default class extends t{constructor(t){super(),e(this,t,null,u,a,{})}}
-//# sourceMappingURL=_fallback-c349823b.js.map

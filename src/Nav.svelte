@@ -1,20 +1,14 @@
 <script>
-import { url, isActive } from "@sveltech/routify";
-
-const links = [
-  ["./topic", "topic"],
-  ["./blog", "blog"],
-];
+	import { Link } from "svelte-navigator";
 </script>
 
 
 
 <nav>
   <ul>
-    <li><a href="/">home</a></li>
-    {#each links as [path, name]}
-    <li><a href={$url(path)} class:selected={$isActive(path)}>{name}</a></li>
-    {/each}
+    <li><Link to="/">home</Link></li>
+    <li><Link to="/blog">Blog</Link></li>
+    <li><Link to="/topic">Topic</Link></li>
   </ul>
 </nav>
 
@@ -33,6 +27,6 @@ const links = [
   }
   a {
     color: inherit;
-    padding: 0 0.8rem;
+    padding: 0.2rem 0.8rem;
   }
 </style>

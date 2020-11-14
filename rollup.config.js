@@ -3,7 +3,6 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-//import { routify } from '@sveltech/routify';
 import clear from 'rollup-plugin-clear';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -12,25 +11,16 @@ export default {
 	input: 'src/main.js',
 	output: {
     sourcemap: true,
-    format: 'esm',
+    format: 'iife',
     name: 'app',
-		dir: 'docs/bundle'
-		// preserveModules: true,
-    // preserveModulesRoot: 'src'
+		dir: 'docs/build'
   },
-	plugins: [
-		clear({
-			targets: ['docs/bundle'],
-			// optional, whether clear the directores when rollup recompile on --watch mode.
-			watch: true, // default: false
-		}),
-		// https://github.com/roxiness/routify/blob/v1.9.10/config.defaults.json
-		// routify({
-		// 	sourceDir: 'docs',
-		// 	routifyDir: 'docs/routify',
-    //   dynamicImports: true,
-    //   singleBuild: production,
-    // }),
+	plugins: [		
+		// clear({
+		// 	targets: ['docs/build'],
+		// 	// optional, whether clear the directores when rollup recompile on --watch mode.
+		// 	watch: true, // default: false
+		// }),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
@@ -48,8 +38,7 @@ export default {
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		resolve({
 			browser: true,
-			dedupe: ['svelte'],
-			modulesOnly: true
+			dedupe: ['svelte']
 		}),
 		commonjs(),
 
@@ -71,18 +60,21 @@ export default {
 };
 
 function serve() {
-	let started = false;
+	let server;
 
-  return {
-    writeBundle() {
-      if (!started) {
-        started = true;
+	function toExit() {
+		if (server) server.kill(0);
+	}
 
-        require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-          stdio: ['ignore', 'inherit', 'inherit'],
-          shell: true
-        });
-      }
-    }
-  };
+	return {
+		writeBundle() {
+			if (server) return;
+			server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+				stdio: ['ignore', 'inherit', 'inherit'],
+				shell: true
+			});
+			process.on('SIGTERM', toExit);
+			process.on('exit', toExit);
+		}
+	};
 }
