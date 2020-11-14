@@ -12,6 +12,7 @@
   </Route>
   <Route>
     <h1>Blogs to be listed here</h1>
+    <Link to="./test">Test blog entry</Link>
   </Route>
 </article>
 
