@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import copy from 'rollup-plugin-copy';
 import clear from 'rollup-plugin-clear';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -15,12 +16,7 @@ export default {
     name: 'app',
 		dir: 'docs/build'
   },
-	plugins: [		
-		// clear({
-		// 	targets: ['docs/build'],
-		// 	// optional, whether clear the directores when rollup recompile on --watch mode.
-		// 	watch: true, // default: false
-		// }),
+	plugins: [
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
@@ -40,7 +36,16 @@ export default {
 			browser: true,
 			dedupe: ['svelte']
 		}),
-		commonjs(),
+		commonjs(),		
+		clear({
+			targets: ['docs/assets'],
+			watch: true,
+		}),
+		copy({
+      targets: [
+        { src: 'src/content/**/*', dest: 'docs/assets' }
+      ]
+    }),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated

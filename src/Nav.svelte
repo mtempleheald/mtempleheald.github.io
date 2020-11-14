@@ -3,7 +3,10 @@
 </script>
 
 
-
+<!--
+@component
+Navigation bar component
+-->
 <nav>
   <ul>
     <li><Link to="/">home</Link></li>
