@@ -9,9 +9,10 @@ Navigation bar component
 -->
 <nav>
   <ul>
-    <li><Link to="/">home</Link></li>
-    <li><Link to="/blog">Blog</Link></li>
-    <li><Link to="/topic">Topic</Link></li>
+    <li><Link to="/" class="navAnchor">Home</Link></li>
+    <li><Link to="/blog" class="navAnchor">Blog</Link></li>
+    <li><Link to="/topic" class="navAnchor">Topic</Link></li>
+    <li><Link to="/about" class="navAnchor">About</Link></li>
   </ul>
 </nav>
 
@@ -28,7 +29,7 @@ Navigation bar component
   li {
     display: inline;
   }
-  a {
+  :global(.navAnchor) {
     color: inherit;
     padding: 0.2rem 0.8rem;
   }

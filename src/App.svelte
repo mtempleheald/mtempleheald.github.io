@@ -16,24 +16,19 @@ Manoeuvring murky multifaceted modernism means meticulously managing many mistak
 
 Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
 `;
+var about = `
+# About me
+
+TODO
+`;
 var notFound = `
 # Page not found
 
 What on Earth were you trying to achieve?
 `;
-
-
-
 </script>
 
 
-
-<svelte:head>
-  <title>Mark Temple-Heald</title>
-  <!-- <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
-  <meta name="robots" content="noindex, nofollow">
-	<meta name="description" content="MTH on the web">
-</svelte:head>
 
 <Router>
   <Header></Header>
@@ -46,6 +41,10 @@ What on Earth were you trying to achieve?
     <Route path="blog/*blogRoute" component={Blog} />
 
     <Route path="topic/*topicRoute" component={Topic} />
+
+    <Route path="about">
+      {@html snarkdown(about)}
+    </Route>
 
     <Route>
       {@html snarkdown(notFound)}
@@ -61,5 +60,6 @@ What on Earth were you trying to achieve?
 main {
   margin-top: 1rem;
   min-height: 75vh;
+  padding: 0 2rem;
 }
 </style>

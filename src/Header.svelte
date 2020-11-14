@@ -3,7 +3,10 @@
 </script>
 
 
-
+<!--
+@component
+Header component
+-->
 <div>
 <header>
   <h1>Mark Temple-Heald</h1>

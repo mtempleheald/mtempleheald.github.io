@@ -2,7 +2,10 @@
 
 </script>
 
-
+<!--
+@component
+Footer component
+-->
 <footer>
   <p>This is my site, there are many like it but this one is mine.</p>
   <p>If you don't like it, you know where the close button is.</p>
@@ -17,5 +20,6 @@
   footer {
     height: var(--footer-height);
     box-shadow: 0 0.4rem 0.9rem 0.2rem rgba(0,0,0,.5);
+    padding: 0.5rem 2rem;
   }
 </style>
