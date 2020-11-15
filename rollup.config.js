@@ -43,7 +43,7 @@ export default {
 		}),
 		copy({
       targets: [
-        { src: 'src/content/**/*', dest: 'docs/content' }
+        { src: 'src/content/**/*', dest: 'docs' }
 			],
 			flatten: false
     }),
