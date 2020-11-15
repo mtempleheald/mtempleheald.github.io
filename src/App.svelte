@@ -1,6 +1,6 @@
 <script>
   import { Router, Route } from "svelte-navigator";
-  import snarkdown from 'snarkdown';// Supported markdown https://github.com/developit/snarkdown/blob/master/test/index.js
+  import snarkdown from 'snarkdown';
   import Header from './Header.svelte';
   import Footer from './Footer.svelte';
   import Blog from './Blog.svelte';

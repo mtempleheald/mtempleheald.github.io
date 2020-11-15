@@ -22,4 +22,7 @@ Footer component
     box-shadow: 0 0.4rem 0.9rem 0.2rem rgba(0,0,0,.5);
     padding: 0.5rem 2rem;
   }
+  a {
+    padding: 0 0.8rem;
+  }
 </style>

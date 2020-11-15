@@ -57,3 +57,4 @@ Couldn't get Routify working so switched to [svelte-navigator](https://github.co
 [Rollup flags](https://rollupjs.org/guide/en/#command-line-flags)
 
 [Snarkdown](https://github.com/developit/snarkdown/blob/master/test/index.js)
+[Supported markdown](https://github.com/developit/snarkdown/blob/master/test/index.js)

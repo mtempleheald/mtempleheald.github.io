@@ -38,13 +38,14 @@ export default {
 		}),
 		commonjs(),		
 		clear({
-			targets: ['docs/assets'],
+			targets: ['docs/content'],
 			watch: true,
 		}),
 		copy({
       targets: [
-        { src: 'src/content/**/*', dest: 'docs/assets' }
-      ]
+        { src: 'src/content/**/*', dest: 'docs/content' }
+			],
+			flatten: false
     }),
 
 		// In dev mode, call `npm run start` once
