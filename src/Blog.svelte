@@ -1,23 +1,10 @@
 <script>
   import snarkdown from 'snarkdown';
   import { Route, Link } from "svelte-navigator";
+  import { loadMarkdownContent, loadJsonContent } from './common.js';
 
   export let blogRoute;
 
-  async function loadMarkdownContent(path) {
-    let response = await fetch(path);
-    if (response.status === 200) {
-      let data = await response.text();
-      return snarkdown(data);
-    }
-  }
-  async function loadJsonContent(path) {
-    let response = await fetch(path);
-    if (response.status === 200) {
-      let data = await response.json();
-      return data;
-    }
-  }
 </script>
 
 
@@ -33,6 +20,7 @@
     {/await}
   </Route>
   <Route>
+    <h1>Blog articles</h1>
     {#await loadJsonContent('/content/blogs/_index.json')}
       <p>loading blogs...</p>
     {:then content}
@@ -50,5 +38,8 @@
 
 
 <style>
-
+  article {
+    max-width: 1000px;
+    margin: auto;
+  }
 </style>
