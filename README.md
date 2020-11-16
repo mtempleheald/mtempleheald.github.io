@@ -56,6 +56,8 @@ I am happy for json indexes and markdown articles to be parsed by the client on 
 So these index files must be generated as part of the build/rollup process, using the file naming convention to pre-populate the data.
 I'm not bothered about viewers being able to access the source files themselves, which is important in GitHub pages, since I have no backend server control.
 
+Using [Directory Tree NPM module](https://github.com/mihneadb/node-directory-tree/blob/master/lib/directory-tree.js) for inspiration.
+
 
 # Useful links
 

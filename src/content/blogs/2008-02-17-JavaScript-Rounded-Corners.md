@@ -1,4 +1,6 @@
-<script src="/assets/js/RoundCorners.js" type="text/javascript"></script>
+<h2>This page is no longer displaying due to Svelte's scoped styling, the generated divs are visible in the inspector however.
+
+<script src="../content/assets/js/RoundCorners.js" type="text/javascript"></script>
 
 <div markdown="1" class="rounded-example" style="background-color: lightsteelblue; color: blue; margin: 10px;">
 

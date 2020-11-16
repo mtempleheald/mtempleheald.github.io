@@ -5,6 +5,8 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 import clear from 'rollup-plugin-clear';
+import {listFiles} from 'list-files-in-dir';// https://www.npmjs.com/package/list-files-in-dir
+import { fstat } from 'fs';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -41,6 +43,10 @@ export default {
 			targets: ['docs/content'],
 			watch: true,
 		}),
+		listFiles('src/content/blogs')
+			.then(paths => {
+				generateBlogIndex(Array.from(paths, p => p.replace(/^.*[\\\/]/, '')))
+			}),
 		copy({
       targets: [
         { src: 'src/content/**/*', dest: 'docs' }
@@ -83,4 +89,37 @@ function serve() {
 			process.on('exit', toExit);
 		}
 	};
+}
+
+/*
+	Parse blog filename to extract title, date and tags, write this to _index.json in src/blogs, to be published along with the content itself
+	Filename should be YYYY-MM-DD-Title-Goes-Here[tag1,tag2,tag3].md
+	Test parsing using console.log
+*/
+function generateBlogIndex(blogs) {
+	const fs = require('fs');
+	let index = [];
+	blogs.sort() // want blogs to be ordered by date
+		.reverse() // with the latest at the top
+		.forEach(blog => {
+			if (blog != '_index.json') {
+				let date = blog.substr(0,10);
+				let title = blog.substr(11).replace(/\[.*\]/,'').replace('.md','');
+				let tagsString = blog.replace('.md','').match(/\[.*\]/);
+				let tags = tagsString ? tagsString[0].replace(/[\[\]]/g,'').split(',') : [];
+				index.push ({"file": blog, "title": title, "created": date, "tags": tags });
+			}
+		});
+	fs.writeFile('src/content/blogs/_index.json', JSON.stringify(index), (err) => {
+		if (err) {
+			throw err;
+		}
+		console.log("Blog index created");
+	})
+}
+/*
+  Parse topic filename to extract title, write this to _index.json in src/topics, to be published along with the content itself
+*/
+function generateTopicIndex() {
+	
 }

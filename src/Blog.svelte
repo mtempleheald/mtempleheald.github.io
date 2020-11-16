@@ -1,5 +1,4 @@
 <script>
-  import snarkdown from 'snarkdown';
   import { Route, Link } from "svelte-navigator";
   import { loadMarkdownContent, loadJsonContent } from './common.js';
 
@@ -10,7 +9,7 @@
 
 <article>
   <Route path=":id" let:params>
-    {#await loadMarkdownContent('/content/blogs/' + blogRoute + '.md')}
+    {#await loadMarkdownContent('/content/blogs/' + blogRoute)}
       <p>loading blog...</p>
     {:then content}
       {@html content}
@@ -26,7 +25,7 @@
     {:then content}
       <ul>
       {#each content as b}
-        <li><Link to="./{b.name}">{b.name}</Link></li>
+        <li><Link to="./{b.file}">{b.title}</Link></li>
       {/each}
       </ul>
     {:catch error}      

@@ -1,3 +1,4 @@
+import snarkdown from 'snarkdown';
 export async function loadMarkdownContent(path) {
 	let response = await fetch(path);
 	if (response.status === 200) {

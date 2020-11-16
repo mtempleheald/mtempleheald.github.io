@@ -9,7 +9,7 @@ or one of its dependencies. The system cannot find the file specified.
 ```
 
 
-### Depdendencies
+### Dependencies
 
 So I dug into this in order to understand the problem and how to fix it, it turns out that:  
 * Biztalk 2013 has a dependency on [Oracle Data Provider for .NET](https://www.oracle.com/technetwork/topics/dotnet/index-085163.html) version 11.2.  

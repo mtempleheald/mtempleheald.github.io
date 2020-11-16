@@ -17,6 +17,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "list-files-in-dir": "^0.1.5",
     "snarkdown": "^2.0.0",
     "svelte-navigator": "^3.1.3"
   }
