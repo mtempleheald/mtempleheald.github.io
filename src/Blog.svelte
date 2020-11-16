@@ -9,7 +9,7 @@
 
 <article>
   <Route path=":id" let:params>
-    {#await loadMarkdownContent('/content/blogs/' + blogRoute)}
+    {#await loadMarkdownContent('/content/blogs/' + blogRoute + '.md')}
       <p>loading blog...</p>
     {:then content}
       {@html content}
@@ -25,7 +25,7 @@
     {:then content}
       <ul>
       {#each content as b}
-        <li><Link to="./{b.file}">{b.title}</Link></li>
+        <li><Link to="./{b.link}">{b.title}</Link></li>
       {/each}
       </ul>
     {:catch error}      
@@ -40,5 +40,6 @@
   article {
     max-width: 1000px;
     margin: auto;
+    padding-bottom: 2rem;
   }
 </style>

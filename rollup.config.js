@@ -47,6 +47,10 @@ export default {
 			.then(paths => {
 				generateBlogIndex(Array.from(paths, p => p.replace(/^.*[\\\/]/, '')))
 			}),
+			listFiles('src/content/topics')
+				.then(paths => {
+					generateTopicIndex(Array.from(paths, p => p.replace(/^.*[\\\/]/, '')))
+				}),
 		copy({
       targets: [
         { src: 'src/content/**/*', dest: 'docs' }
@@ -104,10 +108,10 @@ function generateBlogIndex(blogs) {
 		.forEach(blog => {
 			if (blog != '_index.json') {
 				let date = blog.substr(0,10);
-				let title = blog.substr(11).replace(/\[.*\]/,'').replace('.md','');
+				let title = blog.substr(11).replace(/\[.*\]/,'').replace('.md','').replace(/\-/g,' ');
 				let tagsString = blog.replace('.md','').match(/\[.*\]/);
 				let tags = tagsString ? tagsString[0].replace(/[\[\]]/g,'').split(',') : [];
-				index.push ({"file": blog, "title": title, "created": date, "tags": tags });
+				index.push ({"link": blog.replace('.md',''), "title": title, "created": date, "tags": tags });
 			}
 		});
 	fs.writeFile('src/content/blogs/_index.json', JSON.stringify(index), (err) => {
@@ -120,6 +124,20 @@ function generateBlogIndex(blogs) {
 /*
   Parse topic filename to extract title, write this to _index.json in src/topics, to be published along with the content itself
 */
-function generateTopicIndex() {
-	
+function generateTopicIndex(topics) {
+	const fs = require('fs');
+	let index = [];
+	topics.sort() // want topics to be ordered by date
+		.forEach(topic => {
+			if (topic.substr(topic.length - 3) === '.md') {
+				let title = topic.replace('.md','').replace(/\-/g, ' ');
+				index.push ({"link": topic.replace('.md',''), "title": title });
+			}
+		});
+	fs.writeFile('src/content/topics/_index.json', JSON.stringify(index), (err) => {
+		if (err) {
+			throw err;
+		}
+		console.log("Topic index created");
+	})
 }

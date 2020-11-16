@@ -19,13 +19,13 @@
     {/await}
   </Route>
   <Route>
-    <h1>Topics I'm interested in</h1>
+    <h1>Topics of Interest</h1>
     {#await loadJsonContent('/content/topics/_index.json')}
       <p>loading topics...</p>
     {:then content}      
       <ul>
       {#each content as t}
-        <li><Link to="./{t.name}">{t.name}</Link></li>
+        <li><Link to="./{t.link}">{t.title}</Link></li>
       {/each}
       </ul>
     {:catch error}      
