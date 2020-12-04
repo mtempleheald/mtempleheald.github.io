@@ -5,27 +5,7 @@
   import Footer from './Footer.svelte';
   import Blog from './Blog.svelte';
   import Topic from './Topic.svelte';
-
-  // TODO move these to inject from external markdown files
-var index = `
-# Home
-
-Mindful meanderings manifest more manageable machinations.
-
-Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
-
-Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
-`;
-var about = `
-# About me
-
-TODO
-`;
-var notFound = `
-# Page not found
-
-What on Earth were you trying to achieve?
-`;
+  import { loadMarkdownContent, loadJsonContent } from './common.js';
 </script>
 
 
@@ -35,7 +15,14 @@ What on Earth were you trying to achieve?
   <main>
 
     <Route path="/">
-      {@html snarkdown(index)}
+        {#await loadMarkdownContent('/content/index.md')}
+          <p>loading blog...</p>
+        {:then content}
+          {@html content}
+        {:catch error}
+          <p>Error loading content</p>
+          <p>{error.message}</p>
+        {/await}
     </Route>
 
     <Route path="blog/*blogRoute" component={Blog} />
@@ -43,11 +30,25 @@ What on Earth were you trying to achieve?
     <Route path="topic/*topicRoute" component={Topic} />
 
     <Route path="about">
-      {@html snarkdown(about)}
+      {#await loadMarkdownContent('/content/about.md')}
+          <p>loading blog...</p>
+        {:then content}
+          {@html content}
+        {:catch error}
+          <p>Error loading content</p>
+          <p>{error.message}</p>
+        {/await}
     </Route>
 
     <Route>
-      {@html snarkdown(notFound)}
+      {#await loadMarkdownContent('/content/404.md')}
+          <p>loading blog...</p>
+        {:then content}
+          {@html content}
+        {:catch error}
+          <p>Error loading content</p>
+          <p>{error.message}</p>
+        {/await}
     </Route>
 
   </main>

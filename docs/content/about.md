@@ -1,9 +1,7 @@
----
-title: About me
-last-updated: 2018-11-26
----
+# About me
+### last-updated: 2020-12-04
 
-I've worked as a professional software developer for over 10 years and dabbled for years before that.  
+I've worked as a professional software developer for over 12 years and dabbled for years before that.  
 I've worked with dozens of programming languages, frameworks and platforms.  
 I've performed:
 * data modelling (relational, dimensional and hierarchical) and technical design

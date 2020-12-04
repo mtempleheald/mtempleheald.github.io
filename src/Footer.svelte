@@ -12,6 +12,11 @@ Footer component
   <a href="https://www.linkedin.com/in/mtempleheald" target="_blank">Mark Temple-Heald</a>
   <a href="https://mtempleheald.github.io" target="_blank">Home</a>
   <a href="https://github.com/mtempleheald" target="_blank">GitHub</a>
+  <p>
+    Mindful meanderings manifest more manageable machinations.
+    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
+    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
+  </p>
 </footer>
 
 

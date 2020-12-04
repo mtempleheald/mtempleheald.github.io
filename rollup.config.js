@@ -127,7 +127,7 @@ function generateBlogIndex(blogs) {
 function generateTopicIndex(topics) {
 	const fs = require('fs');
 	let index = [];
-	topics.sort() // want topics to be ordered by date
+	topics.sort() // want topics to be ordered by filename 
 		.forEach(topic => {
 			if (topic.substr(topic.length - 3) === '.md') {
 				let title = topic.replace('.md','').replace(/\-/g, ' ');
