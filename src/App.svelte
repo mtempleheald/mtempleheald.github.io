@@ -16,7 +16,7 @@
 
     <Route path="/">
         {#await loadMarkdownContent('/content/index.md')}
-          <p>loading blog...</p>
+          <p>loading content...</p>
         {:then content}
           {@html content}
         {:catch error}
@@ -31,7 +31,7 @@
 
     <Route path="about">
       {#await loadMarkdownContent('/content/about.md')}
-          <p>loading blog...</p>
+          <p>loading content...</p>
         {:then content}
           {@html content}
         {:catch error}
@@ -42,7 +42,7 @@
 
     <Route>
       {#await loadMarkdownContent('/content/404.md')}
-          <p>loading blog...</p>
+          <p>loading content...</p>
         {:then content}
           {@html content}
         {:catch error}
