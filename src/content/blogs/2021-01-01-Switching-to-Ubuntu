@@ -30,7 +30,9 @@ To do:
 Other than getting familiar with the CLI again (I've been lazy since work moved to Windows servers) this hasn't been too painful.  
 With one exception...
 Broadcom bluetooth, which is combined with wifi on the same device.
-This took a lot of digging until I finally found [this](https://askubuntu.com/questions/632336/bluetooth-broadcom-43142-isnt-working/#answer-632348) well written post that explains how to do this in detail and why this is necessary.
+This took a lot of digging until I finally found [this](https://askubuntu.com/questions/632336/bluetooth-broadcom-43142-isnt-working/#answer-632348).
+A well written post that explains how to do this in detail and why this is necessary.
+Honourable mention to [GitHub hosted broadcom firmware](https://github.com/winterheart/broadcom-bt-firmware) though I didn't use it in the end.
 
 Check Network PCI configuration with `lspci -nnk | grep -iA2 net`:
 ```02:00.0 Network controller [0280]: Broadcom Inc. and subsidiaries BCM4352 802.11ac Wireless Network Adapter [14e4:43b1] (rev 03)
