@@ -30,6 +30,30 @@ To do:
 Other than getting familiar with the CLI again (I've been lazy since work moved to Windows servers) this hasn't been too painful.  
 With one exception...
 Broadcom bluetooth, which is combined with wifi on the same device.
+
+Repeatable steps:
+`sudo bluetoothctl`
+Agent registered
+`devices`
+Device XXX MX Master
+`trust XXX
+[CHG] Device XXX Trusted: yes
+Changing XXX trust succeeded
+`connect XXX`
+Attempting to connect to XXX
+[CHG] Device XXX Connected: yes
+Failed to connect: org.bluez.Error.Failed
+[CHG] Device XXX Connected: no
+pair XXX
+Attempting to pair with XXX
+Failed to pair: org.bluez.Error.AuthenticationCanceled
+bluetoothd
+D-Bus setup failed: Connection ":1.307" is not allowed to own the service "org.bluez" due to security policies in the configuration file
+
+Until finally I found the error in Logs:
+`Bluetooth: hci0: BCM: Patch brcm/BCM20702A1-13d3-3404.hcd not found`
+Proof that this isn't a process thing, but a software/firmware/driver thing.
+
 This took a lot of digging until I finally found [this](https://askubuntu.com/questions/632336/bluetooth-broadcom-43142-isnt-working/#answer-632348).
 A well written post that explains how to do this in detail and why this is necessary.
 Honourable mention to [GitHub hosted broadcom firmware](https://github.com/winterheart/broadcom-bt-firmware) though I didn't use it in the end.
