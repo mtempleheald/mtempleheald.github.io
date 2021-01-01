@@ -50,23 +50,16 @@ Failed to pair: org.bluez.Error.AuthenticationCanceled
 bluetoothd
 D-Bus setup failed: Connection ":1.307" is not allowed to own the service "org.bluez" due to security policies in the configuration file
 
-Until finally I found the error in Logs:
+I checked over `/etc/bluetooth/main.conf` but that didn't help.
+I explored `/etc/dbus-1/system.d/bluetooth.conf` and group policies associated, no progress.
+
+Until finally I found the real error in Logs:
 `Bluetooth: hci0: BCM: Patch brcm/BCM20702A1-13d3-3404.hcd not found`
 Proof that this isn't a process thing, but a software/firmware/driver thing.
 
 This took a lot of digging until I finally found [this](https://askubuntu.com/questions/632336/bluetooth-broadcom-43142-isnt-working/#answer-632348).
 A well written post that explains how to do this in detail and why this is necessary.
-Honourable mention to [GitHub hosted broadcom firmware](https://github.com/winterheart/broadcom-bt-firmware) though I didn't use it in the end.
-
-Check Network PCI configuration with `lspci -nnk | grep -iA2 net`:
-```02:00.0 Network controller [0280]: Broadcom Inc. and subsidiaries BCM4352 802.11ac Wireless Network Adapter [14e4:43b1] (rev 03)
-	Subsystem: AzureWave BCM4352 802.11ac Wireless Network Adapter [1a3b:2123]
-```
-
-and USB with `lsusb`:
-```
-Bus 003 Device 004: ID 13d3:3404 IMC Networks BCM20702A0
-```
+Honourable mention to [GitHub hosted broadcom firmware](https://github.com/winterheart/broadcom-bt-firmware) though I didn't use this in the end.
 
 Check recent device messages for bluetooth errors using `dmesg | egrep -i 'blue|firm'`:
 ```
@@ -74,6 +67,16 @@ Check recent device messages for bluetooth errors using `dmesg | egrep -i 'blue|
 [    2.517048] Bluetooth: hci0: BCM20702A1 (001.002.014) build 0000
 [    2.518036] bluetooth hci0: Direct firmware load for brcm/BCM20702A1-13d3-3404.hcd failed with error -2
 [    2.518039] Bluetooth: hci0: BCM: Patch brcm/BCM20702A1-13d3-3404.hcd not found
+```
+
+Check Network PCI configuration with `lspci -nnk | grep -iA2 net`:
+```02:00.0 Network controller [0280]: Broadcom Inc. and subsidiaries BCM4352 802.11ac Wireless Network Adapter [14e4:43b1] (rev 03)
+	Subsystem: AzureWave BCM4352 802.11ac Wireless Network Adapter [1a3b:2123]
+```
+
+and USB device configuration with `lsusb`:
+```
+Bus 003 Device 004: ID 13d3:3404 IMC Networks BCM20702A0
 ```
 
 Download [Windows driver](http://drivers.softpedia.com/get/BLUETOOTH/Broadcom/ASUS-X99-DELUXE-Broadcom-Bluetooth-Driver-6515800-12009860.shtml#download)
