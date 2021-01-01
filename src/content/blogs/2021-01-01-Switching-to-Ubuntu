@@ -1,0 +1,82 @@
+# Finally switched to Linux desktop
+
+I'd been meaning to switch to Linux for some time now, around the time I built this PC.
+I tried Debian last time and had major issuing even installing it, related to a poor quality power supply which has been replaced since.  
+The Windows installer seemed a little more forgiving and I just never got around to retrying, until now.
+
+## The plan
+
+I figured I'd make life relatively easy for myself and go with a popular, easy distro, so Ubuntu for now.
+Mostly it has been easy, my aim to get to a position where I can easily use the following software:
+
+- Firefox     - trivial, ootb
+- Thunderbird - trivial, ootb
+- KeePass     - simple once I found [instructions](https://www.ithowtoo.com/2020/12/18/ubuntu-20-04-installing-keypass/)
+- DropBox     - simple to follow [instructions](https://www.dropbox.com/install-linux)
+- git         - trivial, `sudo apt-get install git` or `sudo apt-get install git-all`
+- VS Code     - simple [instructions](https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions)
+- Rust        - Trivial `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+
+To do:
+- .NET Core   - https://docs.microsoft.com/en-gb/dotnet/core/install/linux-ubuntu
+- Steam
+- adb
+- alternative browsers
+- node/npm/svelte
+- docker/k8s/terraform
+
+## The Broadcom issue
+
+Other than getting familiar with the CLI again (I've been lazy since work moved to Windows servers) this hasn't been too painful.  
+With one exception...
+Broadcom bluetooth, which is combined with wifi on the same device.
+This took a lot of digging until I finally found [this](https://askubuntu.com/questions/632336/bluetooth-broadcom-43142-isnt-working/#answer-632348) well written post that explains how to do this in detail and why this is necessary.
+
+Check Network PCI configuration with `lspci -nnk | grep -iA2 net`:
+```02:00.0 Network controller [0280]: Broadcom Inc. and subsidiaries BCM4352 802.11ac Wireless Network Adapter [14e4:43b1] (rev 03)
+	Subsystem: AzureWave BCM4352 802.11ac Wireless Network Adapter [1a3b:2123]
+```
+
+and USB with `lsusb`:
+```
+Bus 003 Device 004: ID 13d3:3404 IMC Networks BCM20702A0
+```
+
+Check recent device messages for bluetooth errors using `dmesg | egrep -i 'blue|firm'`:
+```
+[    2.516055] Bluetooth: hci0: BCM20702A
+[    2.517048] Bluetooth: hci0: BCM20702A1 (001.002.014) build 0000
+[    2.518036] bluetooth hci0: Direct firmware load for brcm/BCM20702A1-13d3-3404.hcd failed with error -2
+[    2.518039] Bluetooth: hci0: BCM: Patch brcm/BCM20702A1-13d3-3404.hcd not found
+```
+
+Download [Windows driver](http://drivers.softpedia.com/get/BLUETOOTH/Broadcom/ASUS-X99-DELUXE-Broadcom-Bluetooth-Driver-6515800-12009860.shtml#download)
+Extract and find file bcbtums-*.inf, I went for Windows 8.1 64bit version.
+In file find `VID_13d3&PID_3404` (values from lsusb command)
+```
+line 148: %AzBtModule.DeviceDesc%=BlueRAMUSB3404,         USB\VID_13D3&PID_3404       ; 4352HMB Azurewave Module
+line 234: %AzBtModule.DeviceDesc%=RAMUSB3404,         USB\VID_13D3&PID_3404       ; 4352HMB Azurewave Module
+```
+In the same file search for this DeviceDesc to find the filename of the driver:
+```
+[RAMUSB3404.CopyList]
+bcbtums.sys
+btwampfl.sys
+BCM20702A1_001.002.014.1443.1479.hex
+```
+Copy .hex file to $HOME and convert to hcd:
+```
+git clone git://github.com/jessesung/hex2hcd.git
+cd hex2hcd/
+make
+cd $HOME
+~/hex2hcd/hex2hcd ~/BCM20702A1_001.002.014.1443.1479.hex ~/BCM20702A1-13d3-3404.hcd
+```
+Copy file to firmware directory:
+```
+sudo cp ~/BCM20702A1-13d3-3404.hcd /lib/firmware/brcm
+```
+Turn it off and on again.
+Huzzah!  (Just lucky I kept my old mouse or I'd probably have abandoned the whole endeavour)
+
+To be continued...
