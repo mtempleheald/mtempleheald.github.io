@@ -26,7 +26,7 @@ jobs:
       # Deploy (main branch only)
       - name: Remove build file exclusions
         if: job.status == 'success' && github.ref == 'refs/heads/main'
-        run: sed -i -e "/docs/d" .gitignore
+        run: sed -i -e "/\/\*\*\/_index.json/ d" .gitignore
         shell: bash
       - name: Deploy to GitHub Pages
         if: job.status == 'success' && github.ref == 'refs/heads/main'
