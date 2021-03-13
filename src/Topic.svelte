@@ -20,7 +20,7 @@
   </Route>
   <Route>
     <h1>Topics of Interest</h1>
-    {#await loadJsonContent('/content/topics/_index.json')}
+    {#await loadJsonContent('/content/topics/index.json')}
       <p>loading topics...</p>
     {:then content}      
       <ul>

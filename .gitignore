@@ -2,4 +2,4 @@
 .vscode
 # Required only on gh-pages branch
 docs/
-/**/_index.json
+/**/index.json

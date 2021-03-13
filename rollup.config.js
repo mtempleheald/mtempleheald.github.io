@@ -117,7 +117,7 @@ function generateBlogIndex(blogs) {
 				index.push ({"link": blog.replace('.md',''), "title": title, "created": date, "tags": tags });
 			}
 		});
-	fs.writeFile('src/content/blogs/_index.json', JSON.stringify(index), (err) => {
+	fs.writeFile('src/content/blogs/index.json', JSON.stringify(index), (err) => {
 		if (err) {
 			throw err;
 		}
@@ -137,7 +137,7 @@ function generateTopicIndex(topics) {
 				index.push ({"link": topic.replace('.md',''), "title": title });
 			}
 		});
-	fs.writeFile('src/content/topics/_index.json', JSON.stringify(index), (err) => {
+	fs.writeFile('src/content/topics/index.json', JSON.stringify(index), (err) => {
 		if (err) {
 			throw err;
 		}

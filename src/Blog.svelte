@@ -20,7 +20,7 @@
   </Route>
   <Route>
     <h1>Blog articles</h1>
-    {#await loadJsonContent('/content/blogs/_index.json')}
+    {#await loadJsonContent('/content/blogs/index.json')}
       <p>loading blogs...</p>
     {:then content}
       <ul>
