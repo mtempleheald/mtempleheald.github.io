@@ -1,0 +1,36 @@
+name: continous-deployment
+
+# Always run CI, CD conditional on main branch
+on: [push, pull_request]
+
+jobs:
+  cicd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Lint
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: false # only want to validate this commit
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Use Node.js
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '10.x'
+      - name: Install web dependencies
+        run: npm ci # Do not modify package-lock.json
+      - name: Compile website
+        run: npm run build
+      # Deploy (main branch only)
+      - name: Remove build file exclusions
+        if: job.status == 'success' && github.ref == 'refs/heads/main'
+        run: sed -i -e "/docs/d" .gitignore
+        shell: bash
+      - name: Deploy to GitHub Pages
+        if: job.status == 'success' && github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: gh-pages
+          folder: docs

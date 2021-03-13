@@ -53,7 +53,10 @@ export default {
 				}),
 		copy({
       targets: [
-        { src: 'src/content/**/*', dest: 'docs' }
+        { src: 'src/content/**/*', dest: 'docs' },
+		{ src: '*.html', dest: 'docs' },
+		{ src: '*.css', dest: 'docs' },
+		{ src: 'favicon.ico', dest: 'docs' }
 			],
 			flatten: false
     }),
