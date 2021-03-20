@@ -24,10 +24,6 @@ jobs:
       - name: Compile website
         run: npm run build
       # Deploy (main branch only)
-      - name: Remove build file exclusions
-        if: job.status == 'success' && github.ref == 'refs/heads/main'
-        run: sed -i -e "/\/\*\*\/index.json/ d" .gitignore
-        shell: bash
       - name: Deploy to GitHub Pages
         if: job.status == 'success' && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@4.0.0
