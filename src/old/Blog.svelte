@@ -1,5 +1,4 @@
 <script>
-  import { Route, Link } from "svelte-navigator";
   import { loadMarkdownContent, loadJsonContent } from './common.js';
 
   export let blogRoute;

@@ -1,7 +1,7 @@
 <script>
   import { Router, Route } from "svelte-navigator";
   import snarkdown from 'snarkdown';
-  import Header from './Header.svelte';
+  import Header from '../lib/Header.svelte';
   import Footer from './Footer.svelte';
   import Blog from './Blog.svelte';
   import Topic from './Topic.svelte';

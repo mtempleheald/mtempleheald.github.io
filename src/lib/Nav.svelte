@@ -1,5 +1,4 @@
 <script>
-	import { Link } from "svelte-navigator";
 </script>
 
 
@@ -9,10 +8,10 @@ Navigation bar component
 -->
 <nav>
   <ul>
-    <li><Link to="/" class="navAnchor">Home</Link></li>
-    <li><Link to="/blog" class="navAnchor">Blog</Link></li>
-    <li><Link to="/topic" class="navAnchor">Topic</Link></li>
-    <li><Link to="/about" class="navAnchor">About</Link></li>
+    <li><a href="/" class="navAnchor">Home</a></li>
+    <li><a href="/blog" class="navAnchor">Blog</a></li>
+    <li><a href="/topic" class="navAnchor">Topic</a></li>
+    <li><a href="/about" class="navAnchor">About</a></li>
   </ul>
 </nav>
 
