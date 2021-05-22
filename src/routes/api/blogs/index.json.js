@@ -10,9 +10,7 @@ export async function get({ query }) {
     }
 
     return {
-        body: [
-            "2021-03-16-DevOps-Shared-Environments"
-        ]
+        body: slugs
     }
 
 }

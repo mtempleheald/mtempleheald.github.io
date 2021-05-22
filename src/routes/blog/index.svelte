@@ -16,9 +16,13 @@
 
 <script>
     export let blogs;
-	function slugDisplay(slug) {
+	function titleFrom(slug) {
 		const arr = slug.split('-')
-		return `${arr.slice(3).join(' ')} ${arr[2]}/${arr[1]}/${arr[0]}`
+		return arr.slice(3).join(' ')
+	}
+	function dateFrom(slug) {
+		const arr = slug.split('-')
+		return `${arr[2]}/${arr[1]}/${arr[0]}`
 	}
 </script>
 
@@ -27,5 +31,15 @@
 
 
 {#each blogs as blog}
-    <a href="/blog/{blog}">{slugDisplay(blog)}</a>
+    <a href="/blog/{blog}">
+		<span>{titleFrom(blog)}</span>
+		<br/>
+		<span>{dateFrom(blog)}</span>
+		<hr/>
+	</a>
 {/each}
+
+
+<style>
+
+</style>
