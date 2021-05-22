@@ -10,7 +10,7 @@ export async function get({ query }) {
     }
 
     return {
-        body: slugs
+        body: slugs.sort((a,b) => a > b ? -1 : 1)
     }
 
 }
