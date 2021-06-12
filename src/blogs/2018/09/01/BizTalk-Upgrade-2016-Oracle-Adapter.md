@@ -50,14 +50,12 @@ I'm glad I spent the time investigating this, luckily we didn't have to follow [
 ### Testing
 
 After installation we have new entries in the %PATH% environment variable: 
-``` 
-C:\oracle\product\12.1.0\client_1  
-C:\oracle\product\12.1.0\client_1\bin
-```  
+`C:\oracle\product\12.1.0\client_1`
+`C:\oracle\product\12.1.0\client_1\bin`
+  
 listed before the server installation: 
-``` 
-C:\oraclexe\app\oracle\product\11.2.0\server\bin 
-```  
+`C:\oraclexe\app\oracle\product\11.2.0\server\bin`  
+
 This means that the client config (TNSNames.ora etc) will be used.  
 
 This is important for us to know.  

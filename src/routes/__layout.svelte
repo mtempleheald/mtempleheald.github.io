@@ -24,7 +24,7 @@
 		box-sizing: border-box;
 	}
 
-	footer {
+	/* footer {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -40,5 +40,5 @@
 		footer {
 			padding: 40px 0;
 		}
-	}
+	} */
 </style>

@@ -133,7 +133,7 @@ I recommend reading this book, it is clear, detailed and accessible, but here is
 
 * Combine 2 or more dimensions into a single dimension.  
   This is likely to be a Cartesian product and is suitable only for small date volumes
-* E.g. flights – class flown <> class purchased (up/downgrades), create superdimension with 9 rows (coach/business/first)^2
+* E.g. flights – class flown != class purchased (up/downgrades), create superdimension with 9 rows (coach/business/first)^2
 
 #### Fact Dimension
 

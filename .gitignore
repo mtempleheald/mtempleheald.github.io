@@ -4,3 +4,4 @@
 docs/
 /**/index.json
 .svelte-kit/
+build/*

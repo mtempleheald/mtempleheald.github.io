@@ -348,15 +348,15 @@ This requires setting up an Azure Resource Manager (ARM) connection:
 *Azure DevOps > Project Settings > Pipelines > Service Connections > New Service Connection > Azure Resource Manager*  
 For which I had to [create a service principal](https://docs.microsoft.com/en-gb/azure/active-directory/develop/howto-create-service-principal-portal):  
 1. Azure Portal > App Registrations > Create > Web App (url not important yet)
-2. Azure Portal > Subscriptions > <MySubscription> > IAM > Add role assignment > Contributor + App name
+2. Azure Portal > Subscriptions > ~MySubscription~ > IAM > Add role assignment > Contributor + App name
 
 I could now access the parameters required to add the connection:  
 * Tenant-Id:  
   Azure Portal > Azure Active Directory > Properties > Directory ID
 * Application ID:  
-  Azure Portal > App Registrations > <My App> > Application ID
+  Azure Portal > App Registrations > ~My App~ > Application ID
 * Authentication Key:  
-  Azure Portal > App Registrations > <My App> > Settings > Keys
+  Azure Portal > App Registrations > ~My App~ > Settings > Keys
 
 Hereafter release pipeline tasks simply need to refer to this connection and it just works.
 
