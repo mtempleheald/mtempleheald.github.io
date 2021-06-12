@@ -30,6 +30,6 @@ jobs:
         if: job.status == 'success' && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          token: {{ secrets.GHP_DEPLOY_PAT }}
+          token: ${{ secrets.GHP_DEPLOY_PAT }}
           branch: gh-pages
           folder: build
