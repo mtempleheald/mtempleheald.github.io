@@ -26,8 +26,7 @@ jobs:
       # Deploy (main branch only)
       - name: Deploy to GitHub Pages
         if: job.status == 'success' && github.ref == 'refs/heads/main'
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
           folder: build
-          target-folder: .
