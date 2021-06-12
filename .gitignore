@@ -3,3 +3,5 @@
 # Required only on gh-pages branch
 docs/
 /**/index.json
+.svelte-kit/
+build/*
