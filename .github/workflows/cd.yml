@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          persist-credentials: false
       - name: Lint
         uses: github/super-linter@v3
         env:
@@ -30,6 +28,5 @@ jobs:
         if: job.status == 'success' && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          token: ${{ secrets.GHP_DEPLOY_PAT }}
           branch: gh-pages
           folder: build
