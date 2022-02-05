@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<meta http-equiv="content-security-policy" content="">
+	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
+	<link rel="modulepreload" href="/_app/start-e82316e2.js">
+	<link rel="modulepreload" href="/_app/chunks/vendor-5ca848cc.js">
+	<link rel="modulepreload" href="/_app/pages/__layout.svelte-8da8bfc2.js">
+	<link rel="modulepreload" href="/_app/pages/blog/_slug_.svelte-db98abb9.js">
+	</head>
+	<body>
+		<div>
+
+
+
+<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
+  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
+
+<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
+    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
+    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
+    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+</nav>
+</div>
+
+<main class="svelte-lv7236"><!-- HTML_TAG_START --><h1>Finally switched to Linux desktop</h1>I'd been meaning to switch to Linux for some time now, around the time I built this PC.
+I tried Debian last time and had major issuing even installing it, related to a poor quality power supply which has been replaced since.<br />The Windows installer seemed a little more forgiving and I just never got around to retrying, until now.<h2>The plan</h2>I figured I'd make life relatively easy for myself and go with a popular, easy distro, so Ubuntu for now.
+Mostly it has been easy, my aim to get to a position where I can easily use the following software:<br /><ul><li>Firefox     - trivial, ootb</li><li>Thunderbird - trivial, ootb</li><li>KeePass     - simple once I found <a href="https://www.ithowtoo.com/2020/12/18/ubuntu-20-04-installing-keypass/">instructions</a></li><li>DropBox     - simple to follow <a href="https://www.dropbox.com/install-linux">instructions</a></li><li>git         - trivial, <code>sudo apt-get install git</code> or <code>sudo apt-get install git-all</code></li><li>VS Code     - simple <a href="https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions">instructions</a></li><li>Rust        - Trivial <code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></li></ul><br />To do:<ul><li>.NET Core   - https://docs.microsoft.com/en-gb/dotnet/core/install/linux-ubuntu</li><li>Steam</li><li>adb</li><li>alternative browsers</li><li>node/npm/svelte</li><li>docker/k8s/terraform</li></ul><h2>The Broadcom issue</h2>Other than getting familiar with the CLI again (I've been lazy since work moved to Windows servers) this hasn't been too painful.<br />With one exception...
+Broadcom bluetooth, which is combined with wifi on the same device.<br />Repeatable steps:
+<code>sudo bluetoothctl</code>
+Agent registered
+<code>devices</code>
+Device XXX MX Master
+`trust XXX
+<a href="undefined">CHG</a> Device XXX Trusted: yes
+Changing XXX trust succeeded
+<code>connect XXX</code>
+Attempting to connect to XXX
+<a href="undefined">CHG</a> Device XXX Connected: yes
+Failed to connect: org.bluez.Error.Failed
+<a href="undefined">CHG</a> Device XXX Connected: no
+pair XXX
+Attempting to pair with XXX
+Failed to pair: org.bluez.Error.AuthenticationCanceled
+bluetoothd
+D-Bus setup failed: Connection ":1.307" is not allowed to own the service "org.bluez" due to security policies in the configuration file<br />I checked over <code>/etc/bluetooth/main.conf</code> but that didn't help.
+I explored <code>/etc/dbus-1/system.d/bluetooth.conf</code> and group policies associated, no progress.<br />Until finally I found the real error in Logs:
+<code>Bluetooth: hci0: BCM: Patch brcm/BCM20702A1-13d3-3404.hcd not found</code>
+Proof that this is a software/firmware/driver thing not just me missing something obvious.<br />This took a lot of digging until I finally found <a href="https://askubuntu.com/questions/632336/bluetooth-broadcom-43142-isnt-working/#answer-632348">this</a>.
+A well written post that explains how to do this in detail and why this is necessary.
+Honourable mention to <a href="https://github.com/winterheart/broadcom-bt-firmware">GitHub hosted broadcom firmware</a> though I didn't use this in the end.<br />Check recent device messages for bluetooth errors using <code>dmesg | egrep -i 'blue|firm'</code>:
+<pre class="code "><code>[    2.516055] Bluetooth: hci0: BCM20702A
+[    2.517048] Bluetooth: hci0: BCM20702A1 (001.002.014) build 0000
+[    2.518036] bluetooth hci0: Direct firmware load for brcm/BCM20702A1-13d3-3404.hcd failed with error -2
+[    2.518039] Bluetooth: hci0: BCM: Patch brcm/BCM20702A1-13d3-3404.hcd not found</code></pre><br />Check Network PCI configuration with <code>lspci -nnk | grep -iA2 net</code>:
+```02:00.0 Network controller <a href="undefined">0280</a>: Broadcom Inc. and subsidiaries BCM4352 802.11ac Wireless Network Adapter <a href="undefined">14e4:43b1</a> (rev 03)<pre class="code poetry"><code>Subsystem: AzureWave BCM4352 802.11ac Wireless Network Adapter [1a3b:2123]</code></pre><pre class="code "><code>and USB device configuration with `lsusb`:</code></pre>
+Bus 003 Device 004: ID 13d3:3404 IMC Networks BCM20702A0
+<pre class="code "><code>Download [Windows driver](http://drivers.softpedia.com/get/BLUETOOTH/Broadcom/ASUS-X99-DELUXE-Broadcom-Bluetooth-Driver-6515800-12009860.shtml#download)
+Extract and find file bcbtums-*.inf, I went for Windows 8.1 64bit version.
+In file find `VID_13d3&PID_3404` (values from lsusb command)</code></pre>
+line 148: %AzBtModule.DeviceDesc%=BlueRAMUSB3404,         USB\VID<em>13D3&PID</em>3404       ; 4352HMB Azurewave Module
+line 234: %AzBtModule.DeviceDesc%=RAMUSB3404,         USB\VID<em>13D3&PID</em>3404       ; 4352HMB Azurewave Module
+<pre class="code "><code>In the same file search for this DeviceDesc to find the filename of the driver:</code></pre>
+<a href="undefined">RAMUSB3404.CopyList</a>
+bcbtums.sys
+btwampfl.sys
+BCM20702A1<em>001.002.014.1443.1479.hex
+<pre class="code "><code>Copy .hex file to $HOME and convert to hcd:</code></pre>
+git clone git://github.com/jessesung/hex2hcd.git
+cd hex2hcd/
+make
+cd $HOME
+~/hex2hcd/hex2hcd ~/BCM20702A1</em>001.002.014.1443.1479.hex ~/BCM20702A1-13d3-3404.hcd
+<pre class="code "><code>Copy file to firmware directory:</code></pre>
+sudo cp ~/BCM20702A1-13d3-3404.hcd /lib/firmware/brcm
+<pre class="code "><code>Turn it off and on again.
+Huzzah!  (Just lucky I kept my old mouse or I'd probably have abandoned the whole endeavour)
+
+To be continued...
+
+---
+
+1 week later...
+
+So, after a minor upgrade and a restart I've lost wifi, but bluetooth is still working.
+Luckily I still have a 25m ethernet cable and an old wired mouse lying around.
+[This](https://itsfoss.com/fix-no-wireless-network-ubuntu/) seems to describe the same problem but the fix didn't help me.
+
+Under Software & Updates &gt; Additional Drivers I see that my Wireless Network Adapter is not being used.
+I try to enable it and see the error </code></pre>
+pk-client-error-quark: Error while installing package: installed bcmwl-kernel-source package post-installation script subprocess returned error exit status 10 (313)
+```<br />Apparently <a href="https://askubuntu.com/questions/1305699/bcmwl-kernel-source-broken-on-kernel-5-8-0-34-generic#answer-1305819">Canonical forget to upgrade bcmwl-kernel-source</a>
+<code>sudo apt purge -y bcmwl-kernel-source</code> to remove the package that isn't working
+<code>sudo apt autoremove</code> to tidy up
+Option 1 <a href="http://mirrors.kernel.org/ubuntu/pool/restricted/b/bcmwl/bcmwl-kernel-source_6.30.223.271+bdcom-0ubuntu7_amd64.deb">install pkg</a> seems to have brought back wifi, and bluetooth's still working we'll see how long this lasts...<br />The most irritating thing here is that this is a desktop, I have a long ethernet cable and I'd be happy with a wired mouse, it just happens to be wireless, so none of this is really necessary.<br />I'm getting the impression I need to actually understand the fix not just blindly apply internet answers!<br />Let's start with the kernel version since that seems to be where this problem starts.
+<code>cat /proc/version_signature</code>
+Ubuntu 5.8.0-36.40~20.04.1-generic 5.8.18<br />How am I meant to know that bcmwl-kernel-source 6.30... compiles with kernel 5.8?<br />Parking this for another day, will see if the fix persists...<!-- HTML_TAG_END --></main>
+
+
+<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
+  <p>If you don&#39;t like it, you know where the close button is.</p>
+  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
+  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
+  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
+  <p>Mindful meanderings manifest more manageable machinations.
+    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
+    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
+  </p>
+</footer>
+
+
+		<script type="module" data-hydrate="16decid">
+		import { start } from "/_app/start-e82316e2.js";
+		start({
+			target: document.querySelector('[data-hydrate="16decid"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/_app/pages/__layout.svelte-8da8bfc2.js"),
+						import("/_app/pages/blog/_slug_.svelte-db98abb9.js")
+				],
+				url: new URL("http://sveltekit-prerender/blog/2021-01-01-Switching-to-Ubuntu"),
+				params: {slug:"2021-01-01-Switching-to-Ubuntu"}
+			}
+		});
+	</script><script type="application/json" data-type="svelte-data" data-url="/api/blogs/2021-01-01-Switching-to-Ubuntu">{"status":200,"statusText":"","headers":{"content-type":"text/plain;charset=UTF-8"},"body":"# Finally switched to Linux desktop\n\nI'd been meaning to switch to Linux for some time now, around the time I built this PC.\nI tried Debian last time and had major issuing even installing it, related to a poor quality power supply which has been replaced since.  \nThe Windows installer seemed a little more forgiving and I just never got around to retrying, until now.\n\n## The plan\n\nI figured I'd make life relatively easy for myself and go with a popular, easy distro, so Ubuntu for now.\nMostly it has been easy, my aim to get to a position where I can easily use the following software:\n\n- Firefox     - trivial, ootb\n- Thunderbird - trivial, ootb\n- KeePass     - simple once I found [instructions](https:\u002F\u002Fwww.ithowtoo.com\u002F2020\u002F12\u002F18\u002Fubuntu-20-04-installing-keypass\u002F)\n- DropBox     - simple to follow [instructions](https:\u002F\u002Fwww.dropbox.com\u002Finstall-linux)\n- git         - trivial, `sudo apt-get install git` or `sudo apt-get install git-all`\n- VS Code     - simple [instructions](https:\u002F\u002Fcode.visualstudio.com\u002Fdocs\u002Fsetup\u002Flinux#_debian-and-ubuntu-based-distributions)\n- Rust        - Trivial `curl --proto '=https' --tlsv1.2 -sSf https:\u002F\u002Fsh.rustup.rs | sh`\n\nTo do:\n- .NET Core   - https:\u002F\u002Fdocs.microsoft.com\u002Fen-gb\u002Fdotnet\u002Fcore\u002Finstall\u002Flinux-ubuntu\n- Steam\n- adb\n- alternative browsers\n- node\u002Fnpm\u002Fsvelte\n- docker\u002Fk8s\u002Fterraform\n\n## The Broadcom issue\n\nOther than getting familiar with the CLI again (I've been lazy since work moved to Windows servers) this hasn't been too painful.  \nWith one exception...\nBroadcom bluetooth, which is combined with wifi on the same device.\n\nRepeatable steps:\n`sudo bluetoothctl`\nAgent registered\n`devices`\nDevice XXX MX Master\n`trust XXX\n[CHG] Device XXX Trusted: yes\nChanging XXX trust succeeded\n`connect XXX`\nAttempting to connect to XXX\n[CHG] Device XXX Connected: yes\nFailed to connect: org.bluez.Error.Failed\n[CHG] Device XXX Connected: no\npair XXX\nAttempting to pair with XXX\nFailed to pair: org.bluez.Error.AuthenticationCanceled\nbluetoothd\nD-Bus setup failed: Connection \":1.307\" is not allowed to own the service \"org.bluez\" due to security policies in the configuration file\n\nI checked over `\u002Fetc\u002Fbluetooth\u002Fmain.conf` but that didn't help.\nI explored `\u002Fetc\u002Fdbus-1\u002Fsystem.d\u002Fbluetooth.conf` and group policies associated, no progress.\n\nUntil finally I found the real error in Logs:\n`Bluetooth: hci0: BCM: Patch brcm\u002FBCM20702A1-13d3-3404.hcd not found`\nProof that this is a software\u002Ffirmware\u002Fdriver thing not just me missing something obvious.\n\nThis took a lot of digging until I finally found [this](https:\u002F\u002Faskubuntu.com\u002Fquestions\u002F632336\u002Fbluetooth-broadcom-43142-isnt-working\u002F#answer-632348).\nA well written post that explains how to do this in detail and why this is necessary.\nHonourable mention to [GitHub hosted broadcom firmware](https:\u002F\u002Fgithub.com\u002Fwinterheart\u002Fbroadcom-bt-firmware) though I didn't use this in the end.\n\nCheck recent device messages for bluetooth errors using `dmesg | egrep -i 'blue|firm'`:\n```\n[    2.516055] Bluetooth: hci0: BCM20702A\n[    2.517048] Bluetooth: hci0: BCM20702A1 (001.002.014) build 0000\n[    2.518036] bluetooth hci0: Direct firmware load for brcm\u002FBCM20702A1-13d3-3404.hcd failed with error -2\n[    2.518039] Bluetooth: hci0: BCM: Patch brcm\u002FBCM20702A1-13d3-3404.hcd not found\n```\n\nCheck Network PCI configuration with `lspci -nnk | grep -iA2 net`:\n```02:00.0 Network controller [0280]: Broadcom Inc. and subsidiaries BCM4352 802.11ac Wireless Network Adapter [14e4:43b1] (rev 03)\n\tSubsystem: AzureWave BCM4352 802.11ac Wireless Network Adapter [1a3b:2123]\n```\n\nand USB device configuration with `lsusb`:\n```\nBus 003 Device 004: ID 13d3:3404 IMC Networks BCM20702A0\n```\n\nDownload [Windows driver](http:\u002F\u002Fdrivers.softpedia.com\u002Fget\u002FBLUETOOTH\u002FBroadcom\u002FASUS-X99-DELUXE-Broadcom-Bluetooth-Driver-6515800-12009860.shtml#download)\nExtract and find file bcbtums-*.inf, I went for Windows 8.1 64bit version.\nIn file find `VID_13d3&PID_3404` (values from lsusb command)\n```\nline 148: %AzBtModule.DeviceDesc%=BlueRAMUSB3404,         USB\\VID_13D3&PID_3404       ; 4352HMB Azurewave Module\nline 234: %AzBtModule.DeviceDesc%=RAMUSB3404,         USB\\VID_13D3&PID_3404       ; 4352HMB Azurewave Module\n```\nIn the same file search for this DeviceDesc to find the filename of the driver:\n```\n[RAMUSB3404.CopyList]\nbcbtums.sys\nbtwampfl.sys\nBCM20702A1_001.002.014.1443.1479.hex\n```\nCopy .hex file to $HOME and convert to hcd:\n```\ngit clone git:\u002F\u002Fgithub.com\u002Fjessesung\u002Fhex2hcd.git\ncd hex2hcd\u002F\nmake\ncd $HOME\n~\u002Fhex2hcd\u002Fhex2hcd ~\u002FBCM20702A1_001.002.014.1443.1479.hex ~\u002FBCM20702A1-13d3-3404.hcd\n```\nCopy file to firmware directory:\n```\nsudo cp ~\u002FBCM20702A1-13d3-3404.hcd \u002Flib\u002Ffirmware\u002Fbrcm\n```\nTurn it off and on again.\nHuzzah!  (Just lucky I kept my old mouse or I'd probably have abandoned the whole endeavour)\n\nTo be continued...\n\n---\n\n1 week later...\n\nSo, after a minor upgrade and a restart I've lost wifi, but bluetooth is still working.\nLuckily I still have a 25m ethernet cable and an old wired mouse lying around.\n[This](https:\u002F\u002Fitsfoss.com\u002Ffix-no-wireless-network-ubuntu\u002F) seems to describe the same problem but the fix didn't help me.\n\nUnder Software & Updates \u003E Additional Drivers I see that my Wireless Network Adapter is not being used.\nI try to enable it and see the error \n```\npk-client-error-quark: Error while installing package: installed bcmwl-kernel-source package post-installation script subprocess returned error exit status 10 (313)\n```\n\nApparently [Canonical forget to upgrade bcmwl-kernel-source](https:\u002F\u002Faskubuntu.com\u002Fquestions\u002F1305699\u002Fbcmwl-kernel-source-broken-on-kernel-5-8-0-34-generic#answer-1305819)\n`sudo apt purge -y bcmwl-kernel-source` to remove the package that isn't working\n`sudo apt autoremove` to tidy up\nOption 1 [install pkg](http:\u002F\u002Fmirrors.kernel.org\u002Fubuntu\u002Fpool\u002Frestricted\u002Fb\u002Fbcmwl\u002Fbcmwl-kernel-source_6.30.223.271+bdcom-0ubuntu7_amd64.deb) seems to have brought back wifi, and bluetooth's still working we'll see how long this lasts...\n\nThe most irritating thing here is that this is a desktop, I have a long ethernet cable and I'd be happy with a wired mouse, it just happens to be wireless, so none of this is really necessary.\n\nI'm getting the impression I need to actually understand the fix not just blindly apply internet answers!\n\nLet's start with the kernel version since that seems to be where this problem starts.\n`cat \u002Fproc\u002Fversion_signature`\nUbuntu 5.8.0-36.40~20.04.1-generic 5.8.18\n\nHow am I meant to know that bcmwl-kernel-source 6.30... compiles with kernel 5.8?  \nParking this for another day, will see if the fix persists...\n"}</script></div>
+	</body>
+</html>

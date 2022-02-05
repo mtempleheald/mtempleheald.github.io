@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<meta http-equiv="content-security-policy" content="">
+	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
+	<link rel="modulepreload" href="/_app/start-e82316e2.js">
+	<link rel="modulepreload" href="/_app/chunks/vendor-5ca848cc.js">
+	<link rel="modulepreload" href="/_app/pages/__layout.svelte-8da8bfc2.js">
+	<link rel="modulepreload" href="/_app/pages/blog/_slug_.svelte-db98abb9.js">
+	</head>
+	<body>
+		<div>
+
+
+
+<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
+  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
+
+<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
+    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
+    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
+    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+</nav>
+</div>
+
+<main class="svelte-lv7236"><!-- HTML_TAG_START -->This can be useful for situations where you wish to generate a report for a manually selected set of individuals.<br />I first used this in conjunction with a tabular form with checkbox in Oracle Application Express.<br />It simply parses a comma-separated string e.g. \'23,45,67,999,20483\' into a \"table\" of values which can be used by an IN statement.<br />Rather than having to filter on a function which converts a demilited string into a set of rows, the following query can be used directly.<br />Just remember to add a comment to that effect, this isn't easy to read at a glance.<br /><h4>Query</h4><pre class="code plsql"><code class="language-plsql">SELECT SUBSTR (strCSV,
+               INSTR (strCSV, ',', 1, LEVEL) + 1,
+               INSTR (strCSV, ',', 1, LEVEL + 1) - INSTR (strCSV, ',', 1, LEVEL) - 1 
+              ) as fieldname
+FROM  (SELECT ','||&STRING||',' strCSV
+       FROM   dual)
+CONNECT BY LEVEL &lt;= LENGTH(&STRING) - LENGTH(REPLACE(&STRING,',','')) + 1
+ORDER BY fieldname</code></pre><h4>An alternative is available in the DBMS<em>UTILITY package</em></h4><pre class="code plsql"><code class="language-plsql">DECLARE
+  v_arr dbms_utility.uncl_array;
+  v_cnt BINARY_INTEGER;
+BEGIN
+  dbms_utility.comma_to_table('A,B,C,F,D',v_cnt,v_arr);
+  FOR i IN 1 .. v_cnt LOOP
+    dbms_output.put_line(v_arr(i));
+  END loop;
+END;</code></pre><h3>Use this method to parse initials from a full name (experimental)</h3><pre class="code plsql"><code class="language-plsql">WITH data
+AS   (SELECT fieldname
+      ,      order_by
+      FROM (SELECT UPPER(SUBSTR (forenames, INSTR (forenames, ' ', 1, LEVEL) + 1, 1 )) fieldname
+            ,      level                                                               order_by
+            FROM  (SELECT ' '||&FNAME||' ' forenames
+                   FROM   dual
+                  )
+            CONNECT BY LEVEL &lt;= LENGTH(&FNAME) - LENGTH(REPLACE(&FNAME,' ','')) + 1
+           )
+      )
+SELECT REGEXP_REPLACE(REPLACE(SYS_CONNECT_BY_PATH(fieldname,','),',',''),'( ){1,}') initials
+FROM   data
+WHERE  order_by = (SELECT MAX(order_by)
+                   FROM   data)
+START WITH order_by = 1
+CONNECT BY PRIOR order_by + 1 = order_by</code></pre><!-- HTML_TAG_END --></main>
+
+
+<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
+  <p>If you don&#39;t like it, you know where the close button is.</p>
+  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
+  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
+  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
+  <p>Mindful meanderings manifest more manageable machinations.
+    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
+    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
+  </p>
+</footer>
+
+
+		<script type="module" data-hydrate="1agirdc">
+		import { start } from "/_app/start-e82316e2.js";
+		start({
+			target: document.querySelector('[data-hydrate="1agirdc"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/_app/pages/__layout.svelte-8da8bfc2.js"),
+						import("/_app/pages/blog/_slug_.svelte-db98abb9.js")
+				],
+				url: new URL("http://sveltekit-prerender/blog/2008-12-06-Pure-SQL-IN-List-Oracle"),
+				params: {slug:"2008-12-06-Pure-SQL-IN-List-Oracle"}
+			}
+		});
+	</script><script type="application/json" data-type="svelte-data" data-url="/api/blogs/2008-12-06-Pure-SQL-IN-List-Oracle">{"status":200,"statusText":"","headers":{"content-type":"text/plain;charset=UTF-8"},"body":"This can be useful for situations where you wish to generate a report for a manually selected set of individuals.  \nI first used this in conjunction with a tabular form with checkbox in Oracle Application Express.  \nIt simply parses a comma-separated string e.g. \\'23,45,67,999,20483\\' into a \\\"table\\\" of values which can be used by an IN statement.  \nRather than having to filter on a function which converts a demilited string into a set of rows, the following query can be used directly.  \nJust remember to add a comment to that effect, this isn't easy to read at a glance.  \n\n#### Query\n\n```PLSQL\nSELECT SUBSTR (strCSV,\n               INSTR (strCSV, ',', 1, LEVEL) + 1,\n               INSTR (strCSV, ',', 1, LEVEL + 1) - INSTR (strCSV, ',', 1, LEVEL) - 1 \n              ) as fieldname\nFROM  (SELECT ','||&STRING||',' strCSV\n       FROM   dual)\nCONNECT BY LEVEL \u003C= LENGTH(&STRING) - LENGTH(REPLACE(&STRING,',','')) + 1\nORDER BY fieldname\n```\n\n#### An alternative is available in the DBMS_UTILITY package\n\n```PLSQL\nDECLARE\n  v_arr dbms_utility.uncl_array;\n  v_cnt BINARY_INTEGER;\nBEGIN\n  dbms_utility.comma_to_table('A,B,C,F,D',v_cnt,v_arr);\n  FOR i IN 1 .. v_cnt LOOP\n    dbms_output.put_line(v_arr(i));\n  END loop;\nEND;\n```\n\n### Use this method to parse initials from a full name (experimental)\n\n```PLSQL\nWITH data\nAS   (SELECT fieldname\n      ,      order_by\n      FROM (SELECT UPPER(SUBSTR (forenames, INSTR (forenames, ' ', 1, LEVEL) + 1, 1 )) fieldname\n            ,      level                                                               order_by\n            FROM  (SELECT ' '||&FNAME||' ' forenames\n                   FROM   dual\n                  )\n            CONNECT BY LEVEL \u003C= LENGTH(&FNAME) - LENGTH(REPLACE(&FNAME,' ','')) + 1\n           )\n      )\nSELECT REGEXP_REPLACE(REPLACE(SYS_CONNECT_BY_PATH(fieldname,','),',',''),'( ){1,}') initials\nFROM   data\nWHERE  order_by = (SELECT MAX(order_by)\n                   FROM   data)\nSTART WITH order_by = 1\nCONNECT BY PRIOR order_by + 1 = order_by\n```\n"}</script></div>
+	</body>
+</html>
