@@ -7,12 +7,7 @@ const config = {
 	extensions: ['.svelte', ...mdsvexConfig.extensions],
 	preprocess: [md.mdsvex(mdsvexConfig)],
 	kit: {
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
-		adapter: adapter(),
-		prerender: {
-			force: false
-		}
+		adapter: adapter()
 	}
 };
 

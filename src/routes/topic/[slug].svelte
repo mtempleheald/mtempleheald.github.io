@@ -4,10 +4,10 @@
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
-	export async function load({ fetch, page }) {
+	export async function load({ fetch, params }) {
 		
-        const slug = page.params.slug
-        const target = '/api/topics/' + page.params.slug
+        const slug = params.slug
+        const target = '/api/topics/' + params.slug
         let txt;
         let html;
         await fetch(target)

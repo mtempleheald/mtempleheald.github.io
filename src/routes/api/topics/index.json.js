@@ -1,5 +1,5 @@
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export async function get({ query }) {
+export async function get() {
 
     const modules = import.meta.glob('../../../topics/*.md');
     let slugs = [];
