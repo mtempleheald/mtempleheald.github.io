@@ -368,7 +368,7 @@ As with any framework it is quite opinionated, but that's not a bad thing if you
 In some cases I think this is a good thing, e.g. [ASP.NET Core MVC controllers should request their dependencies explicitly via their constructors](https://docs.microsoft.com/en-gb/aspnet/core/mvc/controllers/dependency-injection?view=aspnetcore-2.2) as this is the Core development team telling us how they expect the framework to be used.  [Here](https://medium.com/volosoft/asp-net-core-dependency-injection-best-practices-tips-tricks-c6e9c67f9d96) is another 
 In others I feel less positive, see the encouraged use of bootstrap and jQuery above.  I'm not saying there's anything wrong with these decisions, only that they should be the project team's decisions to make, including them in templates feels like programming by numbers, potentially stifling individuality and ultimately competition.  
 
-I was favouring [Go](www.golang.org) over C#/ .Net Framework when considering a new web api application for several reasons:
+I was favouring [Go](http://www.golang.org) over C#/ .Net Framework when considering a new web api application for several reasons:
 * open source, with enough time it is definitely possible to find a solution to whatever the problem is
 * easier to find documentation with useful samples
 * performance of both build and execution
