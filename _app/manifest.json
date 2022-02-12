@@ -1,16 +1,18 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-41034457.js",
+    "file": "start-cc42d080.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ],
     "dynamicImports": [
       "src/routes/__layout.svelte",
       "src/routes/__error.svelte",
       "src/routes/index.svelte.md",
       "src/routes/about.svelte.md",
+      "src/routes/darts/501/__layout.reset.svelte",
+      "src/routes/darts/501/index.svelte",
       "src/routes/topic/index.svelte",
       "src/routes/topic/Open-Source-Revolution.md",
       "src/routes/topic/Technical-Design.md",
@@ -35,12 +37,12 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-bd8d14f9.js",
+    "file": "pages/__layout.svelte-fb0d4e3c.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ],
     "css": [
       "assets/pages/__layout.svelte-711b4112.css"
@@ -56,225 +58,246 @@
     ]
   },
   "src/routes/__error.svelte": {
-    "file": "pages/__error.svelte-e2f3c458.js",
+    "file": "pages/__error.svelte-0ad2a9b8.js",
     "src": "src/routes/__error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ],
     "css": [
       "assets/pages/__error.svelte-153d5994.css"
     ]
   },
   "src/routes/index.svelte.md": {
-    "file": "pages/index.svelte.md-dd8a4695.js",
+    "file": "pages/index.svelte.md-aa7af271.js",
     "src": "src/routes/index.svelte.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/about.svelte.md": {
-    "file": "pages/about.svelte.md-81a0650e.js",
+    "file": "pages/about.svelte.md-8ffce341.js",
     "src": "src/routes/about.svelte.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
+    ]
+  },
+  "src/routes/darts/501/__layout.reset.svelte": {
+    "file": "pages/darts/501/__layout.reset.svelte-9ccf8b28.js",
+    "src": "src/routes/darts/501/__layout.reset.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-4dad5814.js"
+    ]
+  },
+  "src/routes/darts/501/index.svelte": {
+    "file": "pages/darts/501/index.svelte-fa45ff0e.js",
+    "src": "src/routes/darts/501/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-4dad5814.js"
+    ],
+    "css": [
+      "assets/pages/darts/501/index.svelte-69536a2e.css"
     ]
   },
   "src/routes/topic/index.svelte": {
-    "file": "pages/topic/index.svelte-62b64a0f.js",
+    "file": "pages/topic/index.svelte-6b1ce00c.js",
     "src": "src/routes/topic/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/topic/Open-Source-Revolution.md": {
-    "file": "pages/topic/Open-Source-Revolution.md-5262a382.js",
+    "file": "pages/topic/Open-Source-Revolution.md-e13f7b04.js",
     "src": "src/routes/topic/Open-Source-Revolution.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/topic/Technical-Design.md": {
-    "file": "pages/topic/Technical-Design.md-a204bef0.js",
+    "file": "pages/topic/Technical-Design.md-8f539fe5.js",
     "src": "src/routes/topic/Technical-Design.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/topic/CSharp.md": {
-    "file": "pages/topic/CSharp.md-88d31eda.js",
+    "file": "pages/topic/CSharp.md-77969554.js",
     "src": "src/routes/topic/CSharp.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/index.svelte": {
-    "file": "pages/blog/index.svelte-77467b20.js",
+    "file": "pages/blog/index.svelte-21081346.js",
     "src": "src/routes/blog/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2008/02/17/JavaScript-Rounded-Corners.md": {
-    "file": "pages/blog/2008/02/17/JavaScript-Rounded-Corners.md-1d187414.js",
+    "file": "pages/blog/2008/02/17/JavaScript-Rounded-Corners.md-493e3a32.js",
     "src": "src/routes/blog/2008/02/17/JavaScript-Rounded-Corners.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2008/12/06/Pure-SQL-IN-List-Oracle.md": {
-    "file": "pages/blog/2008/12/06/Pure-SQL-IN-List-Oracle.md-5780513d.js",
+    "file": "pages/blog/2008/12/06/Pure-SQL-IN-List-Oracle.md-dbc3c1e3.js",
     "src": "src/routes/blog/2008/12/06/Pure-SQL-IN-List-Oracle.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2009/01/01/Oracle-dbms_scheduler-Testing.md": {
-    "file": "pages/blog/2009/01/01/Oracle-dbms_scheduler-Testing.md-962fff4d.js",
+    "file": "pages/blog/2009/01/01/Oracle-dbms_scheduler-Testing.md-c9a17731.js",
     "src": "src/routes/blog/2009/01/01/Oracle-dbms_scheduler-Testing.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2011/08/01/Data-Warehouse-Toolkit-Summary.md": {
-    "file": "pages/blog/2011/08/01/Data-Warehouse-Toolkit-Summary.md-8fbf5207.js",
+    "file": "pages/blog/2011/08/01/Data-Warehouse-Toolkit-Summary.md-841bbb31.js",
     "src": "src/routes/blog/2011/08/01/Data-Warehouse-Toolkit-Summary.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2013/11/01/True-Breadcrumbs-Oracle-APEX-Plugin.md": {
-    "file": "pages/blog/2013/11/01/True-Breadcrumbs-Oracle-APEX-Plugin.md-293f4bc1.js",
+    "file": "pages/blog/2013/11/01/True-Breadcrumbs-Oracle-APEX-Plugin.md-f195530a.js",
     "src": "src/routes/blog/2013/11/01/True-Breadcrumbs-Oracle-APEX-Plugin.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2018/09/01/BizTalk-Upgrade-2016-Oracle-Adapter.md": {
-    "file": "pages/blog/2018/09/01/BizTalk-Upgrade-2016-Oracle-Adapter.md-2b3d9826.js",
+    "file": "pages/blog/2018/09/01/BizTalk-Upgrade-2016-Oracle-Adapter.md-087e48b8.js",
     "src": "src/routes/blog/2018/09/01/BizTalk-Upgrade-2016-Oracle-Adapter.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2018/11/14/GitHub-Pages-and-Jekyll-Themes.md": {
-    "file": "pages/blog/2018/11/14/GitHub-Pages-and-Jekyll-Themes.md-9dcfb464.js",
+    "file": "pages/blog/2018/11/14/GitHub-Pages-and-Jekyll-Themes.md-52d56e09.js",
     "src": "src/routes/blog/2018/11/14/GitHub-Pages-and-Jekyll-Themes.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2018/11/24/Home-Organisation-Using-Kanban.md": {
-    "file": "pages/blog/2018/11/24/Home-Organisation-Using-Kanban.md-2d4b97e7.js",
+    "file": "pages/blog/2018/11/24/Home-Organisation-Using-Kanban.md-5e9b2ea8.js",
     "src": "src/routes/blog/2018/11/24/Home-Organisation-Using-Kanban.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2018/12/03/Investigating-Net-Core.md": {
-    "file": "pages/blog/2018/12/03/Investigating-Net-Core.md-34b25c62.js",
+    "file": "pages/blog/2018/12/03/Investigating-Net-Core.md-9f049617.js",
     "src": "src/routes/blog/2018/12/03/Investigating-Net-Core.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2019/01/07/Serverless-Application-Azure-DevOps.md": {
-    "file": "pages/blog/2019/01/07/Serverless-Application-Azure-DevOps.md-d78148db.js",
+    "file": "pages/blog/2019/01/07/Serverless-Application-Azure-DevOps.md-203bee4f.js",
     "src": "src/routes/blog/2019/01/07/Serverless-Application-Azure-DevOps.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2020/11/28/Modern-Software-Development.md": {
-    "file": "pages/blog/2020/11/28/Modern-Software-Development.md-2ce82930.js",
+    "file": "pages/blog/2020/11/28/Modern-Software-Development.md-50be09c4.js",
     "src": "src/routes/blog/2020/11/28/Modern-Software-Development.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2021/01/01/Switching-to-Ubuntu.md": {
-    "file": "pages/blog/2021/01/01/Switching-to-Ubuntu.md-09212043.js",
+    "file": "pages/blog/2021/01/01/Switching-to-Ubuntu.md-cfbe92ae.js",
     "src": "src/routes/blog/2021/01/01/Switching-to-Ubuntu.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2021/02/01/Multiproduct-Multiteam-Branching-Deployment.md": {
-    "file": "pages/blog/2021/02/01/Multiproduct-Multiteam-Branching-Deployment.md-be214fa3.js",
+    "file": "pages/blog/2021/02/01/Multiproduct-Multiteam-Branching-Deployment.md-94d9c316.js",
     "src": "src/routes/blog/2021/02/01/Multiproduct-Multiteam-Branching-Deployment.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2021/03/08/Web-Journey-without-JavaScript.md": {
-    "file": "pages/blog/2021/03/08/Web-Journey-without-JavaScript.md-838ccd43.js",
+    "file": "pages/blog/2021/03/08/Web-Journey-without-JavaScript.md-49e2cef1.js",
     "src": "src/routes/blog/2021/03/08/Web-Journey-without-JavaScript.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2021/03/16/DevOps-Shared-Environments.md": {
-    "file": "pages/blog/2021/03/16/DevOps-Shared-Environments.md-c976a661.js",
+    "file": "pages/blog/2021/03/16/DevOps-Shared-Environments.md-bcb7b868.js",
     "src": "src/routes/blog/2021/03/16/DevOps-Shared-Environments.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
   "src/routes/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md": {
-    "file": "pages/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md-d9f6cbf2.js",
+    "file": "pages/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md-66b29676.js",
     "src": "src/routes/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-dc71a660.js"
+      "_vendor-4dad5814.js"
     ]
   },
-  "_vendor-dc71a660.js": {
-    "file": "chunks/vendor-dc71a660.js"
+  "_vendor-4dad5814.js": {
+    "file": "chunks/vendor-4dad5814.js"
   }
 }
