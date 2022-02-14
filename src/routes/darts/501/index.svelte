@@ -6,17 +6,15 @@
     let current_score = 0;
     let current_turn = 0;
     let history = []
-    const doubles = [32,20,16,8,24,36,12,4,28,10,30,50,38,34,2,22,10,26,18,14,6] // best to worst
-    const possible_throws = [20,19,18,16,12,14,8,10,17,15,25,13,11,1,2,4,5,6,9,7,3] // best to worst
-        .map((single) => {
-            return [1,2,3].map((multiple) => {
-                if (multiple == 3 && single == 25) {
-                    return [0,0]
-                }
-                return [single, multiple]
-            })
+    const doubles = [32,40,16,8,24, 20,36,12,4,28, 10,30,50,38,34,2,22,26,18,14,6] // best to worst
+    const possible_throws = [1,3,2].map((multiple) => {
+        return [20,19,18,16,12,14,8,10,17,15,25,13,11,1,2,4,5,6,9,7,3].map((single) => { 
+            if (multiple == 3 && single == 25) {
+                return [0,0]
+            }
+            return [single, multiple]
         })
-        .reduce((previousValue, currentValue) => previousValue
+    }).reduce((previousValue, currentValue) => previousValue
             .some((x) => x[0]*x[1] == currentValue[0]*currentValue[1]) 
                 ? previousValue // don't need this
                 : previousValue.concat(currentValue), 
@@ -52,11 +50,34 @@
         if (total > 170 || [169,168,166,165,163,162,159].some(x => x == total)) {
             return "no checkout possible";
         }
+        if (total == 50) {
+            return "Bull";
+        }
         if (doubles.some(x => x == total)) {
             return `D${total/2}` 
         }
+        const is_three_darter = total >= 110 || [107,104,101].some(x => x == total);
+        const two_dart_total = is_three_darter ? total - 60 : total;
+        
+        let two = doubles.map(d => 
+            possible_throws.map(t => {
+                return {double:d, number:t[0], hits: t[1]} 
+            }))
+        .flat()
+        .filter(x => (x.double + x.number * x.hits) == two_dart_total);
+        
+        if (two.length > 0) {
+            return `${is_three_darter ? 'T20 ' : ''} ${to_sdt(two[0].hits)}${two[0].number} ${two[0].double == 50 ? 'Bull' : 'D' + two[0].double / 2}`;
+        }
         
         return "checkout possible";
+    }
+    function to_sdt(num) {
+        switch(num) {
+            case 3: return 'T'; break;
+            case 2: return 'D'; break;
+            default: return ''
+        }
     }
 
     function press(event) {
@@ -86,15 +107,15 @@
             current_score = 0;
         }
     }
-    function submit() {
-        console.debug("submit", current_score);
-        if (   current_player == player1 && player1_score > current_score
-            || current_player == player2 && player2_score > current_score) 
+    function submit(score) {
+        console.debug("submit", score);
+        if (   current_player == player1 && player1_score >= score
+            || current_player == player2 && player2_score >= score) 
         {
             history = [...history, {
                 turn: current_turn,
                 player: current_player,
-                score: current_score
+                score: score
             }];
             current_turn = current_turn + 1;
             current_score = 0;
@@ -150,7 +171,13 @@
     <button type="button" value="submit"    on:click="{backspace}">&lt;</button>
 </div>
 
-<button id="submit" type="button" value="submit" on:click="{submit}">{current_score}</button>
+<button id="submit" type="button" value="submit" on:click="{() => submit(current_score)}">{current_score}</button>
+
+<div class="keypad">
+    <button type="button" on:click="{() => submit(60)}">60</button>
+    <button type="button" on:click="{() => submit(100)}">100</button>
+    <button type="button" on:click="{() => submit(180)}">180</button>
+</div>
 
 
 <style>
