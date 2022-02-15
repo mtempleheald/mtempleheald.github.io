@@ -47,6 +47,9 @@
     $: player2_checkout = calculate_checkout(player2_score);
 
     function calculate_checkout(total) {
+        if (total == 0) {
+            return ""
+        }
         if (total > 170 || [169,168,166,165,163,162,159].some(x => x == total)) {
             return "no checkout possible";
         }
@@ -109,8 +112,8 @@
     }
     function submit(score) {
         console.debug("submit", score);
-        if (   current_player == player1 && player1_score >= score
-            || current_player == player2 && player2_score >= score) 
+        if (   current_player == player1 && player1_score >= score && player1_score != score + 1
+            || current_player == player2 && player2_score >= score && player2_score != score + 1) 
         {
             history = [...history, {
                 turn: current_turn,
@@ -169,9 +172,8 @@
     <button type="button" value="undo"      on:click="{undo}">Undo</button>
     <button type="button" value="0"         on:click="{press}">0</button>
     <button type="button" value="submit"    on:click="{backspace}">&lt;</button>
+    <button id="submit" type="button" value="submit" on:click="{() => submit(current_score)}">{current_score}</button>
 </div>
-
-<button id="submit" type="button" value="submit" on:click="{() => submit(current_score)}">{current_score}</button>
 
 <div class="keypad">
     <button type="button" on:click="{() => submit(60)}">60</button>
@@ -179,10 +181,20 @@
     <button type="button" on:click="{() => submit(180)}">180</button>
 </div>
 
+{#if 0 == player1_score || 0 == player2_score}
+<div class="modal">
+    <div>
+        {0 == player1_score ? player1 : player2} wins!
+        <br/><br/>
+        <button class="button" on:click="{() => {history=[]; current_turn = 0}}">Restart</button>
+    </div>
+</div>
+{/if}
 
 <style>
 :global(body) {
-    max-width: 1080px;
+    max-width: 810px;
+    margin: auto;
 }
 button {
     border-radius: 0.5rem;
@@ -257,5 +269,25 @@ header {
     padding: 0.75rem;
     margin: 0.5rem calc(100% / 3);
     background-color: forestgreen;
+    color: white;
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(64,64,64,50);
+    color: white;
+}
+.modal div {
+    width: 10rem;
+    margin: 10rem auto;
+    text-align: center;
+}
+.modal button {
+    padding: 1rem;
 }
 </style>
