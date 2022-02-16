@@ -45,13 +45,24 @@
         .reduce((partialSum, a) => partialSum - a.score, initial_score));
     $: player1_checkout = calculate_checkout(player1_score);
     $: player2_checkout = calculate_checkout(player2_score);
+    $: player1_180s = player1_history.filter(el => el.score == 180).length;
+    $: player1_140s = player1_history.filter(el => el.score >= 140 && el.score < 180).length;
+    $: player1_100s = player1_history.filter(el => el.score >= 100 && el.score < 140).length;
+    $: player1_avg  = player1_history.length == 0 ? 0 
+        : Math.round(100 * player1_history.reduce((a,b) => a + b.score, 0) / player1_history.length) / 100;
+    // Alternative approach // https://jrsinclair.com/articles/2019/five-ways-to-average-with-js-reduce/#5.singlepasswithcumulativeaveragecalculation
+    $: player2_180s = player2_history.filter(el => el.score == 180).length;
+    $: player2_140s = player2_history.filter(el => el.score >= 140 && el.score < 180).length;
+    $: player2_100s = player2_history.filter(el => el.score >= 100 && el.score < 140).length;
+    $: player2_avg  = player2_history.length == 0 ? 0 
+        : Math.round(100 * player2_history.reduce((a,b) => a + b.score, 0) / player2_history.length) / 100;
 
     function calculate_checkout(total) {
         if (total == 0) {
             return ""
         }
         if (total > 170 || [169,168,166,165,163,162,159].some(x => x == total)) {
-            return "no checkout possible";
+            return "no checkout";
         }
         if (total == 50) {
             return "Bull";
@@ -128,35 +139,42 @@
 
 
 <header>
-    <div class="player {current_player == player1 ? 'active' : ''}">{player1}</div>
+    <div class="player">
+        {player1}
+        {#if current_player == player1}
+            <img src="/dart.svg" alt="dart-icon" height="20">
+        {/if}
+    </div>
     <div class="title">501</div>
-    <div class="player {current_player == player2 ? 'active' : ''}">{player2}</div>
+    <div class="player">
+        {player2}
+        {#if current_player == player2}
+            <img src="/dart.svg" alt="dart-icon" height="20">
+        {/if}
+        </div>
 </header>
 
 <div class="game">
-    <div class="current">
-        <div>{player1_score}</div>
+    <div class="game-score">
+        <h1>{player1_score}</h1>
         <p>{player1_checkout}</p>
     </div>
-    <div class="history">
-        {#each player1_history as s, cnt}
-            <div>{s.score}</div>
-        {/each}
+    <div class="history-container">
+        <div class="history">
+            {#each player1_history as s, cnt}
+                <div>{s.score}</div>
+            {/each}
+        </div>
+        <div class="history">
+            {#each player2_history as s, cnt}
+                <div>{s.score}</div>
+            {/each}
+        </div>
     </div>
-    <div class="filler"></div>
-    <div class="history">
-        {#each player2_history as s, cnt}
-            <div>{s.score}</div>
-        {/each}
-    </div>
-    <div class="current">
-        <div>{player2_score}</div>
+    <div class="game-score">
+        <h1>{player2_score}</h1>
         <p>{player2_checkout}</p>
     </div>
-</div>
-
-<div class="shortcuts">
-
 </div>
 
 <div class="keypad">
@@ -180,6 +198,24 @@
     <button type="button" on:click="{() => submit(100)}">100</button>
     <button type="button" on:click="{() => submit(180)}">180</button>
 </div>
+
+
+<div class="match">
+    <table>
+        <tr><td>avg</td><td>{player1_avg}</td></tr>
+        <tr><td>180s</td><td>{player1_180s}</td></tr>
+        <tr><td>140s</td><td>{player1_140s}</td></tr>
+        <tr><td>100s</td><td>{player1_100s}</td></tr>
+    </table>
+    <div class="filler"></div>
+    <table>
+        <tr><td>avg</td><td>{player2_avg}</td></tr>
+        <tr><td>180s</td><td>{player2_180s}</td></tr>
+        <tr><td>140s</td><td>{player2_140s}</td></tr>
+        <tr><td>100s</td><td>{player2_100s}</td></tr>
+    </table>
+</div>
+
 
 {#if 0 == player1_score || 0 == player2_score}
 <div class="modal">
@@ -215,9 +251,22 @@ header {
     text-align: center;
     font-size: 1.5rem;
     padding: 0.5rem 0;
+    position: relative;
 }
-.active {
-    text-decoration: underline;
+.player img {
+    position: absolute;
+    margin: 0 1rem;
+}
+
+.match {
+    display: inline-flex;
+    width: 100%;
+}
+.match > * {
+    text-align: center;
+    vertical-align: top;
+    width: calc(100% / 3);
+    min-width: calc(100% / 3);
 }
 
 .game {
@@ -225,30 +274,27 @@ header {
     width: 100%;
 }
 .game > * {
-    /* width: calc(100% / 4); */
+    width: calc(100% / 3);
+    min-width: calc(100% / 3);
     text-align: center;
     vertical-align: top;
 }
-.current {
-    width: calc((100% - 9rem) / 2);
-}
-.current div {
+.game-score h1 {
     font-weight: bold;
-    font-size: 2rem;
 }
-.current p {
-    font-size: 0.75rem;
+.history-container {
+    display: inline-flex;
 }
 .history {
-    min-width: 3rem;
+    /* min-width: 3rem; */
+    width: 50%;
+    text-align: center;
 }
 .history div {
     width: 3rem;
     border-bottom: 1px dotted grey;
-    padding: 0.25rem;    
-}
-.filler {
-    width: 3rem;
+    padding: 0.25rem;
+    margin: auto;
 }
 
 .keypad {
