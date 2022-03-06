@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-4af727f3.js",
+    "file": "start-353704ad.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -33,7 +33,8 @@
       "src/routes/blog/2021/02/01/Multiproduct-Multiteam-Branching-Deployment.md",
       "src/routes/blog/2021/03/08/Web-Journey-without-JavaScript.md",
       "src/routes/blog/2021/03/16/DevOps-Shared-Environments.md",
-      "src/routes/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md"
+      "src/routes/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md",
+      "src/routes/blog/2022/02/01/Headless-CMS-research.md"
     ]
   },
   "src/routes/__layout.svelte": {
@@ -105,7 +106,7 @@
       "_vendor-7ab0699c.js"
     ],
     "css": [
-      "assets/pages/darts/501/index.svelte-c91b1c9c.css"
+      "assets/pages/darts/501/index.svelte-64c65073.css"
     ]
   },
   "src/routes/topic/index.svelte": {
@@ -291,6 +292,15 @@
   "src/routes/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md": {
     "file": "pages/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md-baa7f33a.js",
     "src": "src/routes/blog/2021/06/25/LineageOS-OnePlus-Nord-N10.md",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-7ab0699c.js"
+    ]
+  },
+  "src/routes/blog/2022/02/01/Headless-CMS-research.md": {
+    "file": "pages/blog/2022/02/01/Headless-CMS-research.md-fe9f4a16.js",
+    "src": "src/routes/blog/2022/02/01/Headless-CMS-research.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
