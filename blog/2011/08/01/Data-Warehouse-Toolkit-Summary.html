@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<meta http-equiv="content-security-policy" content="">
+	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
+	<link rel="modulepreload" href="/_app/start-723ff22d.js">
+	<link rel="modulepreload" href="/_app/chunks/vendor-7ab0699c.js">
+	<link rel="modulepreload" href="/_app/pages/__layout.svelte-b61dbfd0.js">
+	<link rel="modulepreload" href="/_app/pages/blog/2011/08/01/Data-Warehouse-Toolkit-Summary.md-16d532a0.js">
+	</head>
+	<body>
+		<div>
+
+
+
+<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
+  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
+
+<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
+    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
+    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
+    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+</nav>
+</div>
+
+<main class="svelte-lv7236"><p>I recently read the <em>The Data Warehouse Toolkit (Second Edition)</em> before embarking on a project to implement a new data warehouse.<br>
+I recommend reading this book, it is clear, detailed and accessible, but here is a super succinct summary for my own benefit.</p>
+<h4>Fact tables</h4>
+<ul><li>few columns, many rows</li>
+<li>always at lowest level (granular) detail<ul><li>lowest level of detail required for business reporting, not necessarily the lowest level grain held by the source system</li></ul></li>
+<li>typically try to avoid semi-additive facts (e.g. balance)</li>
+<li>always avoid to-date totals, not consistent with the grain</li>
+<li>try to avoid textual facts<ul><li>tend to be filtered out into a separate dimension (mini dimension)</li></ul></li></ul>
+<h4>Factless fact tables</h4>
+<ul><li>convenient representation of many-many relationships between dimensions, even if there is no obvious numeric fact at that level</li>
+<li>may wish to add artificial fact (always == 1) to clarify queries</li></ul>
+<h4>Coverage tables</h4>
+<ul><li>special form of factless fact table</li>
+<li>one row per dimension Cartesian product, regardless of occupation, flag to indicate available/ in use</li>
+<li>There is a data overhead involved in doing this so it is only for special uses</li></ul>
+<h4>Dimension tables</h4>
+<ul><li>few rows, many columns</li>
+<li>denormalised extensively – few rows =&gt; small impact in size compared with performance improvements</li>
+<li>Avoid snowflaking (normalising of dimensions) – will slow queries</li>
+<li>Need surrogate key (SKey) to uniquely identify a row even if a suitable business key exists, future proofing</li>
+<li>Need getSKey function for each dim (based on natural key)</li>
+<li>Cater for null values using a “-1” entry</li>
+<li>Typically expect 5-15 dimensions per dimensional model</li></ul>
+<h4>Date dimension</h4>
+<ul><li>1 row per day</li>
+<li>Day, week, month, quarter, year info on each line</li>
+<li>Easier filtering/ formatting than SQL date conversion functions</li>
+<li>The ONLY dimension with a meaningful key – in date order</li>
+<li>This predictability is important for partitioning, backups and restorations, whereby all rows relating to a date range should be partitioned together</li></ul>
+<h4>Data Modelling Approach</h4>
+<ul><li>Separate ERD(s) into business processes &amp; model separately</li>
+<li>Many-many tables become facts</li>
+<li>Denormalise remaining tables – become dimensions</li>
+<li>Convert identifiers into meaningful data e.g. ‘M’ becomes ‘Male’</li>
+<li>Agree on these “conformed” dimensions and seek to reuse</li>
+<li>Likewise seek to use conformed facts with standard, meaningful attributes</li></ul>
+<h4>Maintaining the DW Bus Matrix</h4>
+<ul><li>Business process (data mart = set of closely-related fact tables) vs common dimensions.  This is a very high level planning aid (p79)</li>
+<li>Enables coherent vision of DW architecture</li>
+<li>Can extend to include fact table/ granularity/ facts for full picture.  This is more closely tied to the implementation phase (p321)</li></ul>
+<h4>Conformed dimensions</h4>
+<ul><li>Agreed business nomenclature to avoid redundancy and inaccuracy</li>
+<li>Common columns are identical</li>
+<li>1 may have extra columns e.g. confidential information</li>
+<li>1 may have extra rows (subset of data) –be careful re. referential integrity</li></ul>
+<h4>Slowly Changing Dimensions (SCD)</h4>
+<ul><li>Type 1 – overwrite old version – lose history</li>
+<li>Type 2 – create new dim row – keep history but cannot look at both together</li>
+<li>Type 3 – consider 2 (or 3…) previous versions<ul><li>require fact column for each version</li>
+<li>can compare versions as of date X</li></ul></li>
+<li>Combinations of the above</li></ul>
+<h4>Role-Playing dimensions</h4>
+<ul><li>When need 2 dates on a table need 2 references to Date Dim.  </li>
+<li>Cant refer to same table twice so use views instead</li>
+<li>Applicable to other dimensions but common with date dimension</li></ul>
+<h4>Dimension Outriggers</h4>
+<ul><li>Constitutes normalisation of dimensions – use sparingly</li>
+<li>Useful when dimensions of significantly differing grain and main dimension is large<br>
+e.g. customers + demographics (age, gender etc)</li>
+<li>Location is a valid candidate for an outrigger – can use GIS tools too</li></ul>
+<h4>Degenerate dimensions</h4>
+<ul><li>Number left in fact table without corresponding dim table.
+Can be later expanded to a dimension if required (but use surrogate keys then!)
+Can be grouped/ filtered in the meantime.</li>
+<li>If dimension contains similar numbers of rows to the fact table,
+this may be a good candidate for a degenerate dimension</li></ul>
+<h4>Junk dimensions</h4>
+<ul><li>Groups of typically low-cardinality flags</li>
+<li>may look like Cartesian product but with a surrogate key</li>
+<li>can be used to reduce the number of columns in a fact table, potentially space-saving.</li></ul>
+<h4>Mini dimensions</h4>
+<ul><li>Separate textual fact out from fact table into mini dimension.</li>
+<li>Enabled high-performance filtering of data</li></ul>
+<h4>Header/Line facts with different granularity</h4>
+<ul><li>Remove higher-level fact table by duplicating facts from the higher-level header fact row down to lower-level line fact row(s), much like dimension denormalisation</li>
+<li>Or maintain both tables at different granularity (only when necessary)</li></ul>
+<h4>Real-Time Partitions</h4>
+<ul><li>Physically &amp; administratively separate “partition” (different tables) from the rest of the warehouse.</li>
+<li>Contains all activity since last standard ETL run, same structure as standard DW tables.</li></ul>
+<h4>Bridge tables (p164)</h4>
+<ul><li>For variable-depth hierarchies</li>
+<li>May contain parent skey, subsidiary skey, level, bottom flag, top flag</li>
+<li>Can create view new_fact = bridge + fact to hide complexity</li>
+<li>Combine with a weighting factor attribute on the bridge table, summed over the group it should always equal 1</li></ul>
+<h4>Audit Dimension</h4>
+<ul><li>Source system, ETL version, confidences</li>
+<li>use skey to link to rows updated by that particular ETL run</li></ul>
+<h4>Keyword Outrigger Dimension</h4>
+<ul><li>Attribute such as ’\UNIX\LINUX\SQL\’ for skills for a person</li>
+<li>Can filter using LIKE ‘%\SQL\%’ (avoids complicated union views)</li></ul>
+<h4>Superdimension (similar to junk dimension)</h4>
+<ul><li>Combine 2 or more dimensions into a single dimension.<br>
+This is likely to be a Cartesian product and is suitable only for small date volumes</li>
+<li>E.g. flights – class flown != class purchased (up/downgrades), create superdimension with 9 rows (coach/business/first)^2</li></ul>
+<h4>Fact Dimension</h4>
+<ul><li>For sparse fact tables, i.e. groups of attributes often empty</li>
+<li>separate these attribute groups into separate fact dimensions and link with surrogate key</li>
+<li>Allows us to keep fact table structure static, no new columns</li>
+<li>Very flexible but may expand too quickly if facts become less sparse</li>
+<li>may considerably complicate data access</li>
+<li>Type + content dimensions to handle heterogeneous products</li></ul>
+<h4>Late-arriving fact rows</h4>
+<ul><li>For each dimension establish surrogate key based on natural key (plus SCD effective dates)</li>
+<li>insert into correct physical partition based on date</li>
+<li>If historical data cannot change (has been reported, though inaccurate)
+then may need 2 sets of dates  (operational/ booking)</li></ul>
+<h4>Late-arriving dimension rows (applied to slowly changing dimensions)</h4>
+<ul><li>Insert new row with new surrogate key</li>
+<li>Scan forwards from this date and correct later rows with same natural key</li>
+<li>Update all fact rows to correct surrogate key</li></ul>
+<p>The summary of traps to avoid on P326 is well worth reading too.<br>
+In order to improve performance of the ETL you can use a cyclic redundancy checksum (CRC) algorithm on dimension staging tables.<br>
+This is a more efficient way to determine if row has been updated than comparing each column. </p></main>
+
+
+<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
+  <p>If you don&#39;t like it, you know where the close button is.</p>
+  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
+  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
+  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
+  <p>Mindful meanderings manifest more manageable machinations.
+    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
+    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
+  </p>
+</footer>
+
+
+		<script type="module" data-hydrate="axj27g">
+		import { start } from "/_app/start-723ff22d.js";
+		start({
+			target: document.querySelector('[data-hydrate="axj27g"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/_app/pages/__layout.svelte-b61dbfd0.js"),
+						import("/_app/pages/blog/2011/08/01/Data-Warehouse-Toolkit-Summary.md-16d532a0.js")
+				],
+				params: {}
+			}
+		});
+	</script></div>
+	</body>
+</html>

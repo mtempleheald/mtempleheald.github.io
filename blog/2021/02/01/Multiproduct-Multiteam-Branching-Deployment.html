@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<meta http-equiv="content-security-policy" content="">
+	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
+	<link rel="modulepreload" href="/_app/start-723ff22d.js">
+	<link rel="modulepreload" href="/_app/chunks/vendor-7ab0699c.js">
+	<link rel="modulepreload" href="/_app/pages/__layout.svelte-b61dbfd0.js">
+	<link rel="modulepreload" href="/_app/pages/blog/2021/02/01/Multiproduct-Multiteam-Branching-Deployment.md-f43fe675.js">
+	</head>
+	<body>
+		<div>
+
+
+
+<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
+  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
+
+<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
+    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
+    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
+    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+</nav>
+</div>
+
+<main class="svelte-lv7236"><h1>Multiproduct, Multiteam Branching Strategy &amp; Deployment</h1>
+<h2>Background</h2>
+<p>I was working at a company whose current software estate included multiple independent CMS websites hosted in separate Sitefinity instances (.NET Framework, IIS).
+These websites had been left to rot, were running old versions of the software and the software team were unable to respond effectively to changing business requirements.
+The decision was made to consolidate the different sites into a single multisite instance to maximise code sharing and faciliate easier upgrades and security patches.
+This migration was planned over a very short timescale and therefore third party service providers were needed to make up the developer resource shortfall.</p>
+<h2>The situation</h2>
+<ul><li>1 .NET Framework MVC solution with global configuration and shared components</li>
+<li>IIS Hosting on Windows VMs, limited to 3 environments (no infrastructure automation, sadly):<ul><li>QA to test components</li>
+<li>staging to build and test website</li>
+<li>highly available production environment</li></ul></li>
+<li>Half a dozen concurrent projects, spread across staff in 3 companies</li>
+<li>Waterfall project delivery and business-led manual testing timescales (yes, I know!)</li>
+<li>Azure DevOps hosted git repositories</li>
+<li>Undecided repository structure/ branching strategy/ deployment mechanism and little time to implement</li></ul>
+<h2>Requirement consideration</h2>
+<ul><li>common upgrade mechanism for all products (1 product == 1 website == 1 project == 1 team)<ul><li>choose monorepo - this way only one version of the solution needs upgrading</li></ul></li>
+<li>Independent development of different products<ul><li>use git branches to keep products separate without the need for synchronous communication between teams</li>
+<li>standardise where possible for a consistent history and to aid centralised governance</li></ul></li>
+<li>Independent deployment of different products to the same environment<ul><li>partial deployments from independent pipelines/branches proved too difficult to manage</li>
+<li>merging both products to a common branch and deploying using a master pipeline is more reliable (if merge conflicts can be handled)</li></ul></li>
+<li>Decoupled products which can be deployed in different orders to different environments<ul><li>we need to merge products together for deployment but must not couple, so don’t pull code down from this “environment” branch</li></ul></li>
+<li>With all of these independently developed branch merging together we need to avoid merge conflicts<ul><li>identify the shared elements and see how best to manage each</li></ul></li></ul>
+<h2>The solution</h2>
+<ul><li>Deployment through Azure DevOps pipelines<ul><li>yaml release pipelines provide better audit trail</li>
+<li>entire solution built and deployed together, ensuring that all products build when combined</li></ul></li>
+<li>Environment branches used to join different products together for deployment<ul><li><em>never</em> merge these back down into product branches to avoid coupling.</li>
+<li>only release branches ever merged (PR) to environment branches.  This ensures that any environment contains a known version of each product.</li></ul></li>
+<li>Maintain a separate develop branch for each product, for the lifetime of a project<ul><li>these branches based off a root master/main and should be pulled down regularly as usual.</li>
+<li>development can loosely follow a git-flow process from here, features and fixes to the relevant develop branch, hotfixes to master</li></ul></li>
+<li>Short-lived pieces of work can be based off master as hotfixes</li>
+<li>Do not change shared files within projects if possible, communicate the changes across teams if not<ul><li><code>*.csproj</code> project files - .NET Framework lists specific files, which causes many merge conflicts.<br>
+Use wildcards to avoid ever having to change this file, this is possible because Sitefinity is a consistent framework, use hotfix for adding new patterns.</li>
+<li><code>*.yml</code> pipelines - treat these as hotfixes, add check for presence of project before attempting to build</li>
+<li><code>Web.config</code> + transformations - don’t make breaking changes, add redirect rules, new config values etc as hotfixes</li>
+<li><code>*Config.config</code> + transformations - Sitefinity configuration - don’t make breaking changes, treat changes as hotfixes</li>
+<li><code>Sitefinity.lic</code> licence file - treat as hotfix</li></ul></li></ul></main>
+
+
+<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
+  <p>If you don&#39;t like it, you know where the close button is.</p>
+  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
+  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
+  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
+  <p>Mindful meanderings manifest more manageable machinations.
+    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
+    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
+  </p>
+</footer>
+
+
+		<script type="module" data-hydrate="xq1hwa">
+		import { start } from "/_app/start-723ff22d.js";
+		start({
+			target: document.querySelector('[data-hydrate="xq1hwa"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/_app/pages/__layout.svelte-b61dbfd0.js"),
+						import("/_app/pages/blog/2021/02/01/Multiproduct-Multiteam-Branching-Deployment.md-f43fe675.js")
+				],
+				params: {}
+			}
+		});
+	</script></div>
+	</body>
+</html>
