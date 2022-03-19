@@ -234,6 +234,7 @@
 }
 button {
     border-radius: 0.5rem;
+    touch-action: manipulation;
 }
 
 header {
