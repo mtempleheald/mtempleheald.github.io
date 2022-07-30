@@ -7,4 +7,4 @@ last-updated: 2018-11-20
 [Amazon Simple Workflow Service](https://aws.amazon.com/swf/)  
 [Oracle Fn Flow](https://github.com/fnproject/flow)  
 [Zapier](https://zapier.com/)  
-[IFTTT](https://ifttt.com/)  
+[IFTTT](https://ifttt.com/)

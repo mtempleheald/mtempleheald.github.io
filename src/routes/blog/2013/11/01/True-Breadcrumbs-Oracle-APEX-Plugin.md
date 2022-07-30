@@ -1,28 +1,32 @@
 I was getting irritated with breadcrumbs in APEX, specifically having to maintain a separate list for both breadcrumbs and "normal" navigation.  
 What I wanted was:
-* every time you moved to a new page, remember the previous one as a parent
-* if you move to a page you'd already been to, reset to that point.  
 
-So when a new version of APEX came out, I looked into the new plug-in development feature, this is the result.  
+- every time you moved to a new page, remember the previous one as a parent
+- if you move to a page you'd already been to, reset to that point.
+
+So when a new version of APEX came out, I looked into the new plug-in development feature, this is the result.
 
 The idea is simple, consisting of the following elements:
-* Add a Region to Page 0 of the application referencing the plug-in, this renders a new breadcrumb element on each render (page load)
-* Add navigation to the application
-    * I used a list (which has no notion of breadcrumbs), implemented on each page for demonstration purposes
-    * This could equally well be chart navigation, interactive reports, etc
-* An APEX collection to store the current state of the breadcrumbs
 
-For the record, I'm not suggesting that this is a particularly good approach, it doesn't cater for session state management and it is another server process to execute, which will obviously affect performance, but [it works](https://apex.oracle.com/pls/apex/f?p=55790:1::::::).  
+- Add a Region to Page 0 of the application referencing the plug-in, this renders a new breadcrumb element on each render (page load)
+- Add navigation to the application
+  - I used a list (which has no notion of breadcrumbs), implemented on each page for demonstration purposes
+  - This could equally well be chart navigation, interactive reports, etc
+- An APEX collection to store the current state of the breadcrumbs
+
+For the record, I'm not suggesting that this is a particularly good approach, it doesn't cater for session state management and it is another server process to execute, which will obviously affect performance, but [it works](https://apex.oracle.com/pls/apex/f?p=55790:1::::::).
 
 ### Creating a Plug-In
 
 Creating a plug-in is as simple as creating a package which exposes a function with the right signature, in this case, for a Region plug-in:
+
 ```SQL
 FUNCTION render (p_region              IN apex_plugin.t_region
                 ,p_plugin              IN apex_plugin.t_plugin
                 ,p_is_printer_friendly IN BOOLEAN)
   RETURN apex_plugin.t_region_render_result
 ```
+
 Implementing the plug-in is even easier, simply add a plug-in Shared Component to the application, referencing the PL/SQL package, in this case:
 Render Procedure/Function Name = true_breadcrumbs.render
 
@@ -30,9 +34,9 @@ Render Procedure/Function Name = true_breadcrumbs.render
 
 ##### Page 0 Region Position 02 (didn't have to be here)
 
-* Identification > Title: True Breadcrumbs
-* Identification > Type: True Breadcrumbs [Plug-In]
-* Header and Footer > Header Text (this is only a demo, I wouldn't normally add CSS directly in the HTML)
+- Identification > Title: True Breadcrumbs
+- Identification > Type: True Breadcrumbs [Plug-In]
+- Header and Footer > Header Text (this is only a demo, I wouldn't normally add CSS directly in the HTML)
 
 ```HTML
 <style type="text/css">
@@ -60,11 +64,12 @@ create or replace PACKAGE true_breadcrumbs AS
                   ,p_plugin              IN apex_plugin.t_plugin
                   ,p_is_printer_friendly IN BOOLEAN)
     RETURN apex_plugin.t_region_render_result;
-  
+
 END true_breadcrumbs;
 ```
 
 ##### Package body
+
 ```SQL
 create or replace PACKAGE BODY true_breadcrumbs AS
 /**
@@ -72,7 +77,7 @@ create or replace PACKAGE BODY true_breadcrumbs AS
 %usage   Designed to be implemented on a global page ("page 0")
 %usage   Displayed by default on all pages except 101 (login), other popups can be excluded by altering the conditional display settings
 %author  Mark Temple-Heald
-%version 1.0  25-JAN-2014 Initial version   
+%version 1.0  25-JAN-2014 Initial version
 */
   CURSOR c_breadcrumbs IS
     SELECT N001 application_id
@@ -82,7 +87,7 @@ create or replace PACKAGE BODY true_breadcrumbs AS
     FROM   apex_collections
     WHERE  collection_name = 'TRUE_BREADCRUMBS'
     ORDER BY seq_id;
-    
+
 /**
 %usage   Use the ApEx data dictionary to obtain the page name from the page id, for use as a breadcrumb label
 */
@@ -98,11 +103,11 @@ create or replace PACKAGE BODY true_breadcrumbs AS
     FROM   apex_application_pages
     WHERE  application_id = p_application_id
     AND    page_id        = p_page_id;
-    
+
     RETURN v_page_name;
-    
+
   END get_page_name;
-  
+
 /**
 %usage   Update the breadcrumb collection to produce the shortest path from source to the current breadcrumb
 */
@@ -119,16 +124,16 @@ create or replace PACKAGE BODY true_breadcrumbs AS
     IF NOT apex_collection.collection_exists ('TRUE_BREADCRUMBS') THEN
       apex_collection.create_collection ('TRUE_BREADCRUMBS');
     END IF;
-    
+
     IF p_page_id = 101 THEN
-      
+
       -- the login page should not appear in breadcrumbs, so the next page visited will be home
       apex_collection.truncate_collection ('TRUE_BREADCRUMBS');
-        
+
     ELSE
 
       FOR i IN c_breadcrumbs LOOP
-      
+
         IF v_found THEN
           -- within this loop we've already encountered this page, so delete breadcrumbs further down the trail
           apex_collection.delete_member ('TRUE_BREADCRUMBS', i.seq_id);
@@ -139,16 +144,16 @@ create or replace PACKAGE BODY true_breadcrumbs AS
           -- we have already visited this page within this session, so mark for delete of everything further down the breacrumb trail
           v_found := TRUE;
         END IF;
-        
+
       END LOOP;
 
       IF NOT v_found THEN
-       
+
         v_seq_id := apex_collection.add_member (p_collection_name => 'TRUE_BREADCRUMBS'
                                                ,p_n001            => p_application_id
                                                ,p_n002            => p_page_id
                                                ,p_c001            => p_page_name);
-    
+
       END IF;
 
     END IF;
@@ -172,7 +177,7 @@ create or replace PACKAGE BODY true_breadcrumbs AS
 /**
 %usage   Function implementing the region plug-in interface which produces breadcrumbs in unstyled HTML
 %usage   The first time this is called (the first page accessed within this application) will act as the home breadcrumb
-%usage   Any page accessed which is not currently in the trail will be added. 
+%usage   Any page accessed which is not currently in the trail will be added.
 %usage   Any page revisited will become the new current breadcrumb, truncating crumbs further down the trail
 */
   FUNCTION render (p_region              IN apex_plugin.t_region
@@ -185,7 +190,7 @@ create or replace PACKAGE BODY true_breadcrumbs AS
     v_page_name      apex_application_pages.page_name%TYPE;
     v_return         apex_plugin.t_region_render_result;
   BEGIN
-      
+
     IF apex_application.g_debug THEN
       apex_plugin_util.debug_region (p_plugin, p_region);
     END IF;
@@ -199,7 +204,7 @@ create or replace PACKAGE BODY true_breadcrumbs AS
     RETURN v_return;
 
   END render;
-  
+
 END true_breadcrumbs;
 
 ```

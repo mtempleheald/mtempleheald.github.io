@@ -7,7 +7,6 @@ These websites had been left to rot, were running old versions of the software a
 The decision was made to consolidate the different sites into a single multisite instance to maximise code sharing and faciliate easier upgrades and security patches.
 This migration was planned over a very short timescale and therefore third party service providers were needed to make up the developer resource shortfall.
 
-
 ## The situation
 
 - 1 .NET Framework MVC solution with global configuration and shared components
@@ -19,7 +18,6 @@ This migration was planned over a very short timescale and therefore third party
 - Waterfall project delivery and business-led manual testing timescales (yes, I know!)
 - Azure DevOps hosted git repositories
 - Undecided repository structure/ branching strategy/ deployment mechanism and little time to implement
-
 
 ## Requirement consideration
 
@@ -36,7 +34,6 @@ This migration was planned over a very short timescale and therefore third party
 - With all of these independently developed branch merging together we need to avoid merge conflicts
   - identify the shared elements and see how best to manage each
 
-
 ## The solution
 
 - Deployment through Azure DevOps pipelines
@@ -44,7 +41,7 @@ This migration was planned over a very short timescale and therefore third party
   - entire solution built and deployed together, ensuring that all products build when combined
 - Environment branches used to join different products together for deployment
   - _never_ merge these back down into product branches to avoid coupling.
-  - only release branches ever merged (PR) to environment branches.  This ensures that any environment contains a known version of each product.
+  - only release branches ever merged (PR) to environment branches. This ensures that any environment contains a known version of each product.
 - Maintain a separate develop branch for each product, for the lifetime of a project
   - these branches based off a root master/main and should be pulled down regularly as usual.
   - development can loosely follow a git-flow process from here, features and fixes to the relevant develop branch, hotfixes to master
@@ -56,7 +53,3 @@ This migration was planned over a very short timescale and therefore third party
   - `Web.config` + transformations - don't make breaking changes, add redirect rules, new config values etc as hotfixes
   - `*Config.config` + transformations - Sitefinity configuration - don't make breaking changes, treat changes as hotfixes
   - `Sitefinity.lic` licence file - treat as hotfix
-
-
-
-

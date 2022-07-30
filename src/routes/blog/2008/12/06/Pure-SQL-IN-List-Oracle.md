@@ -2,14 +2,14 @@ This can be useful for situations where you wish to generate a report for a manu
 I first used this in conjunction with a tabular form with checkbox in Oracle Application Express.  
 It simply parses a comma-separated string e.g. \'23,45,67,999,20483\' into a \"table\" of values which can be used by an IN statement.  
 Rather than having to filter on a function which converts a demilited string into a set of rows, the following query can be used directly.  
-Just remember to add a comment to that effect, this isn't easy to read at a glance.  
+Just remember to add a comment to that effect, this isn't easy to read at a glance.
 
 #### Query
 
 ```PLSQL
 SELECT SUBSTR (strCSV,
                INSTR (strCSV, ',', 1, LEVEL) + 1,
-               INSTR (strCSV, ',', 1, LEVEL + 1) - INSTR (strCSV, ',', 1, LEVEL) - 1 
+               INSTR (strCSV, ',', 1, LEVEL + 1) - INSTR (strCSV, ',', 1, LEVEL) - 1
               ) as fieldname
 FROM  (SELECT ','||&STRING||',' strCSV
        FROM   dual)

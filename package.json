@@ -1,33 +1,34 @@
 {
-  "name": "mtempleheald",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build --verbose",
-    "preview": "svelte-kit preview",
-    "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-    "format": "prettier --write --plugin-search-dir=. ."
-  },
-  "devDependencies": {
-    "@sveltejs/adapter-static": "^1.0.0-next.29",
-    "@sveltejs/kit": "^1.0.0-next.295",
-		"@typescript-eslint/eslint-plugin": "^5.13.0",
-		"@typescript-eslint/parser": "^5.13.0",
-		"eslint": "^8.10.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-svelte3": "^3.4.1",
-    "mdsvex": "^0.10.5",
-		"prettier": "^2.5.1",
-    "prettier-plugin-svelte": "^2.6.0",
-    "svelte": "^3.46.4",
-    "svelte-preprocess": "^4.10.4",
-    "tslib": "^2.3.1",
-    "typescript": "^4.6.2"
-  },
-  "type": "module",
-  "dependencies": {
-    "@fontsource/fira-mono": "^4.5.3",
-    "@lukeed/uuid": "^2.0.0",
-    "cookie": "^0.4.2"
-  }
+	"name": "mtempleheald",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+		"format": "prettier --write --plugin-search-dir=. ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^1.0.0-next.38",
+		"@sveltejs/kit": "^1.0.0-next.398",
+		"@typescript-eslint/eslint-plugin": "^5.31.0",
+		"@typescript-eslint/parser": "^5.31.0",
+		"eslint": "^8.20.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"mdsvex": "^0.10.6",
+		"prettier": "^2.7.1",
+		"prettier-plugin-svelte": "^2.7.0",
+		"svelte": "^3.49.0",
+		"svelte-preprocess": "^4.10.7",
+		"tslib": "^2.4.0",
+		"typescript": "^4.7.4",
+		"vite": "^3.0.4"
+	},
+	"type": "module",
+	"dependencies": {
+		"@fontsource/fira-mono": "^4.5.8",
+		"@lukeed/uuid": "^2.0.0",
+		"cookie": "^0.5.0"
+	}
 }

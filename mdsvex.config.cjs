@@ -1,8 +1,8 @@
 module.exports = {
-	extensions: [".svelte.md", ".svx", ".md"],
+	extensions: ['.svelte.md', '.svx', '.md'],
 	smartypants: {
-		dashes: "oldschool",
+		dashes: 'oldschool'
 	},
 	remarkPlugins: [],
-	rehypePlugins: [],
+	rehypePlugins: []
 };

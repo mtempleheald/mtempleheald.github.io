@@ -15,4 +15,4 @@ last-updated: 2018-12-07
 [Concurrency](https://downloads.haskell.org/~ghc/master/users-guide/using-concurrent.html)  
 [Quickcheck - property based testing](https://wiki.haskell.org/Introduction_to_QuickCheck)  
 [Time Library - cheat sheet](https://two-wrongs.com/haskell-time-library-tutorial)  
-[Progress tracking - monad required](http://stackoverflow.com/questions/8556746/monad-transformer-for-progress-tracking/8568374#8568374)  
+[Progress tracking - monad required](http://stackoverflow.com/questions/8556746/monad-transformer-for-progress-tracking/8568374#8568374)

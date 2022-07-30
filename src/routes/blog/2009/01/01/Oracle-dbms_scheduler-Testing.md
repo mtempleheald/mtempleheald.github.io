@@ -1,4 +1,4 @@
-I stole this script from somewhere, I forget where. I found it useful at the time for testing planned schedules for dbms_scheduler jobs.  
+I stole this script from somewhere, I forget where. I found it useful at the time for testing planned schedules for dbms_scheduler jobs.
 
 ```PLSQL
 declare
@@ -12,7 +12,7 @@ declare
    lastSunofmonth315pm  CONSTANT VARCHAR2(4000) := \'FREQ=MONTHLY; BYDAY=-1SUN; BYHOUR=15; BYMINUTE=15\';
    every5minutes        CONSTANT VARCHAR2(4000) := \'FREQ=MINUTELY; INTERVAL=5\';
    every5minsplus2      CONSTANT VARCHAR2(4000) := \'FREQ=MINUTELY; BYMINUTE=2,7,12,17,22,27,32,37,42,47,52,57\';
-   
+
    l_calendar         VARCHAR2(4000) := every5minsplus2;
 begin
    l_start_date := trunc(SYSTIMESTAMP);

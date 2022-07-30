@@ -6,9 +6,8 @@ At this time there is no official image for the OnePlus Nord N10, so I'm piecing
 
 1. Install ADB tools on Ubuntu [Lineage wiki](https://wiki.lineageos.org/adb_fastboot_guide.html#installing-adb-and-fastboot)
 1. Install [android-sdk-platform-tools-common](https://developer.android.com/studio/run/device) and check permissions (if udev permission errors appear later)
-   Run all `adb` commands from `~/adb-fastboot/platform-tools` 
-1. Download [OnePlus official build](https://www.oneplus.com/uk/support/softwareupgrade/details?code=PM1605857280263) just in case 
-
+   Run all `adb` commands from `~/adb-fastboot/platform-tools`
+1. Download [OnePlus official build](https://www.oneplus.com/uk/support/softwareupgrade/details?code=PM1605857280263) just in case
 
 ## Preparation (phone)
 
@@ -16,7 +15,6 @@ At this time there is no official image for the OnePlus Nord N10, so I'm piecing
 1. Upgrade to latest OxygenOS
 1. Unlock developer settings (seven taps on build number in system settings)
 1. Enable USB debugging (Developer settings)
-
 
 # Oneplus recovery steps
 
@@ -30,15 +28,16 @@ Bootloader may need to be unlocked first `fastboot oem unlock`
 
 ## Generate recovery.img from payload.zip
 
-1. [Download official rom from OnePlus](https://www.oneplus.com/uk/support/softwareupgrade/details?code=PM1605857280263)  
+1. [Download official rom from OnePlus](https://www.oneplus.com/uk/support/softwareupgrade/details?code=PM1605857280263)
 1. [Extract recovery image from official rom](https://www.droidwin.com/extract-stock-recovery-oneplus-oxygenos-stock-rom/)  
    `sudo apt install python3-pip`
    `python3 -m pip install protobuf`
-   `python3 payload_dumper.py payload.bin` 
+   `python3 payload_dumper.py payload.bin`
    This outputs files to output directory in payload_dumper directory, to use in next step.
 1. [Recovery in fastboot](https://www.droidwin.com/restore-oneplus-nord-stock-fastboot-commands/)
 
 I've removed logo.img since it doesn't appear in my source payload dump.
+
 ```bash
 fastboot -w
 fastboot flash boot ../../Downloads/LineageOS/OxygenOS_14.E.11_OTA_011_payload_dump/boot.img
@@ -75,23 +74,12 @@ fastboot reboot bootloader
 
 Use the install wizard as if opening the box fresh from OnePlus.
 
-
-
-
-
-
-
-
-
-
-
-
 ## Installing LineageOS unofficial image
 
 1. Download [unofficial rom for OnePlus Nord N10/bille](https://forum.xda-developers.com/t/rom-unofficial-lineageos-18-1-oneplus-nord-n10-billie.4255655/)
 1. Download [Magisk.apk](https://github.com/topjohnwu/Magisk/releases)
 1. Unlock the bootloader following [instructions for the Nord N100](https://wiki.lineageos.org/devices/avicii/install)
-   Enable USB debugging again after reboot.  Note that OEM Unlocking is now greyed out.
+   Enable USB debugging again after reboot. Note that OEM Unlocking is now greyed out.
 1. Run `adb devices` to verify that we can talk to the device.
 1. Run `adb reboot bootloader` followed by `fastboot devices` to load the bootloader screen
 1. Run `fastboot flash recovery <path/to/recovery.img>` to send recovery to the device.  
@@ -100,24 +88,23 @@ Use the install wizard as if opening the box fresh from OnePlus.
 1. After restart and re-enable of USB debugging go back to bootloader screen
 1. Run `fastboot boot <path/to/recovery.img>`
 1. Navigate using the volume keys to _Apply from ADB_, at this point run `adb sideload <path/to/rom.zip>`
-1. Reboot device from the menu.  Note that OnePlus startup logo has been replaced by LineageOS.
+1. Reboot device from the menu. Note that OnePlus startup logo has been replaced by LineageOS.
 1. Install Magisk following [official instructions](https://topjohnwu.github.io/Magisk/install.html)
 
-I had various issues after trying this, ultimately realising that the forum post was written for a different Nord N10 model (BE2026 vs BE2029).  
-
-
+I had various issues after trying this, ultimately realising that the forum post was written for a different Nord N10 model (BE2026 vs BE2029).
 
 # Installing GSI official image
 
-Looking at GSI alternative images required knowledge of hardware. 
+Looking at GSI alternative images required knowledge of hardware.
 
-`adb shell` then `getprop` gives:  
+`adb shell` then `getprop` gives:
 
 [ro.vendor.product.cpu.abilist]: [arm64-v8a,armeabi-v7a,armeabi]
 [ro.vendor.product.cpu.abilist32]: [armeabi-v7a,armeabi]
 [ro.vendor.product.cpu.abilist64]: [arm64-v8a]
 
 [Treble Info app](https://github.com/penn5/TrebleCheck) gives:
+
 - Required image: system-arm64-ab.img.xz
 - System as Root: / use an A/B OS
 - Architecture: ARM64
@@ -140,7 +127,6 @@ So I'm looking for the arm64 A/B image.
 
 LineageOS boots up fine, wifi working, no app store.
 
-
 ## MicroG
 
 [Download via F-Droid repo](https://microg.org/download.html)
@@ -148,4 +134,3 @@ Depends on Signature spoofing which is not currently available on Android 11 Lin
 
 The whole point of this exercise was to degoogle, I'm not happy with it for now, so will come back to it sometime.
 Meanwhile I'm going back to OxygenOS but will try out the FDroid store apps.
-

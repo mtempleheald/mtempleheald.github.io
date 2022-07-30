@@ -9,16 +9,17 @@ The Windows installer seemed a little more forgiving and I just never got around
 I figured I'd make life relatively easy for myself and go with a popular, easy distro, so Ubuntu for now.
 Mostly it has been easy, my aim to get to a position where I can easily use the following software:
 
-- Firefox     - trivial, ootb
+- Firefox - trivial, ootb
 - Thunderbird - trivial, ootb
-- KeePass     - simple once I found [instructions](https://www.ithowtoo.com/2020/12/18/ubuntu-20-04-installing-keypass/)
-- DropBox     - simple to follow [instructions](https://www.dropbox.com/install-linux)
-- git         - trivial, `sudo apt-get install git` or `sudo apt-get install git-all`
-- VS Code     - simple [instructions](https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions)
-- Rust        - Trivial `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+- KeePass - simple once I found [instructions](https://www.ithowtoo.com/2020/12/18/ubuntu-20-04-installing-keypass/)
+- DropBox - simple to follow [instructions](https://www.dropbox.com/install-linux)
+- git - trivial, `sudo apt-get install git` or `sudo apt-get install git-all`
+- VS Code - simple [instructions](https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions)
+- Rust - Trivial `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 
 To do:
-- .NET Core   - https://docs.microsoft.com/en-gb/dotnet/core/install/linux-ubuntu
+
+- .NET Core - https://docs.microsoft.com/en-gb/dotnet/core/install/linux-ubuntu
 - Steam
 - adb
 - alternative browsers
@@ -36,10 +37,7 @@ Repeatable steps:
 Agent registered
 `devices`
 Device XXX MX Master
-`trust XXX
-[CHG] Device XXX Trusted: yes
-Changing XXX trust succeeded
-`connect XXX`
+`trust XXX [CHG] Device XXX Trusted: yes Changing XXX trust succeeded `connect XXX`
 Attempting to connect to XXX
 [CHG] Device XXX Connected: yes
 Failed to connect: org.bluez.Error.Failed
@@ -62,6 +60,7 @@ A well written post that explains how to do this in detail and why this is neces
 Honourable mention to [GitHub hosted broadcom firmware](https://github.com/winterheart/broadcom-bt-firmware) though I didn't use this in the end.
 
 Check recent device messages for bluetooth errors using `dmesg | egrep -i 'blue|firm'`:
+
 ```
 [    2.516055] Bluetooth: hci0: BCM20702A
 [    2.517048] Bluetooth: hci0: BCM20702A1 (001.002.014) build 0000
@@ -70,30 +69,37 @@ Check recent device messages for bluetooth errors using `dmesg | egrep -i 'blue|
 ```
 
 Check Network PCI configuration with `lspci -nnk | grep -iA2 net`:
+
 ```02:00.0 Network controller [0280]: Broadcom Inc. and subsidiaries BCM4352 802.11ac Wireless Network Adapter [14e4:43b1] (rev 03)
 	Subsystem: AzureWave BCM4352 802.11ac Wireless Network Adapter [1a3b:2123]
 ```
 
 and USB device configuration with `lsusb`:
+
 ```
 Bus 003 Device 004: ID 13d3:3404 IMC Networks BCM20702A0
 ```
 
 Download [Windows driver](http://drivers.softpedia.com/get/BLUETOOTH/Broadcom/ASUS-X99-DELUXE-Broadcom-Bluetooth-Driver-6515800-12009860.shtml#download)
-Extract and find file bcbtums-*.inf, I went for Windows 8.1 64bit version.
+Extract and find file bcbtums-\*.inf, I went for Windows 8.1 64bit version.
 In file find `VID_13d3&PID_3404` (values from lsusb command)
+
 ```
 line 148: %AzBtModule.DeviceDesc%=BlueRAMUSB3404,         USB\VID_13D3&PID_3404       ; 4352HMB Azurewave Module
 line 234: %AzBtModule.DeviceDesc%=RAMUSB3404,         USB\VID_13D3&PID_3404       ; 4352HMB Azurewave Module
 ```
+
 In the same file search for this DeviceDesc to find the filename of the driver:
+
 ```
 [RAMUSB3404.CopyList]
 bcbtums.sys
 btwampfl.sys
 BCM20702A1_001.002.014.1443.1479.hex
 ```
+
 Copy .hex file to $HOME and convert to hcd:
+
 ```
 git clone git://github.com/jessesung/hex2hcd.git
 cd hex2hcd/
@@ -101,12 +107,15 @@ make
 cd $HOME
 ~/hex2hcd/hex2hcd ~/BCM20702A1_001.002.014.1443.1479.hex ~/BCM20702A1-13d3-3404.hcd
 ```
+
 Copy file to firmware directory:
+
 ```
 sudo cp ~/BCM20702A1-13d3-3404.hcd /lib/firmware/brcm
 ```
+
 Turn it off and on again.
-Huzzah!  (Just lucky I kept my old mouse or I'd probably have abandoned the whole endeavour)
+Huzzah! (Just lucky I kept my old mouse or I'd probably have abandoned the whole endeavour)
 
 To be continued...
 
@@ -119,7 +128,8 @@ Luckily I still have a 25m ethernet cable and an old wired mouse lying around.
 [This](https://itsfoss.com/fix-no-wireless-network-ubuntu/) seems to describe the same problem but the fix didn't help me.
 
 Under Software & Updates > Additional Drivers I see that my Wireless Network Adapter is not being used.
-I try to enable it and see the error 
+I try to enable it and see the error
+
 ```
 pk-client-error-quark: Error while installing package: installed bcmwl-kernel-source package post-installation script subprocess returned error exit status 10 (313)
 ```

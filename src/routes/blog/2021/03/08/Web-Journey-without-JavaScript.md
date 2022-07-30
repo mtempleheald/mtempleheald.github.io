@@ -1,6 +1,6 @@
 # Web Journey without JavaScript
 
-An exploration into developing a full web journey without JavaScript.  
+An exploration into developing a full web journey without JavaScript.
 
 I'm not overly keen on JavaScript (or dynamic languages in general), but the true motivation here is layering, specifically the repetition of business logic in 2 places.
 
@@ -11,7 +11,7 @@ I'm not overly keen on JavaScript (or dynamic languages in general), but the tru
 
 ## Initial thoughts
 
-WebAssembly is now available as an alternative to JavaScript in the browser, for many use cases.  There are limits, most notably the inability to interact directly with the DOM.
+WebAssembly is now available as an alternative to JavaScript in the browser, for many use cases. There are limits, most notably the inability to interact directly with the DOM.
 So the solution will require some JavaScript plumbing.
 
 The JavaScript elements should be limited to context-agnostic data-driven validation/display toggling, using a library such as [validate.js](https://validatejs.org/).
@@ -22,7 +22,7 @@ The JavaScript elements should be limited to context-agnostic data-driven valida
 - We can share code front and backend (if that makes sense) but we must write it only once
 - All code must be testable
 - The application must be responsive with no significant latency
-- 
+-
 
 ## Solution design
 
@@ -65,6 +65,7 @@ There should be sufficient information in here for both display and simple valid
     ]
 }
 ```
+
 ### Validate & submit
 
 - Should have already performed simple validation in the browser
@@ -79,7 +80,7 @@ There should be sufficient information in here for both display and simple valid
 
 - Page URLs and navigation are the domain of the JS.
 - Data, session and persistence are the domain of the backend & wasm frontend
-These 2 aspects aren't entirely independent...
+  These 2 aspects aren't entirely independent...
 
 If we choose to go down the SPA route then we can consider the WASM memory as the session data.  
 We also have the option here to break up the questionSet into as many or as few chunks as we like.
@@ -94,7 +95,4 @@ Any time we need to look at data spanning questionSets (pages in this scenario) 
 - Layer separation is clear and there is no code duplication.
 - Browser-based data-annotation-driven validation is proven and well known
 - The practicalities of interop for questionSet submission to be proven, can't add too much latency.
-- WASM to backend APIs via REST or gRPC to be considered - not clear on security in WASM 
-
-
-
+- WASM to backend APIs via REST or gRPC to be considered - not clear on security in WASM

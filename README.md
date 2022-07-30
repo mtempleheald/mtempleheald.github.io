@@ -3,6 +3,7 @@
 Somewhere to gather my thoughts, in a convenient way, for the rest of time.
 
 Previous attempts include:
+
 - Hand made blog written in php - I can only blame immaturity and lack of experience with decent programming languages
 - Wordpress - I just don't like the interface, slow, need more customisation and generally dislike frameworks
 - GitHub Pages with Jekyll - constant security warnings, dependencies I don't understand and have no interest in learning
@@ -41,7 +42,7 @@ I can host in GitHub Pages, access from anywhere and write to from any developme
 - Implemented routing
   - Tried [svelte-spa-router](https://github.com/ItalyPaleAle/svelte-spa-router)
     - Hash-based routing, need to specify `use:link`, bit clunky to use
-  - Considered [svelte-router-spa](https://www.npmjs.com/package/svelte-router-spa) 
+  - Considered [svelte-router-spa](https://www.npmjs.com/package/svelte-router-spa)
     - [GitHub](https://github.com/jorgegorka/svelte-router)
     - Seems cleverer, more user friendly and with less boilerplate, with the routing config in one place and available when needed.
   - Selected [Routify](https://routify.dev) based on Reddit recommendations
