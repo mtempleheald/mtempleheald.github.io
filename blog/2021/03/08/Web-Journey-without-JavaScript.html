@@ -6,35 +6,35 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
-	<link rel="modulepreload" href="/_app/start-ffe767c3.js">
-	<link rel="modulepreload" href="/_app/chunks/vendor-7ab0699c.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-b61dbfd0.js">
-	<link rel="modulepreload" href="/_app/pages/blog/2021/03/08/Web-Journey-without-JavaScript.md-e9134fc6.js">
+	<link rel="stylesheet" href="/_app/immutable/assets/__layout-03d5821d.css">
+	<link rel="modulepreload" href="/_app/immutable/start-7e94f4f6.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-4d40d7b1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-9c8ce966.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/blog/2021/03/08/Web-Journey-without-JavaScript.md-ed3cee05.js">
 	</head>
 	<body>
 		<div>
 
 
 
-<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
-  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
-
-<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
-    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
-    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
-    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
+		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
+	
+<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
+		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
+		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
+		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
 </nav>
 </div>
 
 <main class="svelte-lv7236"><h1>Web Journey without JavaScript</h1>
-<p>An exploration into developing a full web journey without JavaScript.  </p>
+<p>An exploration into developing a full web journey without JavaScript.</p>
 <p>I’m not overly keen on JavaScript (or dynamic languages in general), but the true motivation here is layering, specifically the repetition of business logic in 2 places.</p>
 <h2>Vision</h2>
 <ul><li>Want all business logic to reside <em>only</em> on the server, since we can’t trust anything handled client side.</li>
 <li>Need interactivity in the browser, else it will be a poor user experience, but this needs to be data-driven and not contain business logic.</li></ul>
 <h2>Initial thoughts</h2>
-<p>WebAssembly is now available as an alternative to JavaScript in the browser, for many use cases.  There are limits, most notably the inability to interact directly with the DOM.
+<p>WebAssembly is now available as an alternative to JavaScript in the browser, for many use cases. There are limits, most notably the inability to interact directly with the DOM.
 So the solution will require some JavaScript plumbing.</p>
 <p>The JavaScript elements should be limited to context-agnostic data-driven validation/display toggling, using a library such as <a href="https://validatejs.org/" rel="nofollow">validate.js</a>.</p>
 <h2>Design principles</h2>
@@ -116,25 +116,28 @@ Any time we need to look at data spanning questionSets (pages in this scenario) 
 <ul><li>Layer separation is clear and there is no code duplication.</li>
 <li>Browser-based data-annotation-driven validation is proven and well known</li>
 <li>The practicalities of interop for questionSet submission to be proven, can’t add too much latency.</li>
-<li>WASM to backend APIs via REST or gRPC to be considered - not clear on security in WASM </li></ul></main>
+<li>WASM to backend APIs via REST or gRPC to be considered - not clear on security in WASM</li></ul></main>
 
 
-<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
-  <p>If you don&#39;t like it, you know where the close button is.</p>
-  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
-  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
-  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
-  <p>Mindful meanderings manifest more manageable machinations.
-    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
-    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
-  </p>
+<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
+	<p>If you don&#39;t like it, you know where the close button is.</p>
+	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
+	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
+	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
+	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.
+	</p>
 </footer>
 
 
-		<script type="module" data-hydrate="1odjo4l">
-		import { start } from "/_app/start-ffe767c3.js";
+		<script type="module" data-sveltekit-hydrate="3mtppm">
+		import { set_public_env, start } from "/_app/immutable/start-7e94f4f6.js";
+
+		set_public_env({});
+
 		start({
-			target: document.querySelector('[data-hydrate="1odjo4l"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="3mtppm"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -143,10 +146,7 @@ Any time we need to look at data spanning questionSets (pages in this scenario) 
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [
-					import("/_app/pages/__layout.svelte-b61dbfd0.js"),
-						import("/_app/pages/blog/2021/03/08/Web-Journey-without-JavaScript.md-e9134fc6.js")
-				],
+				nodes: [0, 17],
 				params: {},
 				routeId: "blog/2021/03/08/Web-Journey-without-JavaScript"
 			}

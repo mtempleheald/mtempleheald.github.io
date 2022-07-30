@@ -6,84 +6,86 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
-	<link rel="modulepreload" href="/_app/start-ffe767c3.js">
-	<link rel="modulepreload" href="/_app/chunks/vendor-7ab0699c.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-b61dbfd0.js">
-	<link rel="modulepreload" href="/_app/pages/blog/2018/09/01/BizTalk-Upgrade-2016-Oracle-Adapter.md-ae345fa5.js">
+	<link rel="stylesheet" href="/_app/immutable/assets/__layout-03d5821d.css">
+	<link rel="modulepreload" href="/_app/immutable/start-7e94f4f6.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-4d40d7b1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-9c8ce966.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/blog/2018/09/01/BizTalk-Upgrade-2016-Oracle-Adapter.md-cf94f9c2.js">
 	</head>
 	<body>
 		<div>
 
 
 
-<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
-  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
-
-<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
-    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
-    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
-    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
+		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
+	
+<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
+		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
+		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
+		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
 </nav>
 </div>
 
 <main class="svelte-lv7236"><p>I was recently involved in an upgrade from BizTalk 2013 to BizTalk 2016.<br>
-After upgrade all of our SpecFlow system tests started failing.  </p>
-<p>The error manifests itself in the Event Viewer Application Logs as:  </p>
-<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">System.IO.FileNotFoundException: Could not load file or assembly 
-&#39;Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342&#39; 
+After upgrade all of our SpecFlow system tests started failing.</p>
+<p>The error manifests itself in the Event Viewer Application Logs as:</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">System.IO.FileNotFoundException: Could not load file or assembly
+&#39;Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342&#39;
 or one of its dependencies. The system cannot find the file specified.</code><!-- HTML_TAG_END --></pre>
 <h3>Dependencies</h3>
-<p>So I dug into this in order to understand the problem and how to fix it, it turns out that:  </p>
-<ul><li>Biztalk 2013 has a dependency on <a href="https://www.oracle.com/technetwork/topics/dotnet/index-085163.html" rel="nofollow">Oracle Data Provider for .NET</a> version 11.2.  <ul><li>Oracle version 11.2.0.x.x == Oracle.dataaccess.dll 4.112.x.x</li></ul></li>
-<li>BizTalk 2016 has the same dependency but on Oracle version 12.1.<ul><li>Oracle version 12.1.0.x.x	== Oracle.dataaccess.dll 4.121.x.x</li></ul></li></ul>
+<p>So I dug into this in order to understand the problem and how to fix it, it turns out that:</p>
+<ul><li>Biztalk 2013 has a dependency on <a href="https://www.oracle.com/technetwork/topics/dotnet/index-085163.html" rel="nofollow">Oracle Data Provider for .NET</a> version 11.2.<ul><li>Oracle version 11.2.0.x.x == Oracle.dataaccess.dll 4.112.x.x</li></ul></li>
+<li>BizTalk 2016 has the same dependency but on Oracle version 12.1.<ul><li>Oracle version 12.1.0.x.x == Oracle.dataaccess.dll 4.121.x.x</li></ul></li></ul>
 <p>When it comes to Oracle database connectivity:</p>
 <ul><li>a newer client should be able to connect to an older database</li>
 <li>an older client may not be able to connect to a newer database</li></ul>
 <p>In this case the client is the oracle.dataaccess.dll library used by BizTalk, aligned to Oracle database 12.1.<br>
 Well that’s OK then, because our target servers are running Oracle 11.2 which is older.<br>
 At the time of writing there are 3 download options from Oracle’s site:</p>
-<ul><li>DB version 11gR2  11.2.0.3.20	</li>
-<li>DB version 12cR1  12.1.0.2.4		(closest match, only differs by minor version)</li>
-<li>DB version 12cR2  12.2.0.1.0	</li></ul>
+<ul><li>DB version 11gR2 11.2.0.3.20</li>
+<li>DB version 12cR1 12.1.0.2.4 (closest match, only differs by minor version)</li>
+<li>DB version 12cR2 12.2.0.1.0</li></ul>
 <h3>Installation</h3>
-<p>After installation we end up with the following GACced assemblies:  </p>
-<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">C:WindowsMicrosoft.NETassemblyGAC_32Oracle.DataAccess4.0_4.121.2.0__89b483f429c47342   
-C:WindowsMicrosoft.NETassemblyGAC_64Oracle.DataAccess4.0_4.112.2.0__89b483f429c47342  
-C:WindowsMicrosoft.NETassemblyGAC_32Policy.4.121.Oracle.DataAccess4.0_4.121.2.0__89b483f429c47342 </code><!-- HTML_TAG_END --></pre>
+<p>After installation we end up with the following GACced assemblies:</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">C:WindowsMicrosoft.NETassemblyGAC_32Oracle.DataAccess4.0_4.121.2.0__89b483f429c47342
+C:WindowsMicrosoft.NETassemblyGAC_64Oracle.DataAccess4.0_4.112.2.0__89b483f429c47342C:WindowsMicrosoft.NETassemblyGAC_32Policy.4.121.Oracle.DataAccess4.0_4.121.2.0__89b483f429c47342</code><!-- HTML_TAG_END --></pre>
 <p>The last of these provides an assembly bindingRedirect:</p>
-<pre class="language-xml"><!-- HTML_TAG_START --><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bindingRedirect</span> <span class="token attr-name">oldVersion</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4.121.0.0-4.121.2.0<span class="token punctuation">"</span></span> <span class="token attr-name">newVersion</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4.121.2.0<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> </code><!-- HTML_TAG_END --></pre>
+<pre class="language-xml"><!-- HTML_TAG_START --><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bindingRedirect</span> <span class="token attr-name">oldVersion</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4.121.0.0-4.121.2.0<span class="token punctuation">"</span></span> <span class="token attr-name">newVersion</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4.121.2.0<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></code><!-- HTML_TAG_END --></pre>
 <p>Great, so BizTalk’s reference to oracle.dataaccess.dll 4.121.1.0 will resolve to 4.121.4.0 and all should be fine.<br>
-Indeed it was.  </p>
-<p>I’m glad I spent the time investigating this, luckily we didn’t have to follow <a href="https://blog.sandro-pereira.com/2017/10/05/biztalk-server-2016-could-not-load-file-or-assembly-oracle-dataaccess-version-or-one-of-its-dependencies/" rel="nofollow">Sandro Pereira’s advice</a>.  </p>
+Indeed it was.</p>
+<p>I’m glad I spent the time investigating this, luckily we didn’t have to follow <a href="https://blog.sandro-pereira.com/2017/10/05/biztalk-server-2016-could-not-load-file-or-assembly-oracle-dataaccess-version-or-one-of-its-dependencies/" rel="nofollow">Sandro Pereira’s advice</a>.</p>
 <h3>Testing</h3>
 <p>After installation we have new entries in the %PATH% environment variable:
 <code>C:\oracle\product\12.1.0\client_1</code>
 <code>C:\oracle\product\12.1.0\client_1\bin</code></p>
 <p>listed before the server installation:
 <code>C:\oraclexe\app\oracle\product\11.2.0\server\bin</code></p>
-<p>This means that the client config (TNSNames.ora etc) will be used.  </p>
+<p>This means that the client config (TNSNames.ora etc) will be used.</p>
 <p>This is important for us to know.<br>
 Our automated system tests against a local XE 11gR2 database (an empty copy of target systems).<br>
-We’d like to be sure that BizTalk, our automated deployment scripts and Systests use the same client versions and configuration where possible.  </p></main>
+We’d like to be sure that BizTalk, our automated deployment scripts and Systests use the same client versions and configuration where possible.</p></main>
 
 
-<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
-  <p>If you don&#39;t like it, you know where the close button is.</p>
-  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
-  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
-  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
-  <p>Mindful meanderings manifest more manageable machinations.
-    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
-    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
-  </p>
+<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
+	<p>If you don&#39;t like it, you know where the close button is.</p>
+	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
+	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
+	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
+	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.
+	</p>
 </footer>
 
 
-		<script type="module" data-hydrate="1ck8xvq">
-		import { start } from "/_app/start-ffe767c3.js";
+		<script type="module" data-sveltekit-hydrate="2vyh4a">
+		import { set_public_env, start } from "/_app/immutable/start-7e94f4f6.js";
+
+		set_public_env({});
+
 		start({
-			target: document.querySelector('[data-hydrate="1ck8xvq"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="2vyh4a"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -92,10 +94,7 @@ We’d like to be sure that BizTalk, our automated deployment scripts and Systes
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [
-					import("/_app/pages/__layout.svelte-b61dbfd0.js"),
-						import("/_app/pages/blog/2018/09/01/BizTalk-Upgrade-2016-Oracle-Adapter.md-ae345fa5.js")
-				],
+				nodes: [0, 9],
 				params: {},
 				routeId: "blog/2018/09/01/BizTalk-Upgrade-2016-Oracle-Adapter"
 			}

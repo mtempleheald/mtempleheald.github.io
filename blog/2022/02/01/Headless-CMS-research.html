@@ -6,24 +6,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
-	<link rel="modulepreload" href="/_app/start-ffe767c3.js">
-	<link rel="modulepreload" href="/_app/chunks/vendor-7ab0699c.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-b61dbfd0.js">
-	<link rel="modulepreload" href="/_app/pages/blog/2022/02/01/Headless-CMS-research.md-fe9f4a16.js">
+	<link rel="stylesheet" href="/_app/immutable/assets/__layout-03d5821d.css">
+	<link rel="modulepreload" href="/_app/immutable/start-7e94f4f6.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-4d40d7b1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-9c8ce966.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/blog/2022/02/01/Headless-CMS-research.md-c89be9d0.js">
 	</head>
 	<body>
 		<div>
 
 
 
-<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
-  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
-
-<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
-    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
-    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
-    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
+		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
+	
+<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
+		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
+		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
+		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
 </nav>
 </div>
 
@@ -47,21 +47,21 @@ The data structure should look similar to above without requiring significant kn
 <ol start="4"><li>Ease of use</li></ol>
 <p>The content editor needs to understand context at all times.<br>
 e.g. We are editing a section within page X, journey A, not editing a section then going to find a page to link it to.<br>
-This is important for scalability and to reduce human errors.  </p>
+This is important for scalability and to reduce human errors.</p>
 <ol start="5"><li>Safety</li></ol>
 <p>Developers must be able to edit content types, and content editors must be able to edit content using these types, without ever losing data.<br>
-This is important for deployment and publishing purposes.  </p>
+This is important for deployment and publishing purposes.</p>
 <ol start="6"><li>Versioning</li></ol>
-<p>Relating to safety but more about compliance; we must be able to view the change history for content and rollback if necessary.  </p>
+<p>Relating to safety but more about compliance; we must be able to view the change history for content and rollback if necessary.</p>
 <ol><li>Lightweight</li></ol>
 <p>I want a pure headless solution, not a full solution that I’m only using the headless features of.<br>
-This is for security, upgrade, complexity reasons but should also keep costs down.  </p>
+This is for security, upgrade, complexity reasons but should also keep costs down.</p>
 <ol start="8"><li>Hosting</li></ol>
-<p>I know how to host .NET and Node apps, either will suffice.  As long as it is secure.  No PHP.  </p>
+<p>I know how to host .NET and Node apps, either will suffice. As long as it is secure. No PHP.</p>
 <h1>The contenders</h1>
 <p>Starting with free options, because why wouldn’t you?<br>
 I deliberately timeboxed this work to a few hours per option.<br>
-If a competent developer can’t get to grips with managing a basic structure in a few hours then content editors won’t be able to work with it.  </p>
+If a competent developer can’t get to grips with managing a basic structure in a few hours then content editors won’t be able to work with it.</p>
 <h2>Strapi</h2>
 <p>Pros:</p>
 <ul><li>Top of the most popular list on <a href="https://jamstack.org/headless-cms/" rel="nofollow">Jamstack</a>.</li>
@@ -76,7 +76,7 @@ This means that managing components within sections is nice, but linking these b
 The relationship feature can make this work, but it seems you have to manage the one-to-many side of the relationship and also the many-to-one side, i.e. list pages within journey and link page back to parent journey.</li>
 <li>Search filters are lost during navigation.
 I’m not sure if this is a bad thing, but it frustrated me during my brief trial.</li>
-<li>Interface is clunky.  It never let me break anything or lose changes, but I had to try, see the popup and remember to save rather than this being immediately apparent.</li>
+<li>Interface is clunky. It never let me break anything or lose changes, but I had to try, see the popup and remember to save rather than this being immediately apparent.</li>
 <li>The first thing I tried to do was create a component with an id.<br>
 This clashed with the id added by default, something of an oversight if you ask me.</li>
 <li>Creating content types writes JSON files to disk, in the solution, so presumably I’d deploy this the way I would any other web app, from git.
@@ -108,22 +108,25 @@ The API/Query complexity makes me wary - anytime there’s an index/cache involv
 I will complete the API PoC work, use the NuGet-driven setup process and re-evaluate.</p></main>
 
 
-<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
-  <p>If you don&#39;t like it, you know where the close button is.</p>
-  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
-  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
-  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
-  <p>Mindful meanderings manifest more manageable machinations.
-    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
-    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
-  </p>
+<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
+	<p>If you don&#39;t like it, you know where the close button is.</p>
+	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
+	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
+	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
+	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.
+	</p>
 </footer>
 
 
-		<script type="module" data-hydrate="1wxq520">
-		import { start } from "/_app/start-ffe767c3.js";
+		<script type="module" data-sveltekit-hydrate="wzsif">
+		import { set_public_env, start } from "/_app/immutable/start-7e94f4f6.js";
+
+		set_public_env({});
+
 		start({
-			target: document.querySelector('[data-hydrate="1wxq520"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="wzsif"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -132,10 +135,7 @@ I will complete the API PoC work, use the NuGet-driven setup process and re-eval
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [
-					import("/_app/pages/__layout.svelte-b61dbfd0.js"),
-						import("/_app/pages/blog/2022/02/01/Headless-CMS-research.md-fe9f4a16.js")
-				],
+				nodes: [0, 20],
 				params: {},
 				routeId: "blog/2022/02/01/Headless-CMS-research"
 			}

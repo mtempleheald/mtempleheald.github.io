@@ -6,29 +6,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
-	<link rel="modulepreload" href="/_app/start-ffe767c3.js">
-	<link rel="modulepreload" href="/_app/chunks/vendor-7ab0699c.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-b61dbfd0.js">
-	<link rel="modulepreload" href="/_app/pages/blog/2021/03/16/DevOps-Shared-Environments.md-f05c361a.js">
+	<link rel="stylesheet" href="/_app/immutable/assets/__layout-03d5821d.css">
+	<link rel="modulepreload" href="/_app/immutable/start-7e94f4f6.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-4d40d7b1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-9c8ce966.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/blog/2021/03/16/DevOps-Shared-Environments.md-80711728.js">
 	</head>
 	<body>
 		<div>
 
 
 
-<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
-  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
-
-<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
-    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
-    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
-    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
+		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
+	
+<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
+		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
+		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
+		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
 </nav>
 </div>
 
 <main class="svelte-lv7236"><h1>Sharing environments between projects in Azure DevOps</h1>
-<p>This is useful for multiple websites held in different projects hosted in the same IIS instance on the same server(s).  Alternatively, for microservices hosted on a Virtual Machine, if deployed independently.</p>
+<p>This is useful for multiple websites held in different projects hosted in the same IIS instance on the same server(s). Alternatively, for microservices hosted on a Virtual Machine, if deployed independently.</p>
 <h2>The issue</h2>
 <p>Azure DevOps generates the script for you to install a build/release agent on a server, within the Environments tab of the Pipelines section of the Project.</p>
 <p>This works fine, the first time.
@@ -41,7 +41,7 @@ These names can be changed to aid ongoing maintenance.</p>
 <li>Fail to create since it can’t delete the first agent.
 In this case the second agent always shows as offline and the new pipeline won’t run.
 <code>Unable to deploy to the virtual machine &#39;XXX&#39; as the machine is offline</code></li></ul>
-<p>Others have reported <a href="https://github.com/MicrosoftDocs/azure-devops-docs/issues/8578" rel="nofollow">this issue</a> and provided an alternative script.  I am not comfortable just running scripts from the web, I prefer a future proof understanding of the problem.</p>
+<p>Others have reported <a href="https://github.com/MicrosoftDocs/azure-devops-docs/issues/8578" rel="nofollow">this issue</a> and provided an alternative script. I am not comfortable just running scripts from the web, I prefer a future proof understanding of the problem.</p>
 <h2>The solution</h2>
 <p>The reason for this issue is that the script generates an agent with a name matching the VM by default.
 The DevOps-generated script is one-lined but otherwise not hard to dissect.
@@ -51,22 +51,25 @@ In the line which calls <code>config</code> we need to change the <code>agent</c
 <p>Interestingly this was <a href="https://devblogs.microsoft.com/devops/sharing-of-deployment-groups-across-projects/" rel="nofollow">resolved</a> in the past for deployment groups, which are used by releases (as opposed to pipelines), so I’d assume that this will come eventually.</p></main>
 
 
-<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
-  <p>If you don&#39;t like it, you know where the close button is.</p>
-  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
-  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
-  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
-  <p>Mindful meanderings manifest more manageable machinations.
-    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
-    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
-  </p>
+<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
+	<p>If you don&#39;t like it, you know where the close button is.</p>
+	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
+	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
+	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
+	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.
+	</p>
 </footer>
 
 
-		<script type="module" data-hydrate="8znilh">
-		import { start } from "/_app/start-ffe767c3.js";
+		<script type="module" data-sveltekit-hydrate="1747vm2">
+		import { set_public_env, start } from "/_app/immutable/start-7e94f4f6.js";
+
+		set_public_env({});
+
 		start({
-			target: document.querySelector('[data-hydrate="8znilh"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="1747vm2"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -75,10 +78,7 @@ In the line which calls <code>config</code> we need to change the <code>agent</c
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [
-					import("/_app/pages/__layout.svelte-b61dbfd0.js"),
-						import("/_app/pages/blog/2021/03/16/DevOps-Shared-Environments.md-f05c361a.js")
-				],
+				nodes: [0, 18],
 				params: {},
 				routeId: "blog/2021/03/16/DevOps-Shared-Environments"
 			}

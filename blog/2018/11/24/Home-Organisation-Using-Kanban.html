@@ -6,34 +6,34 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
-	<link rel="modulepreload" href="/_app/start-ffe767c3.js">
-	<link rel="modulepreload" href="/_app/chunks/vendor-7ab0699c.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-b61dbfd0.js">
-	<link rel="modulepreload" href="/_app/pages/blog/2018/11/24/Home-Organisation-Using-Kanban.md-74b4019b.js">
+	<link rel="stylesheet" href="/_app/immutable/assets/__layout-03d5821d.css">
+	<link rel="modulepreload" href="/_app/immutable/start-7e94f4f6.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-4d40d7b1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-9c8ce966.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/blog/2018/11/24/Home-Organisation-Using-Kanban.md-05daad52.js">
 	</head>
 	<body>
 		<div>
 
 
 
-<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
-  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
-
-<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
-    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
-    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
-    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
+		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
+	
+<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
+		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
+		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
+		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
 </nav>
 </div>
 
-<main class="svelte-lv7236"><pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">As a disorganised, undisciplined administrator of house and home  
-I require a permanently visible, virtual Kanban board  
+<main class="svelte-lv7236"><pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">As a disorganised, undisciplined administrator of house and home
+I require a permanently visible, virtual Kanban board
 In order to keep control of things</code><!-- HTML_TAG_END --></pre>
 <p>So that’s the plan, I’ve been trying to use Trello for this purpose and I love the simplicity (compared to Azure DevOps for example), the android app is good too.<br>
 However it gets lost amongst dozens of browser tabs (plus I hate typing on touch screen), so something is missing.<br>
 I could go physical but if I think of something during a commute, or in a bar or supermarket, I’ll forget by the time I get home and this will drive me nuts.<br>
-So I think stick with Trello, but set up a permanent display for it that I can’t ignore, worth a try anyway.  </p>
+So I think stick with Trello, but set up a permanent display for it that I can’t ignore, worth a try anyway.</p>
 <p>I had a Kindle Fire (2nd Generation) from 2012 lying around so figured I’d use that, though I’d have to work out how to disable the annoying lock screen (not just adverts).<br>
 I installed the KingRoot app and rooted the device, installed Android Studio to get access to <a href="https://developer.android.com/studio/command-line/adb" rel="nofollow">adb</a>.
 Now what?</p>
@@ -48,7 +48,7 @@ Of all the sites I visited <a href="https://android-fix.com/tips-and-tricks/38-h
 But /data/system/locksettings.db and /data/system/gesture.key didn’t seem to exist so I was stuck with option 1.<br>
 Slight problem with that in the sqlite3 wasn’t on the kindle either, though it is on my Windows machine under Android SDK tools.<br>
 So I rather naively pulled, edited, pushed the database back.<br>
-Success!  Almost!  Yes the lock screen was gone, but I’d also lost the ability to navigate between apps and the keyboard had gone Chinese(?).  Couldn’t even get back to the settings to do a factory reset.  </p>
+Success! Almost! Yes the lock screen was gone, but I’d also lost the ability to navigate between apps and the keyboard had gone Chinese(?). Couldn’t even get back to the settings to do a factory reset.</p>
 <h3>Hard Factory Reset</h3>
 <p>I was bored now, this really wasn’t worth the effort, but now I’ve got an unusable device.<br>
 The issue I’d encountered was described quite clearly on the <a href="https://forum.xda-developers.com/showthread.php?t=2758306" rel="nofollow">xda forum</a>, as was the solution.<br>
@@ -60,25 +60,28 @@ This worked fine, my Kindle is back to normal, steps as follows:</p>
 <li>Copy the file to the update cache, had to use cat because cp wasn’t available <code>cat /sdcard/update-kindle-7.5.1_user_5174320.bin &gt; /cache/update.zip</code></li>
 <li>exit and exit again to return to Windows prompt</li>
 <li>Reboot to trigger factory reset <code>.\adb reboot recovery</code></li></ol>
-<p>I also considered installing a custom Android ROM rather than the FireOS one but I could not find a live link anywhere for a 2012 device.  </p></main>
+<p>I also considered installing a custom Android ROM rather than the FireOS one but I could not find a live link anywhere for a 2012 device.</p></main>
 
 
-<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
-  <p>If you don&#39;t like it, you know where the close button is.</p>
-  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
-  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
-  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
-  <p>Mindful meanderings manifest more manageable machinations.
-    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
-    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
-  </p>
+<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
+	<p>If you don&#39;t like it, you know where the close button is.</p>
+	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
+	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
+	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
+	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.
+	</p>
 </footer>
 
 
-		<script type="module" data-hydrate="qac505">
-		import { start } from "/_app/start-ffe767c3.js";
+		<script type="module" data-sveltekit-hydrate="9ej8ey">
+		import { set_public_env, start } from "/_app/immutable/start-7e94f4f6.js";
+
+		set_public_env({});
+
 		start({
-			target: document.querySelector('[data-hydrate="qac505"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="9ej8ey"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -87,10 +90,7 @@ This worked fine, my Kindle is back to normal, steps as follows:</p>
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [
-					import("/_app/pages/__layout.svelte-b61dbfd0.js"),
-						import("/_app/pages/blog/2018/11/24/Home-Organisation-Using-Kanban.md-74b4019b.js")
-				],
+				nodes: [0, 11],
 				params: {},
 				routeId: "blog/2018/11/24/Home-Organisation-Using-Kanban"
 			}

@@ -6,24 +6,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-711b4112.css">
-	<link rel="modulepreload" href="/_app/start-ffe767c3.js">
-	<link rel="modulepreload" href="/_app/chunks/vendor-7ab0699c.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-b61dbfd0.js">
-	<link rel="modulepreload" href="/_app/pages/blog/2018/11/14/GitHub-Pages-and-Jekyll-Themes.md-7ab493fb.js">
+	<link rel="stylesheet" href="/_app/immutable/assets/__layout-03d5821d.css">
+	<link rel="modulepreload" href="/_app/immutable/start-7e94f4f6.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-4d40d7b1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-9c8ce966.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/blog/2018/11/14/GitHub-Pages-and-Jekyll-Themes.md-11267295.js">
 	</head>
 	<body>
 		<div>
 
 
 
-<div class="svelte-1lrvsco"><header><h1 class="svelte-1lrvsco">Mark Temple-Heald</h1>
-  <h2 class="svelte-1lrvsco">the right tool for the job</h2></header>
-
-<nav class="svelte-r02kv1"><ul class="svelte-r02kv1"><li class="svelte-r02kv1"><a href="/" class="navAnchor">Home</a></li>
-    <li class="svelte-r02kv1"><a href="/blog" class="navAnchor">Blog</a></li>
-    <li class="svelte-r02kv1"><a href="/topic" class="navAnchor">Topic</a></li>
-    <li class="svelte-r02kv1"><a href="/about" class="navAnchor">About</a></li></ul>
+<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
+		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
+	
+<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
+		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
+		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
+		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
 </nav>
 </div>
 
@@ -33,7 +33,7 @@ In order to reduce time wasting and search repetition</code><!-- HTML_TAG_END --
 <p>I’ve got code and technical documentation all over the place:</p>
 <ul><li>Google drive</li>
 <li>OneNote</li>
-<li>An ancient php blogging platform I wrote and forgot about, inspired by WordPress </li>
+<li>An ancient php blogging platform I wrote and forgot about, inspired by WordPress</li>
 <li>External hard drives</li>
 <li>GitHub</li>
 <li>BitBucket</li>
@@ -44,37 +44,37 @@ When I found out about <a href="https://pages.github.com/" rel="nofollow">GitHub
 <p>I’m trying to address only the public stuff here, but there are 2 elements to consider:</p>
 <ul><li>Structured store of useful information - to replace bookmarks, reduce search repetition and consolidate thoughts</li>
 <li>Blogging - time-dependent information, written for an external audience, or just don’t know where else to put it
-I see no reason why these 2 elements can’t co-exist, so that’s what I’m working towards, a structure platform of information with an attached blog.  </li></ul>
+I see no reason why these 2 elements can’t co-exist, so that’s what I’m working towards, a structure platform of information with an attached blog.</li></ul>
 <h3>Initial Setup</h3>
-<p>So I followed the basic instructions:  </p>
+<p>So I followed the basic instructions:</p>
 <ol><li>Create github repository mirroring my username, followed by .github.io</li>
 <li>Install <a href="https://www.ruby-lang.org/en/" rel="nofollow">Ruby</a> (dependency of Jekyll)</li>
 <li>Install <a href="https://jekyllrb.com/" rel="nofollow">Jekyll</a> Ruby Gem</li>
 <li>Selected a GitHub Pages theme, specifically <a href="https://github.com/pages-themes/midnight" rel="nofollow">Midnight</a></li></ol>
-<p>And I had a formatted static website running based on the <a href="https://jekyllrb.com/docs/structure/" rel="nofollow">default project structure</a>, testable locally.  </p>
+<p>And I had a formatted static website running based on the <a href="https://jekyllrb.com/docs/structure/" rel="nofollow">default project structure</a>, testable locally.</p>
 <h3>Customisation</h3>
 <p>I started migrating existing blog entries and creating new structures for my personal data store.<br>
 It didn’t take too long before the theme started irritating me, starting with the padding around lists of lists.<br>
-Also I didn’t like the link back to GitHub or the author’s account, this is MY blog.  </p>
+Also I didn’t like the link back to GitHub or the author’s account, this is MY blog.</p>
 <p>So I started customising, firstly by overriding the CSS:</p>
 <ul><li>create style.css file in /assets/css</li>
 <li>include the standard theme css as a starter for ten <code>CSS (@import &quot;{{ site.theme }}&quot;;</code></li></ul>
 <p>Next I wasn’t happy with the HTML itself, so I made a copy of the theme’s <a href="https://github.com/pages-themes/midnight/blob/master/_layouts/default.html" rel="nofollow">default layout</a> and put it in the _layouts directory.<br>
-I was then able to tweak it to my heart’s content, but I was effectively no longer using the theme, so it made little sense to keep it as a dependency.  </p>
-<p>Digging into the source code of the theme, I could see that the theme itself subscribed to a theme, namely <a href="https://github.com/pages-themes/primer" rel="nofollow">jekyll-theme-primer</a>.  I switched to this to see what would happen:  </p>
+I was then able to tweak it to my heart’s content, but I was effectively no longer using the theme, so it made little sense to keep it as a dependency.</p>
+<p>Digging into the source code of the theme, I could see that the theme itself subscribed to a theme, namely <a href="https://github.com/pages-themes/primer" rel="nofollow">jekyll-theme-primer</a>. I switched to this to see what would happen:</p>
 <ul><li>open _config.yml</li>
 <li>alter the theme entry to jekyll-theme-primer</li></ul>
-<p>I was happy with the results, basically normalised CSS added and not much else, a bit more going on if you browse the source code but it wasn’t affecting me so I left it and just tweaked the CSS to my liking.  </p>
-<p>I’m no web designer, more technical back end stuff and integration, but I know enough not to just wing it here.  So I went looking for colour combinations that work and stuck to the standard centred blog layout.  </p>
-<p>I ended up opting for the VS Code dark+ colour scheme, since I’m used to staring at it, I found enough information in <a href="https://github.com/dunstontc/dark-plus-everywhere" rel="nofollow">dunstontc’s GitHub project</a> to get this done.  </p>
+<p>I was happy with the results, basically normalised CSS added and not much else, a bit more going on if you browse the source code but it wasn’t affecting me so I left it and just tweaked the CSS to my liking.</p>
+<p>I’m no web designer, more technical back end stuff and integration, but I know enough not to just wing it here. So I went looking for colour combinations that work and stuck to the standard centred blog layout.</p>
+<p>I ended up opting for the VS Code dark+ colour scheme, since I’m used to staring at it, I found enough information in <a href="https://github.com/dunstontc/dark-plus-everywhere" rel="nofollow">dunstontc’s GitHub project</a> to get this done.</p>
 <h3>Becoming Productive</h3>
 <p>By now I had a reasonable grasp of how Jekyll works, where to find things and how to reference <a href="https://jekyllrb.com/docs/variables/" rel="nofollow">variables</a>.<br>
-I had created a menu bar with a basic structure which I’ll tweak as and when, including a link to the Blog.  </p>
+I had created a menu bar with a basic structure which I’ll tweak as and when, including a link to the Blog.</p>
 <p>I decided to opt for a data-driven menu:</p>
 <ul><li>create a _data folder</li>
 <li>add a <a href="https://jekyllrb.com/tutorials/navigation/" rel="nofollow">toc.yml</a> file containing the data I’m interested in</li></ul>
-<p>This way I can write a document at my leisure and nobody will see it until I’m good and ready to add a link to it (unless they’re looking at my source code).  </p>
-<p>Finally, I had blog pages but nothing pointing to them, so I have added blog.md containing a loop through the site.posts variable as per the <a href="https://jekyllrb.com/docs/posts/" rel="nofollow">Jekyll documentation</a>.  </p>
+<p>This way I can write a document at my leisure and nobody will see it until I’m good and ready to add a link to it (unless they’re looking at my source code).</p>
+<p>Finally, I had blog pages but nothing pointing to them, so I have added blog.md containing a loop through the site.posts variable as per the <a href="https://jekyllrb.com/docs/posts/" rel="nofollow">Jekyll documentation</a>.</p>
 <p>So now I’ve got a static web page running, which is:</p>
 <ul><li>easy to maintain using simple markdown</li>
 <li>easy to restructure information</li>
@@ -83,25 +83,28 @@ I had created a menu bar with a basic structure which I’ll tweak as and when, 
 <li>A home page referencing all public projects I’ve been working on, in a manner of my choosing.</li></ul>
 <p>The future’s bright, the future’s GitHub Pages.</p>
 <h3>Upgrading Jekyll (edit)</h3>
-<p>I recently had a github security warning relating to one of Jekyll’s dependencies (nokogiri).  I’m not a Ruby developer so fixing this wasn’t quite as obvious as you’d hope.  For future reference the approach is to simply run <code>bundle update jekyll</code> or just <code>bundle update</code>.  Bundle is the Ruby package (gem) manager so obviously requires Ruby to be installed but I’d removed this during a tidyup.  After installation though everything just worked and the security warning has gone</p></main>
+<p>I recently had a github security warning relating to one of Jekyll’s dependencies (nokogiri). I’m not a Ruby developer so fixing this wasn’t quite as obvious as you’d hope. For future reference the approach is to simply run <code>bundle update jekyll</code> or just <code>bundle update</code>. Bundle is the Ruby package (gem) manager so obviously requires Ruby to be installed but I’d removed this during a tidyup. After installation though everything just worked and the security warning has gone</p></main>
 
 
-<footer class="svelte-14g1sgx"><p>This is my site, there are many like it but this one is mine.</p>
-  <p>If you don&#39;t like it, you know where the close button is.</p>
-  <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-14g1sgx">Mark Temple-Heald</a>
-  <a href="https://mtempleheald.github.io" target="_blank" class="svelte-14g1sgx">Home</a>
-  <a href="https://github.com/mtempleheald" target="_blank" class="svelte-14g1sgx">GitHub</a>
-  <p>Mindful meanderings manifest more manageable machinations.
-    Manoeuvring murky multifaceted modernism means meticulously managing many mistakes, misconceptions, misunderstandings.
-    Measured multipronged musings, mechanical movements, may maximise meritorious magnificence.
-  </p>
+<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
+	<p>If you don&#39;t like it, you know where the close button is.</p>
+	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
+	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
+	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
+	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.
+	</p>
 </footer>
 
 
-		<script type="module" data-hydrate="1l9c74r">
-		import { start } from "/_app/start-ffe767c3.js";
+		<script type="module" data-sveltekit-hydrate="rilb04">
+		import { set_public_env, start } from "/_app/immutable/start-7e94f4f6.js";
+
+		set_public_env({});
+
 		start({
-			target: document.querySelector('[data-hydrate="1l9c74r"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="rilb04"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -110,10 +113,7 @@ I had created a menu bar with a basic structure which I’ll tweak as and when, 
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [
-					import("/_app/pages/__layout.svelte-b61dbfd0.js"),
-						import("/_app/pages/blog/2018/11/14/GitHub-Pages-and-Jekyll-Themes.md-7ab493fb.js")
-				],
+				nodes: [0, 10],
 				params: {},
 				routeId: "blog/2018/11/14/GitHub-Pages-and-Jekyll-Themes"
 			}
