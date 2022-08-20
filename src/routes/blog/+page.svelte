@@ -1,10 +1,11 @@
 <script>
-	export let blogs; // returned from shadow endpoint
+	/** @type {import('./$types').PageData} */
+	export let data;
 </script>
 
 <h1>Blogs</h1>
 
-{#each blogs as blog}
+{#each data.blogs as blog}
 	<a href="/blog/{blog.url}">
 		<span>{blog.title}</span>
 		<br />

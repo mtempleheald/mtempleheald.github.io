@@ -1,21 +1,11 @@
-<script context="module">
-	export function load({ error, status }) {
-		return {
-			props: { error, status }
-		};
-	}
-</script>
-
 <script>
 	import { dev } from '$app/env';
-
-	export let status;
-	export let error;
+	import { page } from '$app/stores';
 
 	const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
 
-	const title = offline ? 'Offline' : status;
-	const message = offline ? 'Find the internet and try again' : error.message;
+	const title = offline ? 'Offline' : $page.status;
+	const message = offline ? 'Find the internet and try again' : $page.error.message;
 </script>
 
 <svelte:head>
@@ -26,8 +16,8 @@
 
 <p>{message}</p>
 
-{#if dev && error.stack}
-	<pre>{error.stack}</pre>
+{#if dev && $page.error.stack}
+	<pre>{$page.error.stack}</pre>
 {/if}
 
 <style>

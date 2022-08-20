@@ -1,6 +1,7 @@
 <script>
-	export let player1 = 'Steve';
-	export let player2 = 'Mark';
+	let player1 = 'Steve';
+	let player2 = 'Mark';
+
 	let max_history = 2;
 	let initial_score = 501;
 	let current_score = 0;

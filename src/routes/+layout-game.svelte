@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <svelte:head>
 	<meta
 		name="viewport"
