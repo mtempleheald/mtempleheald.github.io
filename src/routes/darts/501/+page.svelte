@@ -26,7 +26,7 @@
 					: previousValue.concat(currentValue),
 			[]
 		);
-	console.debug('possible_throws', possible_throws);
+	//console.debug('possible_throws', possible_throws);
 
 	$: first_player = history.length == 0 ? player1 : history.filter((el) => el.turn == 0)[0].player;
 	$: current_player =
