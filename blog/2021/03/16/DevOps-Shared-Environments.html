@@ -6,12 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link href="../../../../_app/immutable/assets/+layout-ca4151f4.css" rel="stylesheet">
-	<link rel="modulepreload" href="../../../../_app/immutable/start-543600b3.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/chunks/index-c16a1df2.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons-60e13bd4.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/_layout.svelte-e6d0b583.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/blog/2021/03/16/DevOps-Shared-Environments/_page.md-d8ac8880.js">
+	<link href="../../../../_app/immutable/assets/+layout-c35a836e.css" rel="stylesheet">
+	<link href="../../../../_app/immutable/assets/+layout-7003dda6.css" rel="stylesheet">
+	<link rel="modulepreload" href="../../../../_app/immutable/start-9e0ccebe.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/chunks/index-a822e1e3.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons-3fe0ed2e.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/_layout.svelte-f3f5033e.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/_layout.svelte-f6895cb2.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/blog/2021/03/16/DevOps-Shared-Environments/_page.md-91f76823.js">
 	</head>
 	<body>
 		<div>
@@ -28,7 +30,7 @@
 </nav>
 </div>
 
-<main class="svelte-lv7236"><h1>Sharing environments between projects in Azure DevOps</h1>
+<main class="svelte-1l5lemn"><h1>Sharing environments between projects in Azure DevOps</h1>
 <p>This is useful for multiple websites held in different projects hosted in the same IIS instance on the same server(s). Alternatively, for microservices hosted on a Virtual Machine, if deployed independently.</p>
 <h2>The issue</h2>
 <p>Azure DevOps generates the script for you to install a build/release agent on a server, within the Environments tab of the Pipelines section of the Project.</p>
@@ -64,13 +66,13 @@ In the line which calls <code>config</code> we need to change the <code>agent</c
 </footer>
 
 
-		<script type="module" data-sveltekit-hydrate="1747vm2">
-		import { set_public_env, start } from "../../../../_app/immutable/start-543600b3.js";
+		<script type="module" data-sveltekit-hydrate="v12gk2">
+		import { set_public_env, start } from "../../../../_app/immutable/start-9e0ccebe.js";
 
 		set_public_env({});
 
 		start({
-			target: document.querySelector('[data-sveltekit-hydrate="1747vm2"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="v12gk2"]').parentNode,
 			paths: {"base":"","assets":""},
 			route: true,
 			spa: false,
@@ -78,9 +80,9 @@ In the line which calls <code>config</code> we need to change the <code>agent</c
 			hydrate: {
 				status: 200,
 				error: null,
-				node_ids: [0, 20],
+				node_ids: [0, 2, 21],
 				params: {},
-				routeId: "blog/2021/03/16/DevOps-Shared-Environments"
+				routeId: "(standard)/blog/2021/03/16/DevOps-Shared-Environments"
 			}
 		});
 	</script>
