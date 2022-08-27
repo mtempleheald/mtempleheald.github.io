@@ -1,9 +1,9 @@
 export async function load() {
 
-	// List all modules in blog src directory (glob no longer seems to work with relative path ./)
+	// List all modules in blog src directory
 	// /src/routes/(standard)/blog/yyyy/mm/dd/title/+page.*
 	// Don't include the blog index page itself
-	const files = Object.keys(import.meta.glob('/src/**/blog/**/*'))
+	const files = Object.keys(import.meta.glob('/src/**/blog/**/*', { eager: true }))
 		.filter((f) => f != '/src/routes/(standard)/blog/+page.svelte')
 		.reverse();
 
