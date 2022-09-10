@@ -6,14 +6,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link href="../../../../_app/immutable/assets/+layout-c35a836e.css" rel="stylesheet">
-	<link href="../../../../_app/immutable/assets/+layout-7003dda6.css" rel="stylesheet">
-	<link rel="modulepreload" href="../../../../_app/immutable/start-8cf8d698.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/chunks/index-a822e1e3.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons-0376059e.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/_layout.svelte-f3f5033e.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/_layout.svelte-f6895cb2.js">
-	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/blog/2022/02/01/Headless-CMS-research/_page.md-98272739.js">
+	<link href="../../../../_app/immutable/assets/_layout-c35a836e.css" rel="stylesheet">
+	<link href="../../../../_app/immutable/assets/_layout-7003dda6.css" rel="stylesheet">
+	<link rel="modulepreload" href="../../../../_app/immutable/start-6ebad2d9.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/chunks/index-4fdbba70.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons-3a220c45.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/_layout.svelte-5477d68a.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/modules/pages/_layout.js-7b9cbfbc.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/chunks/_layout-8d2a742b.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/_layout.svelte-93b83680.js">
+	<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/blog/2022/02/01/Headless-CMS-research/_page.md-eff75f30.js">
 	</head>
 	<body>
 		<div>
@@ -124,23 +126,22 @@ I will complete the API PoC work, use the NuGet-driven setup process and re-eval
 
 
 		<script type="module" data-sveltekit-hydrate="b98ipb">
-		import { set_public_env, start } from "../../../../_app/immutable/start-8cf8d698.js";
-
-		set_public_env({});
+		import { start } from "../../../../_app/immutable/start-6ebad2d9.js";
 
 		start({
-			target: document.querySelector('[data-sveltekit-hydrate="b98ipb"]').parentNode,
-			paths: {"base":"","assets":""},
-			route: true,
-			spa: false,
-			trailing_slash: "never",
+			env: {},
 			hydrate: {
 				status: 200,
 				error: null,
 				node_ids: [0, 2, 23],
 				params: {},
-				routeId: "(standard)/blog/2022/02/01/Headless-CMS-research"
-			}
+				routeId: "(standard)/blog/2022/02/01/Headless-CMS-research",
+				data: (function(a){return [a,a,a]}(null)),
+				form: null
+			},
+			paths: {"base":"","assets":""},
+			target: document.querySelector('[data-sveltekit-hydrate="b98ipb"]').parentNode,
+			trailing_slash: "never"
 		});
 	</script>
 	</div>

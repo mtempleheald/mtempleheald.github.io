@@ -6,14 +6,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-	<link href="./_app/immutable/assets/+layout-c35a836e.css" rel="stylesheet">
-	<link href="./_app/immutable/assets/+layout-7003dda6.css" rel="stylesheet">
-	<link rel="modulepreload" href="./_app/immutable/start-8cf8d698.js">
-	<link rel="modulepreload" href="./_app/immutable/chunks/index-a822e1e3.js">
-	<link rel="modulepreload" href="./_app/immutable/chunks/singletons-0376059e.js">
-	<link rel="modulepreload" href="./_app/immutable/components/pages/_layout.svelte-f3f5033e.js">
-	<link rel="modulepreload" href="./_app/immutable/components/pages/(standard)/_layout.svelte-f6895cb2.js">
-	<link rel="modulepreload" href="./_app/immutable/components/pages/(standard)/topic/_page.svelte-2a0707a1.js">
+	<link href="./_app/immutable/assets/_layout-c35a836e.css" rel="stylesheet">
+	<link href="./_app/immutable/assets/_layout-7003dda6.css" rel="stylesheet">
+	<link rel="modulepreload" href="./_app/immutable/start-6ebad2d9.js">
+	<link rel="modulepreload" href="./_app/immutable/chunks/index-4fdbba70.js">
+	<link rel="modulepreload" href="./_app/immutable/chunks/singletons-3a220c45.js">
+	<link rel="modulepreload" href="./_app/immutable/components/pages/_layout.svelte-5477d68a.js">
+	<link rel="modulepreload" href="./_app/immutable/modules/pages/_layout.js-7b9cbfbc.js">
+	<link rel="modulepreload" href="./_app/immutable/chunks/_layout-8d2a742b.js">
+	<link rel="modulepreload" href="./_app/immutable/components/pages/(standard)/_layout.svelte-93b83680.js">
+	<link rel="modulepreload" href="./_app/immutable/components/pages/(standard)/topic/_page.svelte-21554a29.js">
 	</head>
 	<body>
 		<div>
@@ -54,25 +56,24 @@
 
 
 		<script type="module" data-sveltekit-hydrate="4x7qup">
-		import { set_public_env, start } from "./_app/immutable/start-8cf8d698.js";
-
-		set_public_env({});
+		import { start } from "./_app/immutable/start-6ebad2d9.js";
 
 		start({
-			target: document.querySelector('[data-sveltekit-hydrate="4x7qup"]').parentNode,
-			paths: {"base":"","assets":""},
-			route: true,
-			spa: false,
-			trailing_slash: "never",
+			env: {},
 			hydrate: {
 				status: 200,
 				error: null,
 				node_ids: [0, 2, 24],
 				params: {},
-				routeId: "(standard)/topic"
-			}
+				routeId: "(standard)/topic",
+				data: (function(a,b,c){return [b,b,{type:"data",data:{topics:[{url:c,title:c},{url:"Open-Source-Revolution",title:"Open Source Revolution"},{url:"Technical-Design",title:"Technical Design"}]},uses:{dependencies:a,params:a,parent:a,url:a}}]}(void 0,null,"CSharp")),
+				form: null
+			},
+			paths: {"base":"","assets":""},
+			target: document.querySelector('[data-sveltekit-hydrate="4x7qup"]').parentNode,
+			trailing_slash: "never"
 		});
 	</script>
-	<script type="application/json" sveltekit:data-type="server_data">[null,null,{"type":"data","data":{"topics":[{"url":"CSharp","title":"CSharp"},{"url":"Open-Source-Revolution","title":"Open Source Revolution"},{"url":"Technical-Design","title":"Technical Design"}]},"uses":{}}]</script></div>
+	</div>
 	</body>
 </html>

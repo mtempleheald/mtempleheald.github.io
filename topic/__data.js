@@ -1,0 +1,1 @@
+window.__sveltekit_data = (function(a,b,c,d){return {type:b,nodes:[c,c,{type:b,data:{topics:[{url:d,title:d},{url:"Open-Source-Revolution",title:"Open Source Revolution"},{url:"Technical-Design",title:"Technical Design"}]},uses:{dependencies:a,params:a,parent:a,url:a}}]}}(void 0,"data",null,"CSharp"))
