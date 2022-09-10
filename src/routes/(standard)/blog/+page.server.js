@@ -1,5 +1,4 @@
 export async function load() {
-
 	// List all modules in blog src directory
 	// /src/routes/(standard)/blog/yyyy/mm/dd/title/+page.*
 	// Don't include the blog index page itself

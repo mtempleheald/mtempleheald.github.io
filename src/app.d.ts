@@ -6,9 +6,9 @@ declare namespace App {
 		userid: string;
 	}
 
-	interface Platform {}
+	// interface PageData {}
 
-	interface Session {}
+	// interface PageError {}
 
-	interface Stuff {}
+	// interface Platform {}
 }
