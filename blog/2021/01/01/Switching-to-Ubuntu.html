@@ -6,21 +6,158 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-		<link rel="modulepreload" href="../../../../_app/immutable/start-5efba465.js">
+		<link href="../../../../_app/immutable/assets/_layout-c35a836e.css" rel="stylesheet">
+		<link href="../../../../_app/immutable/assets/_layout-7003dda6.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../../../_app/immutable/start-2120e11f.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index-5a67f8c0.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons-c10405a0.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/components/pages/_layout.svelte-99f1836f.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/modules/pages/_layout.js-9cbb603b.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/_layout-da46b06b.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/_layout.svelte-de676d4b.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/blog/2021/01/01/Switching-to-Ubuntu/_page.md-0ca10d99.js">
 	</head>
 	<body>
 		<div>
-		<script type="module" data-sveltekit-hydrate="45h">
-			import { start } from "../../../../_app/immutable/start-5efba465.js";
+
+
+
+<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
+		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
+	
+<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
+		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
+		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
+		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
+</nav>
+</div>
+
+<main class="svelte-1l5lemn"><h1>Finally switched to Linux desktop</h1>
+<p>I’d been meaning to switch to Linux for some time now, around the time I built this PC.
+I tried Debian last time and had major issuing even installing it, related to a poor quality power supply which has been replaced since.<br>
+The Windows installer seemed a little more forgiving and I just never got around to retrying, until now.</p>
+<h2>The plan</h2>
+<p>I figured I’d make life relatively easy for myself and go with a popular, easy distro, so Ubuntu for now.
+Mostly it has been easy, my aim to get to a position where I can easily use the following software:</p>
+<ul><li>Firefox - trivial, ootb</li>
+<li>Thunderbird - trivial, ootb</li>
+<li>KeePass - simple once I found <a href="https://www.ithowtoo.com/2020/12/18/ubuntu-20-04-installing-keypass/" rel="nofollow">instructions</a></li>
+<li>DropBox - simple to follow <a href="https://www.dropbox.com/install-linux" rel="nofollow">instructions</a></li>
+<li>git - trivial, <code>sudo apt-get install git</code> or <code>sudo apt-get install git-all</code></li>
+<li>VS Code - simple <a href="https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions" rel="nofollow">instructions</a></li>
+<li>Rust - Trivial <code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></li></ul>
+<p>To do:</p>
+<ul><li>.NET Core - <a href="https://docs.microsoft.com/en-gb/dotnet/core/install/linux-ubuntu" rel="nofollow">https://docs.microsoft.com/en-gb/dotnet/core/install/linux-ubuntu</a></li>
+<li>Steam</li>
+<li>adb</li>
+<li>alternative browsers</li>
+<li>node/npm/svelte</li>
+<li>docker/k8s/terraform</li></ul>
+<h2>The Broadcom issue</h2>
+<p>Other than getting familiar with the CLI again (I’ve been lazy since work moved to Windows servers) this hasn’t been too painful.<br>
+With one exception…
+Broadcom bluetooth, which is combined with wifi on the same device.</p>
+<p>Repeatable steps:
+<code>sudo bluetoothctl</code>
+Agent registered
+<code>devices</code>
+Device XXX MX Master
+<code>trust XXX [CHG] Device XXX Trusted: yes Changing XXX trust succeeded </code>connect XXX`
+Attempting to connect to XXX
+[CHG] Device XXX Connected: yes
+Failed to connect: org.bluez.Error.Failed
+[CHG] Device XXX Connected: no
+pair XXX
+Attempting to pair with XXX
+Failed to pair: org.bluez.Error.AuthenticationCanceled
+bluetoothd
+D-Bus setup failed: Connection “:1.307” is not allowed to own the service “org.bluez” due to security policies in the configuration file</p>
+<p>I checked over <code>/etc/bluetooth/main.conf</code> but that didn’t help.
+I explored <code>/etc/dbus-1/system.d/bluetooth.conf</code> and group policies associated, no progress.</p>
+<p>Until finally I found the real error in Logs:
+<code>Bluetooth: hci0: BCM: Patch brcm/BCM20702A1-13d3-3404.hcd not found</code>
+Proof that this is a software/firmware/driver thing not just me missing something obvious.</p>
+<p>This took a lot of digging until I finally found <a href="https://askubuntu.com/questions/632336/bluetooth-broadcom-43142-isnt-working/#answer-632348" rel="nofollow">this</a>.
+A well written post that explains how to do this in detail and why this is necessary.
+Honourable mention to <a href="https://github.com/winterheart/broadcom-bt-firmware" rel="nofollow">GitHub hosted broadcom firmware</a> though I didn’t use this in the end.</p>
+<p>Check recent device messages for bluetooth errors using <code>dmesg | egrep -i &#39;blue|firm&#39;</code>:</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">[    2.516055] Bluetooth: hci0: BCM20702A
+[    2.517048] Bluetooth: hci0: BCM20702A1 (001.002.014) build 0000
+[    2.518036] bluetooth hci0: Direct firmware load for brcm/BCM20702A1-13d3-3404.hcd failed with error -2
+[    2.518039] Bluetooth: hci0: BCM: Patch brcm/BCM20702A1-13d3-3404.hcd not found</code><!-- HTML_TAG_END --></pre>
+<p>Check Network PCI configuration with <code>lspci -nnk | grep -iA2 net</code>:</p>
+<pre class="language-02:00.0"><!-- HTML_TAG_START --><code class="language-02:00.0">	Subsystem: AzureWave BCM4352 802.11ac Wireless Network Adapter [1a3b:2123]</code><!-- HTML_TAG_END --></pre>
+<p>and USB device configuration with <code>lsusb</code>:</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">Bus 003 Device 004: ID 13d3:3404 IMC Networks BCM20702A0</code><!-- HTML_TAG_END --></pre>
+<p>Download <a href="http://drivers.softpedia.com/get/BLUETOOTH/Broadcom/ASUS-X99-DELUXE-Broadcom-Bluetooth-Driver-6515800-12009860.shtml#download" rel="nofollow">Windows driver</a>
+Extract and find file bcbtums-*.inf, I went for Windows 8.1 64bit version.
+In file find <code>VID_13d3&amp;PID_3404</code> (values from lsusb command)</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">line 148: %AzBtModule.DeviceDesc%=BlueRAMUSB3404,         USBVID_13D3&amp;PID_3404       ; 4352HMB Azurewave Module
+line 234: %AzBtModule.DeviceDesc%=RAMUSB3404,         USBVID_13D3&amp;PID_3404       ; 4352HMB Azurewave Module</code><!-- HTML_TAG_END --></pre>
+<p>In the same file search for this DeviceDesc to find the filename of the driver:</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">[RAMUSB3404.CopyList]
+bcbtums.sys
+btwampfl.sys
+BCM20702A1_001.002.014.1443.1479.hex</code><!-- HTML_TAG_END --></pre>
+<p>Copy .hex file to $HOME and convert to hcd:</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">git clone git://github.com/jessesung/hex2hcd.git
+cd hex2hcd/
+make
+cd $HOME
+~/hex2hcd/hex2hcd ~/BCM20702A1_001.002.014.1443.1479.hex ~/BCM20702A1-13d3-3404.hcd</code><!-- HTML_TAG_END --></pre>
+<p>Copy file to firmware directory:</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">sudo cp ~/BCM20702A1-13d3-3404.hcd /lib/firmware/brcm</code><!-- HTML_TAG_END --></pre>
+<p>Turn it off and on again.
+Huzzah! (Just lucky I kept my old mouse or I’d probably have abandoned the whole endeavour)</p>
+<p>To be continued…</p>
+<hr>
+<p>1 week later…</p>
+<p>So, after a minor upgrade and a restart I’ve lost wifi, but bluetooth is still working.
+Luckily I still have a 25m ethernet cable and an old wired mouse lying around.
+<a href="https://itsfoss.com/fix-no-wireless-network-ubuntu/" rel="nofollow">This</a> seems to describe the same problem but the fix didn’t help me.</p>
+<p>Under Software &amp; Updates &gt; Additional Drivers I see that my Wireless Network Adapter is not being used.
+I try to enable it and see the error</p>
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">pk-client-error-quark: Error while installing package: installed bcmwl-kernel-source package post-installation script subprocess returned error exit status 10 (313)</code><!-- HTML_TAG_END --></pre>
+<p>Apparently <a href="https://askubuntu.com/questions/1305699/bcmwl-kernel-source-broken-on-kernel-5-8-0-34-generic#answer-1305819" rel="nofollow">Canonical forget to upgrade bcmwl-kernel-source</a>
+<code>sudo apt purge -y bcmwl-kernel-source</code> to remove the package that isn’t working
+<code>sudo apt autoremove</code> to tidy up
+Option 1 <a href="http://mirrors.kernel.org/ubuntu/pool/restricted/b/bcmwl/bcmwl-kernel-source_6.30.223.271+bdcom-0ubuntu7_amd64.deb" rel="nofollow">install pkg</a> seems to have brought back wifi, and bluetooth’s still working we’ll see how long this lasts…</p>
+<p>The most irritating thing here is that this is a desktop, I have a long ethernet cable and I’d be happy with a wired mouse, it just happens to be wireless, so none of this is really necessary.</p>
+<p>I’m getting the impression I need to actually understand the fix not just blindly apply internet answers!</p>
+<p>Let’s start with the kernel version since that seems to be where this problem starts.
+<code>cat /proc/version_signature</code>
+Ubuntu 5.8.0-36.40~20.04.1-generic 5.8.18</p>
+<p>How am I meant to know that bcmwl-kernel-source 6.30… compiles with kernel 5.8?<br>
+Parking this for another day, will see if the fix persists…</p></main>
+
+
+<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
+	<p>If you don&#39;t like it, you know where the close button is.</p>
+	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
+	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
+	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
+	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.
+	</p>
+</footer>
+
+
+		<script type="module" data-sveltekit-hydrate="bner1p">
+			import { start } from "../../../../_app/immutable/start-2120e11f.js";
 
 			start({
 				env: {},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="45h"]').parentNode,
-				version: "1671294214314"
+				target: document.querySelector('[data-sveltekit-hydrate="bner1p"]').parentNode,
+				version: "1671294852790",
+				hydrate: {
+					node_ids: [0, 2, 18],
+					data: [null,null,null],
+					form: null
+				}
 			});
-		</script></div>
+		</script>
+	</div>
 	</body>
 </html>
