@@ -6,144 +6,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta http-equiv="content-security-policy" content="">
-		<link href="../../../../_app/immutable/assets/_layout-c35a836e.css" rel="stylesheet">
-		<link href="../../../../_app/immutable/assets/_layout-7003dda6.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/start-d5a8f751.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index-4fdbba70.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons-7708a125.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/components/pages/_layout.svelte-5477d68a.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/modules/pages/_layout.js-7b9cbfbc.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/_layout-8d2a742b.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/_layout.svelte-93b83680.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/components/pages/(standard)/blog/2022/02/01/Headless-CMS-research/_page.md-eff75f30.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/start-5efba465.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index-5a67f8c0.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons-c10405a0.js">
 	</head>
 	<body>
 		<div>
-
-
-
-<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
-		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
-	
-<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
-		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
-		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
-		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
-</nav>
-</div>
-
-<main class="svelte-1l5lemn"><h1>Headless CMS</h1>
-<p>I’ve been working on a 100% data-driven, low code solution using SvelteKit.<br>
-I’ve been debating rolling my own highly specialised CMS admin pages vs using an off the shelf headless CMS.</p>
-<h2>The requirements</h2>
-<ol><li>Data structure</li></ol>
-<p>Must support a data structure similar to the below.<br>
-All levels in the hierarchy can repeat, components of any type can be swapped in and out and everything can be reordered.</p>
-<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">- journey
-  - page
-    - section
-      - component
-    - repeating group
-      - section
-        - component</code><!-- HTML_TAG_END --></pre>
-<ol start="2"><li>REST API</li></ol>
-<p>GraphQL may be better, but it adds complexity and security concerns, I want this to be as simple as possible.
-The data structure should look similar to above without requiring significant knowledge of the inner workings of the CMS.</p>
-<ol start="4"><li>Ease of use</li></ol>
-<p>The content editor needs to understand context at all times.<br>
-e.g. We are editing a section within page X, journey A, not editing a section then going to find a page to link it to.<br>
-This is important for scalability and to reduce human errors.</p>
-<ol start="5"><li>Safety</li></ol>
-<p>Developers must be able to edit content types, and content editors must be able to edit content using these types, without ever losing data.<br>
-This is important for deployment and publishing purposes.</p>
-<ol start="6"><li>Versioning</li></ol>
-<p>Relating to safety but more about compliance; we must be able to view the change history for content and rollback if necessary.</p>
-<ol><li>Lightweight</li></ol>
-<p>I want a pure headless solution, not a full solution that I’m only using the headless features of.<br>
-This is for security, upgrade, complexity reasons but should also keep costs down.</p>
-<ol start="8"><li>Hosting</li></ol>
-<p>I know how to host .NET and Node apps, either will suffice. As long as it is secure. No PHP.</p>
-<h1>The contenders</h1>
-<p>Starting with free options, because why wouldn’t you?<br>
-I deliberately timeboxed this work to a few hours per option.<br>
-If a competent developer can’t get to grips with managing a basic structure in a few hours then content editors won’t be able to work with it.</p>
-<h2>Strapi</h2>
-<p>Pros:</p>
-<ul><li>Top of the most popular list on <a href="https://jamstack.org/headless-cms/" rel="nofollow">Jamstack</a>.</li>
-<li>Free (until you want granular controls or SSO)</li>
-<li>Open Source MIT licence</li>
-<li>Very easy to get started, up and running in under 20 minutes from nothing but a node command line</li>
-<li>REST API extremely easy to use, up and running locally in under an hour with token authentication allowing me to grab a draft page by url and related journey.</li>
-<li>Easy to see what’s going on with the content types appearing in the code as JSON schemas with boilerplate API wrappers</li></ul>
-<p>Cons:</p>
-<ul><li>Can only nest components one deep using the dynamic zone feature.<br>
-This means that managing components within sections is nice, but linking these back up to pages and those back up to journeys is cumbersome.<br>
-The relationship feature can make this work, but it seems you have to manage the one-to-many side of the relationship and also the many-to-one side, i.e. list pages within journey and link page back to parent journey.</li>
-<li>Search filters are lost during navigation.
-I’m not sure if this is a bad thing, but it frustrated me during my brief trial.</li>
-<li>Interface is clunky. It never let me break anything or lose changes, but I had to try, see the popup and remember to save rather than this being immediately apparent.</li>
-<li>The first thing I tried to do was create a component with an id.<br>
-This clashed with the id added by default, something of an oversight if you ask me.</li>
-<li>Creating content types writes JSON files to disk, in the solution, so presumably I’d deploy this the way I would any other web app, from git.
-Content writes to database.
-I fail to see the connection between these which makes me worry about deployment safety.<br>
-This correlates with many comments regarding Strapi too; deployments breaking sites.</li></ul>
-<p>Conclusion:</p>
-<p>Nice try but not good enough yet.
-I like how it feels, I like the simplicity, but it needs that extra depth in the hierarchy and some refinements.</p>
-<h2>OrchardCore</h2>
-<p>Pros:</p>
-<ul><li>Free</li>
-<li>Open source BSD3 licence</li>
-<li>Written in .NET which is in my tech stack already</li>
-<li>Once I figured out the built in Bag and Title content parts it was very easy to get exactly the structure I was looking for</li>
-<li>Security taken seriously, countless authentication options with details of openid</li>
-<li>I already know how to implement SSO with Azure AD in .NET Core so that’s one problem I don’t have to worry about.</li></ul>
-<p>Cons:</p>
-<ul><li>Documentation is thorough yet many broken links, including the video to getting started with headless CMS in OrchardCore.
-I didn’t see <a href="https://docs.orchardcore.net/en/latest/docs/getting-started/" rel="nofollow">this</a> at first.<br>
-Why they’d make download more prominent I have no idea, I ended up just taking full latest source code as my basis for trial.</li>
-<li>Headless content APIs not as easy to use as Strapi, nor as easy to integrate with.
-Just for trial purposes I set up token authentication and this achieved my goal of pulling down some content.</li>
-<li>REST APIs rather limited, only allowing reference by ID at first glance.
-Possible to use Queries instead of going straight to content, but this requires configuring Lucene indexes etc (TODO)</li></ul>
-<p>Conclusion:</p>
-<p>I like it at a glance, have no concerns about scalability or usability.<br>
-The API/Query complexity makes me wary - anytime there’s an index/cache involved things start getting complicated.<br>
-I will complete the API PoC work, use the NuGet-driven setup process and re-evaluate.</p></main>
-
-
-<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
-	<p>If you don&#39;t like it, you know where the close button is.</p>
-	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
-	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
-	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
-	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
-		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
-		multipronged musings, mechanical movements, may maximise meritorious magnificence.
-	</p>
-</footer>
-
-
-		<script type="module" data-sveltekit-hydrate="b98ipb">
-			import { start } from "../../../../_app/immutable/start-d5a8f751.js";
+		<script type="module" data-sveltekit-hydrate="45h">
+			import { start } from "../../../../_app/immutable/start-5efba465.js";
 
 			start({
 				env: {},
-				hydrate: {
-					status: 200,
-					error: null,
-					node_ids: [0, 2, 23],
-					params: {},
-					routeId: "(standard)/blog/2022/02/01/Headless-CMS-research",
-					data: (function(a){return [a,a,a]}(null)),
-					form: null
-				},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="b98ipb"]').parentNode,
-				trailing_slash: "never"
+				target: document.querySelector('[data-sveltekit-hydrate="45h"]').parentNode,
+				version: "1671294214314"
 			});
-		</script>
-	</div>
+		</script></div>
 	</body>
 </html>
