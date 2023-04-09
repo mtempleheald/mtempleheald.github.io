@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<meta http-equiv="content-security-policy" content="">
+		<link href="../../../../_app/immutable/assets/_layout.7c76d6ca.css" rel="stylesheet">
+		<link href="../../../../_app/immutable/assets/_layout.7003dda6.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.070e1126.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.de0bb5b5.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.860b7ef8.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.3d54b416.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.svelte.8dc7b3ac.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.js.984db11e.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/_layout.da46b06b.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-layout.svelte.91597fef.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-blog-2023-04-08-Publish-Database-from-ERD-page.md.4b175017.js">
+	</head>
+	<body>
+		<div>
+
+
+
+<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
+		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
+	
+<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
+		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
+		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
+		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
+</nav>
+</div>
+
+<main class="svelte-1l5lemn"><h1>Publish Database from ERD</h1>
+<p>I’m focusing here only on a relational database, typically a suitable choice for my use cases.<br>
+I often find that blogs/tutorials/demos always skip over the data aspect of solutions.<br>
+In my experience managing code is easy, managing data is hard.  Unless your data is transient in nature database changes require careful thought.</p>
+<p>My key requirements in an effective data design strategy are:</p>
+<ol><li><strong>Visualisation</strong> - I want to see an ERD or something similar, without this understanding a non-trivial database is going to be hard.<br>
+This needs to be versioned with the code, which rules out Visio and other binary representations.  </li>
+<li><strong>Automation</strong> - The ERD and the production database should be linked via automated means.<br>
+Out-of-date documentation is sometimes worse than no documentation at all.
+This rules out EF Core migrations (even if not using EF Core for production code).</li>
+<li><strong>Testability</strong> - Not so much a feature of the database, but I need to know that DB changes do not break things.<br>
+This means that integration tests must use the real database, on the same version as production, also during local dev, which leads me towards Docker.</li>
+<li><strong>Provider-agnostic</strong> - I have seen what vendor lock-in leads to and I don’t like it, we must maintain control of our applications.<br>
+In reality it is impossible to avoid this completely, but simple things like adhering to <a href="https://learnsql.com/blog/history-of-sql-standards/" rel="nofollow">SQL Standards</a> can help reduce the impact of migration.  I only want tables, indexes, constraints and possibly views, all logic will be in the application code.
+This requirement rules out SSDT and <a href="https://github.com/microsoft/DacFx" rel="nofollow">DACPAC</a> deployment which is great, but only for SQL Server.</li>
+<li><strong>Maintainability</strong> - the solution needs to be simple to use in the medium to long term, though not necessarily simple to set up.  </li></ol>
+<p>This mini project is something I’ve been meaning to do for years, since I built an Oracle DB deployment tool in Go and subsequently discovered DACPAC deployment in SQL Server.  </p>
+<h2>Visualisation</h2>
+<p>I considered various options, including Microsoft Visio, <a href="https://mermaid.js.org/syntax/entityRelationshipDiagram.html" rel="nofollow">Mermaid</a>, <a href="https://dbdiagram.io/home/" rel="nofollow">dbdiagram.io</a>, <a href="https://structurizr.com/dsl?example=getting-started" rel="nofollow">Structurizr</a> to generate Mermaid diagrams, but eventually settled on <a href="https://marketplace.visualstudio.com/items?itemName=dineug.vuerd-vscode" rel="nofollow">ERD Editor</a> for VS Code.<br>
+I came to this decision because:</p>
+<ul><li>It is free &amp; open source, so even if it was taken offline and destroyed I could invest some time and recover to my forked version</li>
+<li>It is offline, meaning that any sensitive data models are kept secure</li>
+<li>It is stored in text/json format, not binary, which makes version control in git tenable</li>
+<li>It has a feature to output liquibase changelogs built in</li></ul>
+<h2>Automation</h2>
+<p>Most DB automation tools are either prohibitively expensive, or vendor-specific.<br>
+I considered various options for automation, including:</p>
+<ul><li>Enhancing my old Go based solution for Oracle DBs, but I don’t have the code, only the design principles, so effectively this would be a fresh start.</li>
+<li><a href="https://learn.microsoft.com/en-us/sql/ssdt/extract-publish-and-register-dacpac-files?view=sql-server-ver16" rel="nofollow">SSDT (DACPAC publish)</a>, but this is SQL Server specific.</li>
+<li><a href="https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli" rel="nofollow">EF Migrations</a>, but this doesn’t work with visualisation tools AFAIK and I don’t want to be tied to EF Core, since it is .NET only.</li>
+<li><a href="https://www.red-gate.com/solutions/need/automate" rel="nofollow">Redgate Tools</a> but I assume this is too expensive since they don’t list the price on their website.</li>
+<li><a href="https://fluentmigrator.github.io" rel="nofollow">Fluent Migrator</a> but again this is .NET-specific, I don’t see a benefit over EF Core.</li>
+<li><a href="https://github.com/chucknorris/roundhouse/wiki" rel="nofollow">Roundhouse</a> but again this is .NET-specific, it also seems to be poorly maintained although I do like the convention-over-configuration approach at a glance</li></ul>
+<p>I eventually settled on <a href="https://www.liquibase.com/download" rel="nofollow">Liquibase</a> because it has a free and open source option (Apache-2.0 licensed), supports Docker, is clearly built to support CI/CD with documented <a href="https://docs.liquibase.com/workflows/liquibase-community/home.html" rel="nofollow">Open Source Workflows</a> and, crucially, it works with the visualisation tool I’ve selected.  </p>
+<h2>Testability</h2>
+<p>The prompt for this mini-project was the discovery of <a href="https://github.com/testcontainers" rel="nofollow">Testcontainers</a> (via Nick Chapsas on Youtube).<br>
+This allows you to spin up a throwaway docker container, or collection of, just for the lifetime of the test(s).<br>
+This is not a substitute for unit testing since it will be significantly slower, but it is a better solution than testing with in-memory databases, which may have subtle differences in behaviour to the production database.  </p>
+<p>I’m still working through the details of this in relation to the DB schema automation, but I’ve done enough to be convinced that it is viable.</p>
+<h2>The solution</h2>
+<ol><li>Install Docker (and optionally Docker Desktop, if licencing allows)</li>
+<li>Get latest liquibase image <code>docker pull liquibase/liquibase</code></li>
+<li>Install VS Code extension “ERD Editor” (vuerd)</li>
+<li>Create an ERD file <code>&lt;name&gt;.vuerd.json</code> within the project/solution/workspace</li>
+<li>Create a DB model, be sure not to deselect Postgres as the output regardless of target DB type, required for Liquibase support<br>
+Be careful here to use appropriate data types for the target environment, <a href="https://github.com/dineug/erd-editor/blob/master/packages/sql-ddl-parser/src/SQL_DDL_Test_Case.md" rel="nofollow">ERD Editor supported types</a>.<br>
+The tool is clever enough to convert from <code>uuid</code> to <code>uniqueidentifier</code>, but not clever enough to convert from <code>varchar</code> to <code>varchar2</code> for example and certainly not when lengths are included (which they need to be since the default is 1 character).<br>
+Effectively I’d advise making multiple DB models if supporting multiple DB providers, but decide which is master, copy/paste, find/replace in JSON files to keep multiple versions in sync and versioned together (this is why models should be stored in text format).</li>
+<li>Generate a Liquibase changeset by right clicking the model and selecting Export &gt; Liquibase<br>
+Use the naming convention <em>changeset-###</em>, 999 DB changes should be enough for most projects.<br>
+Liquibase uses the id, author and filename to track changes - <a href="https://www.liquibase.com/how-liquibase-works" rel="nofollow">How Liquibase works</a><br>
+Keep the changelogs alongside the ERD model in source code, this lets ERD Editor load older changelogs to guarantee correct generation of new changelogs.  </li>
+<li>Configure liquibase using a <em>liquibase.properties</em> file in the same folder  <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">classpath: /liquibase/changelog
+changeLogFile: changelog.xml
+url: jdbc:sqlserver://localhost:1433;database=master;encrypt=true;trustServerCertificate=true
+username: sa
+password: yourStrong(!)Password
+# liquibaseProLicenseKey=&lt;PASTE LB PRO LICENSE KEY HERE&gt;</code><!-- HTML_TAG_END --></pre>This example is using the defaults for a <a href="https://hub.docker.com/_/microsoft-mssql-server" rel="nofollow">SQL Server docker</a> container, although the <a href="https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html" rel="nofollow">Liquibase recommendation</a> is to pass these as arguments.  This may be required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing.<br>
+We require <code>encrypt=true and trustServerCertificate=true</code> to resolve firewall and SSL errors respectively, encountered whilst applying changeset.  </li>
+<li>We can now run liquibase commands, e.g. help<br>
+<code>docker run --rm --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties --help</code><br>
+<code>--rm</code> ensures that the docker container is removed after completion of the script (see debugging)<br>
+<code>-net=host</code> ensures that the liquibase container can talk outside of the Docker bridge network (e.g. to connect to a Docker hosted DB).<br>
+<code>-v</code> maps our local folder (Windows in this example) to the root of Liquibase’s changelog tree volume.<br>
+<code>--defaultsFile</code> tells Liquibase to use our properties file, which in turn tells it where to find changelogs and how to connect to the DB.<br>
+<code>--help</code> tells Liquibase to show us its help documentation, including available commands</li>
+<li>Debugging - if any of our commands fail we can investigate by launching Liquibase with a built-in in-memory DB:<br>
+<code>docker run --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties init start-h2</code><br>
+In a separate command window find the running container using <code>docker ps</code><br>
+Jump inside it using <code>docker exec -it &lt;container_id&gt; bash</code>, you should see your files within <code>/changelog From here you can run the same commands (everything after liquibase/liquibase) on top of liquibase directly, e.g. </code>liquibase –help`<br>
+When done you will need to stop and remove the docker container yourself.  </li>
+<li>Apply the changeset to the database (dbo schema is default for SQL Server)<br>
+<code>docker run --rm --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties update --changelog-file=changeset-001.xml --default-schema-name=dbo</code><br>
+If a changeset fails in dev, perhaps due to messing up constraints :|, and you wish to keep changesets clean before commit, you can truncate the table DATABASECHANGELOG which Liquibase manages.  </li>
+<li>TODO - automate DB spinup for tests, applying all changesets in numeric order</li>
+<li>TODO - automate integration testing on CICD pipelines (out of scope of this document)</li></ol></main>
+
+
+<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
+	<p>If you don&#39;t like it, you know where the close button is.</p>
+	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
+	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
+	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
+	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.
+	</p>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_19j9o8j = {
+						env: {},
+						base: new URL("../../../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null,null];
+
+					Promise.all([
+						import("../../../../_app/immutable/entry/start.070e1126.js"),
+						import("../../../../_app/immutable/entry/app.3d54b416.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_19j9o8j.element, {
+							node_ids: [0, 2, 24],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
