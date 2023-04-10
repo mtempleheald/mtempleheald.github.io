@@ -8,15 +8,15 @@
 		<meta http-equiv="content-security-policy" content="">
 		<link href="../../../../_app/immutable/assets/_layout.7c76d6ca.css" rel="stylesheet">
 		<link href="../../../../_app/immutable/assets/_layout.7003dda6.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.070e1126.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.9ce72381.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.de0bb5b5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.860b7ef8.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.3d54b416.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.469bd424.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.f053695b.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.svelte.8dc7b3ac.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.js.984db11e.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/chunks/_layout.da46b06b.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-layout.svelte.91597fef.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-blog-2023-04-08-Publish-Database-from-ERD-page.md.4b175017.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-blog-2023-04-08-Publish-Database-from-ERD-page.md.428b4e9a.js">
 	</head>
 	<body>
 		<div>
@@ -41,7 +41,7 @@ In my experience managing code is easy, managing data is hard.  Unless your data
 <ol><li><strong>Visualisation</strong> - I want to see an ERD or something similar, without this understanding a non-trivial database is going to be hard.<br>
 This needs to be versioned with the code, which rules out Visio and other binary representations.  </li>
 <li><strong>Automation</strong> - The ERD and the production database should be linked via automated means.<br>
-Out-of-date documentation is sometimes worse than no documentation at all.
+Out-of-date documentation is sometimes worse than no documentation at all.<br>
 This rules out EF Core migrations (even if not using EF Core for production code).</li>
 <li><strong>Testability</strong> - Not so much a feature of the database, but I need to know that DB changes do not break things.<br>
 This means that integration tests must use the real database, on the same version as production, also during local dev, which leads me towards Docker.</li>
@@ -73,42 +73,81 @@ This allows you to spin up a throwaway docker container, or collection of, just 
 This is not a substitute for unit testing since it will be significantly slower, but it is a better solution than testing with in-memory databases, which may have subtle differences in behaviour to the production database.  </p>
 <p>I’m still working through the details of this in relation to the DB schema automation, but I’ve done enough to be convinced that it is viable.</p>
 <h2>The solution</h2>
-<ol><li>Install Docker (and optionally Docker Desktop, if licencing allows)</li>
+<h3>Initial setup</h3>
+<ol><li>Install Docker (and optionally Docker Desktop, if licencing allows), examples below are unix images on Windows.</li>
+<li>Run SQL instance (example is MSSQL) for any manual testing and to prove scripts<br>
+<code>docker run --name &quot;mssql_manual_test&quot; -e &quot;ACCEPT_EULA=Y&quot; -e &quot;MSSQL_SA_PASSWORD=yourStrong(!)Password&quot; -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest</code></li>
 <li>Get latest liquibase image <code>docker pull liquibase/liquibase</code></li>
 <li>Install VS Code extension “ERD Editor” (vuerd)</li>
-<li>Create an ERD file <code>&lt;name&gt;.vuerd.json</code> within the project/solution/workspace</li>
+<li>Create an ERD file <code>&lt;name&gt;.vuerd.json</code> within the project/solution/workspace, open this in VS Code and it should automatically load the editor.</li>
 <li>Create a DB model, be sure not to deselect Postgres as the output regardless of target DB type, required for Liquibase support<br>
 Be careful here to use appropriate data types for the target environment, <a href="https://github.com/dineug/erd-editor/blob/master/packages/sql-ddl-parser/src/SQL_DDL_Test_Case.md" rel="nofollow">ERD Editor supported types</a>.<br>
 The tool is clever enough to convert from <code>uuid</code> to <code>uniqueidentifier</code>, but not clever enough to convert from <code>varchar</code> to <code>varchar2</code> for example and certainly not when lengths are included (which they need to be since the default is 1 character).<br>
 Effectively I’d advise making multiple DB models if supporting multiple DB providers, but decide which is master, copy/paste, find/replace in JSON files to keep multiple versions in sync and versioned together (this is why models should be stored in text format).</li>
 <li>Generate a Liquibase changeset by right clicking the model and selecting Export &gt; Liquibase<br>
-Use the naming convention <em>changeset-###</em>, 999 DB changes should be enough for most projects.<br>
+Use the naming convention <em>liquibase-change-###</em>, 999 DB changes should be enough for most projects.<br>
 Liquibase uses the id, author and filename to track changes - <a href="https://www.liquibase.com/how-liquibase-works" rel="nofollow">How Liquibase works</a><br>
-Keep the changelogs alongside the ERD model in source code, this lets ERD Editor load older changelogs to guarantee correct generation of new changelogs.  </li>
-<li>Configure liquibase using a <em>liquibase.properties</em> file in the same folder  <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">classpath: /liquibase/changelog
+Keep the changelogs alongside the ERD model in source code, this lets ERD Editor load older changelogs to guarantee correct generation of new changelogs.<br>
+To apply multiple chainsets automatically, which we will need for automation, it is necessary to manually configure a master changelog <code>liquibase-change.xml</code>.  </li>
+<li>Configure liquibase using a <em>liquibase.properties</em> file in the same folder:  <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">classpath: /liquibase/changelog
 changeLogFile: changelog.xml
 url: jdbc:sqlserver://localhost:1433;database=master;encrypt=true;trustServerCertificate=true
 username: sa
 password: yourStrong(!)Password
-# liquibaseProLicenseKey=&lt;PASTE LB PRO LICENSE KEY HERE&gt;</code><!-- HTML_TAG_END --></pre>This example is using the defaults for a <a href="https://hub.docker.com/_/microsoft-mssql-server" rel="nofollow">SQL Server docker</a> container, although the <a href="https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html" rel="nofollow">Liquibase recommendation</a> is to pass these as arguments.  This may be required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing.<br>
-We require <code>encrypt=true and trustServerCertificate=true</code> to resolve firewall and SSL errors respectively, encountered whilst applying changeset.  </li>
+# liquibaseProLicenseKey=&lt;PASTE LB PRO LICENSE KEY HERE&gt;</code><!-- HTML_TAG_END --></pre>This example is using the defaults for a <a href="https://hub.docker.com/_/microsoft-mssql-server" rel="nofollow">SQL Server docker</a> container, although the <a href="https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html" rel="nofollow">Liquibase recommendation</a> is to pass these as arguments.  Passing by argument is also required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing, so this defaultsFile is kept just to simplify any manual test processes.<br>
+We require <code>encrypt=true and trustServerCertificate=true</code> to resolve firewall and SSL errors respectively, encountered whilst applying test changeset.  </li>
 <li>We can now run liquibase commands, e.g. help<br>
 <code>docker run --rm --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties --help</code><br>
 <code>--rm</code> ensures that the docker container is removed after completion of the script (see debugging)<br>
-<code>-net=host</code> ensures that the liquibase container can talk outside of the Docker bridge network (e.g. to connect to a Docker hosted DB).<br>
+<code>-net=host</code> ensures that the liquibase container can talk outside of the Docker bridge network (e.g. to connect to a Docker hosted DB).  In hindsight it is better to use internal network alias on the SQL container to connect from liquibase.<br>
 <code>-v</code> maps our local folder (Windows in this example) to the root of Liquibase’s changelog tree volume.<br>
 <code>--defaultsFile</code> tells Liquibase to use our properties file, which in turn tells it where to find changelogs and how to connect to the DB.<br>
 <code>--help</code> tells Liquibase to show us its help documentation, including available commands</li>
 <li>Debugging - if any of our commands fail we can investigate by launching Liquibase with a built-in in-memory DB:<br>
 <code>docker run --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties init start-h2</code><br>
 In a separate command window find the running container using <code>docker ps</code><br>
-Jump inside it using <code>docker exec -it &lt;container_id&gt; bash</code>, you should see your files within <code>/changelog From here you can run the same commands (everything after liquibase/liquibase) on top of liquibase directly, e.g. </code>liquibase –help`<br>
+Jump inside it using <code>docker exec -it &lt;container_id&gt; bash</code>, you should see your files within <code>/changelog</code><br>
+From here you can run the same commands (everything after liquibase/liquibase) on top of liquibase directly, e.g. <code>liquibase --help</code><br>
 When done you will need to stop and remove the docker container yourself.  </li>
-<li>Apply the changeset to the database (dbo schema is default for SQL Server)<br>
-<code>docker run --rm --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties update --changelog-file=changeset-001.xml --default-schema-name=dbo</code><br>
+<li>Apply the changeset to the database manually (dbo schema is default for SQL Server)<br>
+<code>docker run --rm --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties update --changelog-file=liquibase-change-001.xml --default-schema-name=dbo</code><br>
 If a changeset fails in dev, perhaps due to messing up constraints :|, and you wish to keep changesets clean before commit, you can truncate the table DATABASECHANGELOG which Liquibase manages.  </li>
-<li>TODO - automate DB spinup for tests, applying all changesets in numeric order</li>
-<li>TODO - automate integration testing on CICD pipelines (out of scope of this document)</li></ol></main>
+<li>Check that this has worked as expected using SQL Server Object Explorer in Visual Studio or SQL browser of preference.  </li></ol>
+<h3>Code changes</h3>
+<ol><li>Ensure that any DB code (repository) accesses the connection string via <code>IOptions</code> or better yet <code>IOptionsSnapshot</code> to allow life reloading of config.  <pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">public class ConnectionStringsOptions
+&#123;
+   public const string ConfigKey = &quot;ConnectionStrings&quot;;
+   public string MyDb &#123; get; set; &#125; = string.Empty;
+&#125;</code><!-- HTML_TAG_END --></pre></li>
+<li>Create an xUnit IClassFixture <code>MsSqlTestFixture</code>, implementing <code>IAsyncLifetime</code> to ensure that it runs once per test class which uses it.<br>
+This class will:  <ol><li>Create a SQL container using the <code>ContainerBuilder</code>, mirroring the parameters above, although with a dynamically generated port.  </li>
+<li>Wait for this to become responsive (accept SQL commands not just at the Docker/network layer)</li>
+<li>Spin up a Liquibase container to run a single command on this transient database - <code>update</code>, to apply all changes to get to the current version from an empty database.  </li>
+<li>Clear down both containers and associated classes after test execution</li>
+<li>Expose SQL connection details via internal constants, for use by the test application.  </li></ol></li>
+<li>Create a custom <code>WebApplicationFactory</code> for testing, e.g. <code>TestWebApplicationFactory</code>.<br>
+This will build upon the WebApplicationFactory used by the application itself, but we can remove links to real database and real external dependencies in favour of managed stubs (out of scope of this document).<br>
+Add a constructor to this class which requires the MsSqlTestFixture and builds up the connection string from its exposed constants.<br>
+Configure the Options class containing the connection string used by the code.  <pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">services.Configure&lt;ConnectionStringsOptions&gt;(opts =&gt; &#123;
+   opts.MyDb = _connectionString;
+&#125;);</code><!-- HTML_TAG_END --></pre></li>
+<li>Create a test class <code>MsSqlTests</code> which inherits <code>IClassFixture&lt;MsSqlTestFixture&gt;</code> and <code>IDisposable</code><br>
+In the constructor use the above classes to make the DB available to the tests:<pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">public MsSqlTests(MsSqlTestFixture msSqlTestFixture)
+&#123;
+   _webApplicationFactory = new TestWebApplicationFactory&lt;Program&gt;(msSqlTestFixture);
+   _httpClient = _webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions &#123;
+     AllowAutoRedirect = false // Test first response
+   &#125;);
+&#125;
+public void Dispose()
+&#123;
+   _webApplicationFactory.Dispose();
+&#125;</code><!-- HTML_TAG_END --></pre></li></ol>
+<h3>Next steps</h3>
+<p>I’m doing all of this on a preview version of .NET8 and there is sadly <a href="https://github.com/dotnet/SqlClient/issues/1930" rel="nofollow">an issue</a> with <code>Microsoft.Data.SqlClient</code> which means I can’t actually run these tests, but the signs are good; Docker containers do get spun up in the order expected and for the length of time expected and everything cleans up after itself.  Back to actually writing the application logic I guess, though I’d love to actually work in a more test-driven fashion.  </p>
+<p>Finally I need to automate integration testing on CICD pipelines.
+But I need to test the tests first and this activity is out of scope of this document.</p>
+<p>All of the above is checked in to a private GitHub repo for now, I may make this public at some point.  </p></main>
 
 
 <footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
@@ -126,7 +165,7 @@ If a changeset fails in dev, perhaps due to messing up constraints :|, and you w
 			
 			<script>
 				{
-					__sveltekit_19j9o8j = {
+					__sveltekit_hn1trz = {
 						env: {},
 						base: new URL("../../../..", location).pathname.slice(0, -1),
 						element: document.currentScript.parentElement
@@ -135,10 +174,10 @@ If a changeset fails in dev, perhaps due to messing up constraints :|, and you w
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.070e1126.js"),
-						import("../../../../_app/immutable/entry/app.3d54b416.js")
+						import("../../../../_app/immutable/entry/start.9ce72381.js"),
+						import("../../../../_app/immutable/entry/app.f053695b.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_19j9o8j.element, {
+						kit.start(app, __sveltekit_hn1trz.element, {
 							node_ids: [0, 2, 24],
 							data,
 							form: null,
