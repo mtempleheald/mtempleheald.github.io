@@ -9,7 +9,7 @@ My key requirements in an effective data design strategy are:
 1. __Visualisation__ - I want to see an ERD or something similar, without this understanding a non-trivial database is going to be hard.  
    This needs to be versioned with the code, which rules out Visio and other binary representations.  
 2. __Automation__ - The ERD and the production database should be linked via automated means.  
-   Out-of-date documentation is sometimes worse than no documentation at all.
+   Out-of-date documentation is sometimes worse than no documentation at all.  
    This rules out EF Core migrations (even if not using EF Core for production code).
 3. __Testability__ - Not so much a feature of the database, but I need to know that DB changes do not break things.  
    This means that integration tests must use the real database, on the same version as production, also during local dev, which leads me towards Docker.
@@ -55,19 +55,24 @@ I'm still working through the details of this in relation to the DB schema autom
 
 ## The solution
 
-1. Install Docker (and optionally Docker Desktop, if licencing allows)
+### Initial setup 
+
+1. Install Docker (and optionally Docker Desktop, if licencing allows), examples below are unix images on Windows.
+1. Run SQL instance (example is MSSQL) for any manual testing and to prove scripts  
+   `docker run --name "mssql_manual_test" -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest`
 1. Get latest liquibase image `docker pull liquibase/liquibase`
 1. Install VS Code extension "ERD Editor" (vuerd)
-1. Create an ERD file `<name>.vuerd.json` within the project/solution/workspace
+1. Create an ERD file `<name>.vuerd.json` within the project/solution/workspace, open this in VS Code and it should automatically load the editor.
 1. Create a DB model, be sure not to deselect Postgres as the output regardless of target DB type, required for Liquibase support  
    Be careful here to use appropriate data types for the target environment, [ERD Editor supported types](https://github.com/dineug/erd-editor/blob/master/packages/sql-ddl-parser/src/SQL_DDL_Test_Case.md).  
    The tool is clever enough to convert from `uuid` to `uniqueidentifier`, but not clever enough to convert from `varchar` to `varchar2` for example and certainly not when lengths are included (which they need to be since the default is 1 character).  
    Effectively I'd advise making multiple DB models if supporting multiple DB providers, but decide which is master, copy/paste, find/replace in JSON files to keep multiple versions in sync and versioned together (this is why models should be stored in text format).
 1. Generate a Liquibase changeset by right clicking the model and selecting Export > Liquibase  
-   Use the naming convention _changeset-###_, 999 DB changes should be enough for most projects.  
+   Use the naming convention _liquibase-change-###_, 999 DB changes should be enough for most projects.  
    Liquibase uses the id, author and filename to track changes - [How Liquibase works](https://www.liquibase.com/how-liquibase-works)  
    Keep the changelogs alongside the ERD model in source code, this lets ERD Editor load older changelogs to guarantee correct generation of new changelogs.  
-1. Configure liquibase using a _liquibase.properties_ file in the same folder  
+   To apply multiple chainsets automatically, which we will need for automation, it is necessary to manually configure a master changelog `liquibase-change.xml`.  
+1. Configure liquibase using a _liquibase.properties_ file in the same folder:  
    ```
    classpath: /liquibase/changelog
    changeLogFile: changelog.xml
@@ -76,23 +81,73 @@ I'm still working through the details of this in relation to the DB schema autom
    password: yourStrong(!)Password
    # liquibaseProLicenseKey=<PASTE LB PRO LICENSE KEY HERE>
    ```  
-   This example is using the defaults for a [SQL Server docker](https://hub.docker.com/_/microsoft-mssql-server) container, although the [Liquibase recommendation](https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html) is to pass these as arguments.  This may be required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing.  
-   We require `encrypt=true and trustServerCertificate=true` to resolve firewall and SSL errors respectively, encountered whilst applying changeset.  
+   This example is using the defaults for a [SQL Server docker](https://hub.docker.com/_/microsoft-mssql-server) container, although the [Liquibase recommendation](https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html) is to pass these as arguments.  Passing by argument is also required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing, so this defaultsFile is kept just to simplify any manual test processes.  
+   We require `encrypt=true and trustServerCertificate=true` to resolve firewall and SSL errors respectively, encountered whilst applying test changeset.  
 1. We can now run liquibase commands, e.g. help  
    `docker run --rm --net=host -v "C:\Path\To\Folder\Containing\changelogs":/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties --help`  
    `--rm` ensures that the docker container is removed after completion of the script (see debugging)  
-   `-net=host` ensures that the liquibase container can talk outside of the Docker bridge network (e.g. to connect to a Docker hosted DB).  
+   `-net=host` ensures that the liquibase container can talk outside of the Docker bridge network (e.g. to connect to a Docker hosted DB).  In hindsight it is better to use internal network alias on the SQL container to connect from liquibase.  
    `-v` maps our local folder (Windows in this example) to the root of Liquibase's changelog tree volume.  
    `--defaultsFile` tells Liquibase to use our properties file, which in turn tells it where to find changelogs and how to connect to the DB.  
    `--help` tells Liquibase to show us its help documentation, including available commands
 1. Debugging - if any of our commands fail we can investigate by launching Liquibase with a built-in in-memory DB:  
    `docker run --net=host -v "C:\Path\To\Folder\Containing\changelogs":/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties init start-h2`  
    In a separate command window find the running container using `docker ps`  
-   Jump inside it using `docker exec -it <container_id> bash`, you should see your files within `/changelog  
+   Jump inside it using `docker exec -it <container_id> bash`, you should see your files within `/changelog`  
    From here you can run the same commands (everything after liquibase/liquibase) on top of liquibase directly, e.g. `liquibase --help`  
    When done you will need to stop and remove the docker container yourself.  
-1. Apply the changeset to the database (dbo schema is default for SQL Server)  
-   `docker run --rm --net=host -v "C:\Path\To\Folder\Containing\changelogs":/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties update --changelog-file=changeset-001.xml --default-schema-name=dbo`  
+1. Apply the changeset to the database manually (dbo schema is default for SQL Server)  
+   `docker run --rm --net=host -v "C:\Path\To\Folder\Containing\changelogs":/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties update --changelog-file=liquibase-change-001.xml --default-schema-name=dbo`  
    If a changeset fails in dev, perhaps due to messing up constraints :|, and you wish to keep changesets clean before commit, you can truncate the table DATABASECHANGELOG which Liquibase manages.  
-1. TODO - automate DB spinup for tests, applying all changesets in numeric order
-1. TODO - automate integration testing on CICD pipelines (out of scope of this document)
+1. Check that this has worked as expected using SQL Server Object Explorer in Visual Studio or SQL browser of preference.  
+
+### Code changes
+
+1. Ensure that any DB code (repository) accesses the connection string via `IOptions` or better yet `IOptionsSnapshot` to allow life reloading of config.  
+   ```C#
+   public class ConnectionStringsOptions
+   {
+      public const string ConfigKey = "ConnectionStrings";
+      public string MyDb { get; set; } = string.Empty;
+   }
+   ```
+1. Create an xUnit IClassFixture `MsSqlTestFixture`, implementing `IAsyncLifetime` to ensure that it runs once per test class which uses it.  
+   This class will:  
+   1. Create a SQL container using the `ContainerBuilder`, mirroring the parameters above, although with a dynamically generated port.  
+   1. Wait for this to become responsive (accept SQL commands not just at the Docker/network layer)
+   1. Spin up a Liquibase container to run a single command on this transient database - `update`, to apply all changes to get to the current version from an empty database.  
+   1. Clear down both containers and associated classes after test execution
+   1. Expose SQL connection details via internal constants, for use by the test application.  
+1. Create a custom `WebApplicationFactory` for testing, e.g. `TestWebApplicationFactory`.  
+   This will build upon the WebApplicationFactory used by the application itself, but we can remove links to real database and real external dependencies in favour of managed stubs (out of scope of this document).  
+   Add a constructor to this class which requires the MsSqlTestFixture and builds up the connection string from its exposed constants.  
+   Configure the Options class containing the connection string used by the code.  
+   ```C#
+   services.Configure<ConnectionStringsOptions>(opts => {
+      opts.MyDb = _connectionString;
+   });
+   ```  
+1. Create a test class `MsSqlTests` which inherits `IClassFixture<MsSqlTestFixture>` and `IDisposable`  
+   In the constructor use the above classes to make the DB available to the tests:
+   ```C#
+   public MsSqlTests(MsSqlTestFixture msSqlTestFixture)
+   {
+      _webApplicationFactory = new TestWebApplicationFactory<Program>(msSqlTestFixture);
+      _httpClient = _webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions {
+        AllowAutoRedirect = false // Test first response
+      });
+   }
+   public void Dispose()
+   {
+      _webApplicationFactory.Dispose();
+   }
+   ```
+
+### Next steps
+
+I'm doing all of this on a preview version of .NET8 and there is sadly [an issue](https://github.com/dotnet/SqlClient/issues/1930) with `Microsoft.Data.SqlClient` which means I can't actually run these tests, but the signs are good; Docker containers do get spun up in the order expected and for the length of time expected and everything cleans up after itself.  Back to actually writing the application logic I guess, though I'd love to actually work in a more test-driven fashion.  
+
+Finally I need to automate integration testing on CICD pipelines.
+But I need to test the tests first and this activity is out of scope of this document.
+
+All of the above is checked in to a private GitHub repo for now, I may make this public at some point.  
