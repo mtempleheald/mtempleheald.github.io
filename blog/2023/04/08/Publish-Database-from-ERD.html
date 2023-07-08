@@ -8,15 +8,15 @@
 		<meta http-equiv="content-security-policy" content="">
 		<link href="../../../../_app/immutable/assets/_layout.7c76d6ca.css" rel="stylesheet">
 		<link href="../../../../_app/immutable/assets/_layout.7003dda6.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.9ce72381.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.8a79d891.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.de0bb5b5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.469bd424.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.f053695b.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.f3c6ffc0.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.071afef5.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.svelte.8dc7b3ac.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.js.984db11e.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/chunks/_layout.da46b06b.js">
 		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-layout.svelte.91597fef.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-blog-2023-04-08-Publish-Database-from-ERD-page.md.428b4e9a.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-blog-2023-04-08-Publish-Database-from-ERD-page.md.2f319abc.js">
 	</head>
 	<body>
 		<div>
@@ -71,7 +71,6 @@ I considered various options for automation, including:</p>
 <p>The prompt for this mini-project was the discovery of <a href="https://github.com/testcontainers" rel="nofollow">Testcontainers</a> (via Nick Chapsas on Youtube).<br>
 This allows you to spin up a throwaway docker container, or collection of, just for the lifetime of the test(s).<br>
 This is not a substitute for unit testing since it will be significantly slower, but it is a better solution than testing with in-memory databases, which may have subtle differences in behaviour to the production database.  </p>
-<p>I’m still working through the details of this in relation to the DB schema automation, but I’ve done enough to be convinced that it is viable.</p>
 <h2>The solution</h2>
 <h3>Initial setup</h3>
 <ol><li>Install Docker (and optionally Docker Desktop, if licencing allows), examples below are unix images on Windows.</li>
@@ -94,7 +93,7 @@ changeLogFile: changelog.xml
 url: jdbc:sqlserver://localhost:1433;database=master;encrypt=true;trustServerCertificate=true
 username: sa
 password: yourStrong(!)Password
-# liquibaseProLicenseKey=&lt;PASTE LB PRO LICENSE KEY HERE&gt;</code><!-- HTML_TAG_END --></pre>This example is using the defaults for a <a href="https://hub.docker.com/_/microsoft-mssql-server" rel="nofollow">SQL Server docker</a> container, although the <a href="https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html" rel="nofollow">Liquibase recommendation</a> is to pass these as arguments.  Passing by argument is also required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing, so this defaultsFile is kept just to simplify any manual test processes.<br>
+# liquibaseProLicenseKey=&lt;PASTE LB PRO LICENSE KEY HERE&gt;</code><!-- HTML_TAG_END --></pre>This example is using the defaults for a <a href="https://hub.docker.com/_/microsoft-mssql-server" rel="nofollow">SQL Server docker</a> container, although the <a href="https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html" rel="nofollow">Liquibase recommendation</a> is to pass these as arguments.  Passing by argument is also required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing, so this defaultsFile is kept just to simplify any manual test processes locally.<br>
 We require <code>encrypt=true and trustServerCertificate=true</code> to resolve firewall and SSL errors respectively, encountered whilst applying test changeset.  </li>
 <li>We can now run liquibase commands, e.g. help<br>
 <code>docker run --rm --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties --help</code><br>
@@ -114,25 +113,47 @@ When done you will need to stop and remove the docker container yourself.  </li>
 If a changeset fails in dev, perhaps due to messing up constraints :|, and you wish to keep changesets clean before commit, you can truncate the table DATABASECHANGELOG which Liquibase manages.  </li>
 <li>Check that this has worked as expected using SQL Server Object Explorer in Visual Studio or SQL browser of preference.  </li></ol>
 <h3>Code changes</h3>
-<ol><li>Ensure that any DB code (repository) accesses the connection string via <code>IOptions</code> or better yet <code>IOptionsSnapshot</code> to allow life reloading of config.  <pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">public class ConnectionStringsOptions
+<ol><li><p>Ensure that any DB code (repository) accesses the connection string via <code>IOptions</code> or better yet <code>IOptionsSnapshot</code> to allow live reloading of config.  </p>
+<pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">public class ConnectionStringsOptions
 &#123;
    public const string ConfigKey = &quot;ConnectionStrings&quot;;
    public string MyDb &#123; get; set; &#125; = string.Empty;
 &#125;</code><!-- HTML_TAG_END --></pre></li>
-<li>Create an xUnit IClassFixture <code>MsSqlTestFixture</code>, implementing <code>IAsyncLifetime</code> to ensure that it runs once per test class which uses it.<br>
-This class will:  <ol><li>Create a SQL container using the <code>ContainerBuilder</code>, mirroring the parameters above, although with a dynamically generated port.  </li>
-<li>Wait for this to become responsive (accept SQL commands not just at the Docker/network layer)</li>
-<li>Spin up a Liquibase container to run a single command on this transient database - <code>update</code>, to apply all changes to get to the current version from an empty database.  </li>
-<li>Clear down both containers and associated classes after test execution</li>
-<li>Expose SQL connection details via internal constants, for use by the test application.  </li></ol></li>
-<li>Create a custom <code>WebApplicationFactory</code> for testing, e.g. <code>TestWebApplicationFactory</code>.<br>
-This will build upon the WebApplicationFactory used by the application itself, but we can remove links to real database and real external dependencies in favour of managed stubs (out of scope of this document).<br>
-Add a constructor to this class which requires the MsSqlTestFixture and builds up the connection string from its exposed constants.<br>
-Configure the Options class containing the connection string used by the code.  <pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">services.Configure&lt;ConnectionStringsOptions&gt;(opts =&gt; &#123;
-   opts.MyDb = _connectionString;
-&#125;);</code><!-- HTML_TAG_END --></pre></li>
-<li>Create a test class <code>MsSqlTests</code> which inherits <code>IClassFixture&lt;MsSqlTestFixture&gt;</code> and <code>IDisposable</code><br>
-In the constructor use the above classes to make the DB available to the tests:<pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">public MsSqlTests(MsSqlTestFixture msSqlTestFixture)
+<li><p>Create an xUnit IClassFixture <code>MsSqlTestFixture</code>, implementing <code>IAsyncLifetime</code> to ensure that it runs once per test class which uses it.<br>
+This class will:  </p>
+<ol><li>Create a SQL container using the <code>ContainerBuilder</code>, mirroring the parameters above, although with a dynamically generated port.  </li>
+<li>Wait for this to become responsive (by which I mean can accept SQL commands not just commands at the Docker/network layer)</li>
+<li>Spin up a Liquibase container to run a single command on this transient database - <code>update</code>, to apply all changes to get to the current version from an empty database and dispose it after completion.  </li>
+<li>Expose SQL connection details via internal constants, for use by the test application.  </li>
+<li>Dispose the SQL container and associated classes after test execution.  </li></ol></li>
+<li><p>Create a custom <code>WebApplicationFactory</code> for testing, e.g. <code>TestWebApplicationFactory</code>.<br>
+This class will:</p>
+<ol><li>Start with the WebApplicationFactory used by the application itself.  </li>
+<li>Replace real external dependencies in favour of managed stubs/fakes (out of scope of this document).  </li>
+<li>Use constructor injection to load the SQL TestFixture which exposes the connection details of the transient database.  </li>
+<li>Replace real connection strings with a connection string built from the SQL container settings.  </li></ol>
+<pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">public TestWebApplicationFactory(MsSqlTestFixture sqlTestFixture)
+&#123;
+ _connectionString = $&quot;Server=&#123;sqlTestFixture._msSqlcontainer.Hostname
+     &#125;,&#123;sqlTestFixture._msSqlcontainer.GetMappedPublicPort(MsSqlTestFixture.MsSqlPort)
+     &#125;;Database=&#123;MsSqlTestFixture.Database
+     &#125;;User Id=&#123;MsSqlTestFixture.Username
+     &#125;;Password=&#123;MsSqlTestFixture.Password
+     &#125;;TrustServerCertificate=True&quot;;
+&#125;
+
+protected override IHost CreateHost(IHostBuilder builder)
+&#123;
+   builder.ConfigureServices(services =&gt; 
+   &#123;
+      services.Configure&lt;ConnectionStringsOptions&gt;(opts =&gt; &#123;
+      opts.MyDb = _connectionString;
+      &#125;);
+   &#125;);
+&#125;</code><!-- HTML_TAG_END --></pre></li>
+<li><p>Create a test class <code>MsSqlTests</code> which inherits <code>IClassFixture&lt;MsSqlTestFixture&gt;</code> and <code>IDisposable</code><br>
+In the constructor use the above classes to make the DB available to the tests:</p>
+<pre class="language-c#"><!-- HTML_TAG_START --><code class="language-c#">public MsSqlTests(MsSqlTestFixture msSqlTestFixture)
 &#123;
    _webApplicationFactory = new TestWebApplicationFactory&lt;Program&gt;(msSqlTestFixture);
    _httpClient = _webApplicationFactory.CreateClient(new WebApplicationFactoryClientOptions &#123;
@@ -143,11 +164,18 @@ public void Dispose()
 &#123;
    _webApplicationFactory.Dispose();
 &#125;</code><!-- HTML_TAG_END --></pre></li></ol>
+<h3>Issues</h3>
+<p>It takes some time to spin up a liquibase container, connect to a SQL database and apply migration scripts.<br>
+I found during exploration that whilst debugging the test everything was working as designed, however, whilst running the tests had completed (with failures) before the DB scripts had been executed.<br>
+It is possible to set a WaitStrategy on testcontainers to ensure that they are ready before moving on.<br>
+I had no luck getting this to work with liquibase, since it is not designed to stay up after the command is completed.<br>
+I’m sure there’s a better way, but my fix for this was to put a while loop in between starting and disposing the liquibase container.<br>
+This simply runs an appropriate query on the SQL container which indicates completion, then waits for a second before retrying, up to N times.  </p>
 <h3>Next steps</h3>
-<p>I’m doing all of this on a preview version of .NET8 and there is sadly <a href="https://github.com/dotnet/SqlClient/issues/1930" rel="nofollow">an issue</a> with <code>Microsoft.Data.SqlClient</code> which means I can’t actually run these tests, but the signs are good; Docker containers do get spun up in the order expected and for the length of time expected and everything cleans up after itself.  Back to actually writing the application logic I guess, though I’d love to actually work in a more test-driven fashion.  </p>
-<p>Finally I need to automate integration testing on CICD pipelines.
-But I need to test the tests first and this activity is out of scope of this document.</p>
-<p>All of the above is checked in to a private GitHub repo for now, I may make this public at some point.  </p></main>
+<p>The solution now works as intended (as long as you remember to start Docker first).<br>
+I simply need to complete the work now, in a more test driven fashion than I normally would.<br>
+Finally I need to automate integration testing on CICD pipelines.<br>
+All of the above is checked in to a private GitHub repo for now, I may make this public at some point.  </p></main>
 
 
 <footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
@@ -165,7 +193,7 @@ But I need to test the tests first and this activity is out of scope of this doc
 			
 			<script>
 				{
-					__sveltekit_hn1trz = {
+					__sveltekit_1e1anfa = {
 						env: {},
 						base: new URL("../../../..", location).pathname.slice(0, -1),
 						element: document.currentScript.parentElement
@@ -174,10 +202,10 @@ But I need to test the tests first and this activity is out of scope of this doc
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.9ce72381.js"),
-						import("../../../../_app/immutable/entry/app.f053695b.js")
+						import("../../../../_app/immutable/entry/start.8a79d891.js"),
+						import("../../../../_app/immutable/entry/app.071afef5.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_hn1trz.element, {
+						kit.start(app, __sveltekit_1e1anfa.element, {
 							node_ids: [0, 2, 24],
 							data,
 							form: null,
