@@ -51,8 +51,6 @@ The prompt for this mini-project was the discovery of [Testcontainers](https://g
 This allows you to spin up a throwaway docker container, or collection of, just for the lifetime of the test(s).  
 This is not a substitute for unit testing since it will be significantly slower, but it is a better solution than testing with in-memory databases, which may have subtle differences in behaviour to the production database.  
 
-I'm still working through the details of this in relation to the DB schema automation, but I've done enough to be convinced that it is viable.
-
 ## The solution
 
 ### Initial setup 
@@ -81,7 +79,7 @@ I'm still working through the details of this in relation to the DB schema autom
    password: yourStrong(!)Password
    # liquibaseProLicenseKey=<PASTE LB PRO LICENSE KEY HERE>
    ```  
-   This example is using the defaults for a [SQL Server docker](https://hub.docker.com/_/microsoft-mssql-server) container, although the [Liquibase recommendation](https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html) is to pass these as arguments.  Passing by argument is also required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing, so this defaultsFile is kept just to simplify any manual test processes.  
+   This example is using the defaults for a [SQL Server docker](https://hub.docker.com/_/microsoft-mssql-server) container, although the [Liquibase recommendation](https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html) is to pass these as arguments.  Passing by argument is also required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing, so this defaultsFile is kept just to simplify any manual test processes locally.  
    We require `encrypt=true and trustServerCertificate=true` to resolve firewall and SSL errors respectively, encountered whilst applying test changeset.  
 1. We can now run liquibase commands, e.g. help  
    `docker run --rm --net=host -v "C:\Path\To\Folder\Containing\changelogs":/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties --help`  
@@ -103,7 +101,7 @@ I'm still working through the details of this in relation to the DB schema autom
 
 ### Code changes
 
-1. Ensure that any DB code (repository) accesses the connection string via `IOptions` or better yet `IOptionsSnapshot` to allow life reloading of config.  
+1. Ensure that any DB code (repository) accesses the connection string via `IOptions` or better yet `IOptionsSnapshot` to allow live reloading of config.  
    ```C#
    public class ConnectionStringsOptions
    {
@@ -114,18 +112,36 @@ I'm still working through the details of this in relation to the DB schema autom
 1. Create an xUnit IClassFixture `MsSqlTestFixture`, implementing `IAsyncLifetime` to ensure that it runs once per test class which uses it.  
    This class will:  
    1. Create a SQL container using the `ContainerBuilder`, mirroring the parameters above, although with a dynamically generated port.  
-   1. Wait for this to become responsive (accept SQL commands not just at the Docker/network layer)
-   1. Spin up a Liquibase container to run a single command on this transient database - `update`, to apply all changes to get to the current version from an empty database.  
-   1. Clear down both containers and associated classes after test execution
+   1. Wait for this to become responsive (by which I mean can accept SQL commands not just commands at the Docker/network layer)
+   1. Spin up a Liquibase container to run a single command on this transient database - `update`, to apply all changes to get to the current version from an empty database and dispose it after completion.  
    1. Expose SQL connection details via internal constants, for use by the test application.  
+   1. Dispose the SQL container and associated classes after test execution.  
 1. Create a custom `WebApplicationFactory` for testing, e.g. `TestWebApplicationFactory`.  
-   This will build upon the WebApplicationFactory used by the application itself, but we can remove links to real database and real external dependencies in favour of managed stubs (out of scope of this document).  
-   Add a constructor to this class which requires the MsSqlTestFixture and builds up the connection string from its exposed constants.  
-   Configure the Options class containing the connection string used by the code.  
+   This class will:
+   1. Start with the WebApplicationFactory used by the application itself.  
+   1. Replace real external dependencies in favour of managed stubs/fakes (out of scope of this document).  
+   1. Use constructor injection to load the SQL TestFixture which exposes the connection details of the transient database.  
+   1. Replace real connection strings with a connection string built from the SQL container settings.  
    ```C#
-   services.Configure<ConnectionStringsOptions>(opts => {
-      opts.MyDb = _connectionString;
-   });
+   public TestWebApplicationFactory(MsSqlTestFixture sqlTestFixture)
+   {
+    _connectionString = $"Server={sqlTestFixture._msSqlcontainer.Hostname
+        },{sqlTestFixture._msSqlcontainer.GetMappedPublicPort(MsSqlTestFixture.MsSqlPort)
+        };Database={MsSqlTestFixture.Database
+        };User Id={MsSqlTestFixture.Username
+        };Password={MsSqlTestFixture.Password
+        };TrustServerCertificate=True";
+   }
+   
+   protected override IHost CreateHost(IHostBuilder builder)
+   {
+      builder.ConfigureServices(services => 
+      {
+         services.Configure<ConnectionStringsOptions>(opts => {
+         opts.MyDb = _connectionString;
+         });
+      });
+   }
    ```  
 1. Create a test class `MsSqlTests` which inherits `IClassFixture<MsSqlTestFixture>` and `IDisposable`  
    In the constructor use the above classes to make the DB available to the tests:
@@ -143,11 +159,18 @@ I'm still working through the details of this in relation to the DB schema autom
    }
    ```
 
+### Issues
+
+It takes some time to spin up a liquibase container, connect to a SQL database and apply migration scripts.  
+I found during exploration that whilst debugging the test everything was working as designed, however, whilst running the tests had completed (with failures) before the DB scripts had been executed.  
+It is possible to set a WaitStrategy on testcontainers to ensure that they are ready before moving on.  
+I had no luck getting this to work with liquibase, since it is not designed to stay up after the command is completed.  
+I'm sure there's a better way, but my fix for this was to put a while loop in between starting and disposing the liquibase container.  
+This simply runs an appropriate query on the SQL container which indicates completion, then waits for a second before retrying, up to N times.  
+
 ### Next steps
 
-I'm doing all of this on a preview version of .NET8 and there is sadly [an issue](https://github.com/dotnet/SqlClient/issues/1930) with `Microsoft.Data.SqlClient` which means I can't actually run these tests, but the signs are good; Docker containers do get spun up in the order expected and for the length of time expected and everything cleans up after itself.  Back to actually writing the application logic I guess, though I'd love to actually work in a more test-driven fashion.  
-
-Finally I need to automate integration testing on CICD pipelines.
-But I need to test the tests first and this activity is out of scope of this document.
-
+The solution now works as intended (as long as you remember to start Docker first).  
+I simply need to complete the work now, in a more test driven fashion than I normally would.  
+Finally I need to automate integration testing on CICD pipelines.  
 All of the above is checked in to a private GitHub repo for now, I may make this public at some point.  
