@@ -5,27 +5,29 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<meta http-equiv="content-security-policy" content="">
-		<link rel="modulepreload" href="/_app/immutable/entry/start.8a79d891.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/index.de0bb5b5.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/singletons.f3c6ffc0.js">
-		<link rel="modulepreload" href="/_app/immutable/entry/app.071afef5.js">
+		
+		<link rel="modulepreload" href="/_app/immutable/entry/start.14e2260b.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/scheduler.63274e7e.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/singletons.7cfa083e.js">
+		<link rel="modulepreload" href="/_app/immutable/entry/app.a9b1b2ed.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/index.d9809aad.js">
 	</head>
 	<body>
 		<div>
 			<script>
 				{
-					__sveltekit_1e1anfa = {
-						env: {},
+					__sveltekit_fm2sxp = {
 						base: "",
-						element: document.currentScript.parentElement
+						env: {}
 					};
 
+					const element = document.currentScript.parentElement;
+
 					Promise.all([
-						import("/_app/immutable/entry/start.8a79d891.js"),
-						import("/_app/immutable/entry/app.071afef5.js")
+						import("/_app/immutable/entry/start.14e2260b.js"),
+						import("/_app/immutable/entry/app.a9b1b2ed.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_1e1anfa.element);
+						kit.start(app, element);
 					});
 				}
 			</script>

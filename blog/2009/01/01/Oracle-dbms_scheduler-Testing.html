@@ -5,36 +5,20 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<meta http-equiv="content-security-policy" content="">
-		<link href="../../../../_app/immutable/assets/_layout.7c76d6ca.css" rel="stylesheet">
-		<link href="../../../../_app/immutable/assets/_layout.7003dda6.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.8a79d891.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.de0bb5b5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.f3c6ffc0.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.071afef5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.svelte.8dc7b3ac.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.js.984db11e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-layout.svelte.91597fef.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-blog-2009-01-01-Oracle-dbms_scheduler-Testing-page.md.f408e4f4.js">
+		
+		<link href="../../../../_app/immutable/assets/0.dbac244e.css" rel="stylesheet">
+		<link href="../../../../_app/immutable/assets/2.7003dda6.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.14e2260b.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/scheduler.63274e7e.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.7cfa083e.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.a9b1b2ed.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.d9809aad.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.e1105dad.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.ebdbf35e.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/9.23a33956.js">
 	</head>
 	<body>
-		<div>
-
-
-
-<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
-		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
-	
-<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
-		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
-		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
-		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
-</nav>
-</div>
-
-<main class="svelte-1l5lemn"><p>I stole this script from somewhere, I forget where. I found it useful at the time for testing planned schedules for dbms_scheduler jobs.</p>
-<pre class="language-plsql"><!-- HTML_TAG_START --><code class="language-plsql"><span class="token keyword">declare</span>
+		<div>   <div class="svelte-1yjh0wm"><header data-svelte-h="svelte-lgw146"><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>  <nav class="svelte-z3ooaf" data-svelte-h="svelte-4jee8c"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul> </nav> </div> <main class="svelte-1l5lemn"><p data-svelte-h="svelte-1frpor6">I stole this script from somewhere, I forget where. I found it useful at the time for testing planned schedules for dbms_scheduler jobs.</p> <pre class="language-plsql"><!-- HTML_TAG_START --><code class="language-plsql"><span class="token keyword">declare</span>
    l_start_date         <span class="token keyword">TIMESTAMP</span><span class="token punctuation">;</span>
    l_next_date          <span class="token keyword">TIMESTAMP</span><span class="token punctuation">;</span>
    l_return_date        <span class="token keyword">TIMESTAMP</span><span class="token punctuation">;</span>
@@ -60,37 +44,26 @@
       <span class="token punctuation">)</span><span class="token punctuation">;</span>
       l_return_date <span class="token operator">:=</span> l_next_date<span class="token punctuation">;</span>
    <span class="token keyword">end</span> <span class="token keyword">loop</span><span class="token punctuation">;</span>
-<span class="token keyword">end</span><span class="token punctuation">;</span></code><!-- HTML_TAG_END --></pre></main>
-
-
-<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
-	<p>If you don&#39;t like it, you know where the close button is.</p>
-	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
-	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
-	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
-	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+<span class="token keyword">end</span><span class="token punctuation">;</span></code><!-- HTML_TAG_END --></pre></main>  <footer class="svelte-1g9mmpv" data-svelte-h="svelte-zr9zc5"><p>This is my site, there are many like it but this one is mine.</p> <p>If you don&#39;t like it, you know where the close button is.</p> <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a> <a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a> <a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a> <p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
 		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
-		multipronged musings, mechanical movements, may maximise meritorious magnificence.
-	</p>
-</footer>
-
-
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.</p> </footer> 
 			
 			<script>
 				{
-					__sveltekit_1e1anfa = {
-						env: {},
+					__sveltekit_fm2sxp = {
 						base: new URL("../../../..", location).pathname.slice(0, -1),
-						element: document.currentScript.parentElement
+						env: {}
 					};
+
+					const element = document.currentScript.parentElement;
 
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.8a79d891.js"),
-						import("../../../../_app/immutable/entry/app.071afef5.js")
+						import("../../../../_app/immutable/entry/start.14e2260b.js"),
+						import("../../../../_app/immutable/entry/app.a9b1b2ed.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_1e1anfa.element, {
+						kit.start(app, element, {
 							node_ids: [0, 2, 9],
 							data,
 							form: null,

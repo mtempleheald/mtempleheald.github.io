@@ -5,79 +5,21 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<meta http-equiv="content-security-policy" content="">
-		<link href="../../../../_app/immutable/assets/_layout.7c76d6ca.css" rel="stylesheet">
-		<link href="../../../../_app/immutable/assets/_layout.7003dda6.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.8a79d891.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.de0bb5b5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.f3c6ffc0.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.071afef5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.svelte.8dc7b3ac.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/_layout.js.984db11e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-layout.svelte.91597fef.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/(standard)-blog-2021-03-08-Web-Journey-without-JavaScript-page.md.329e1adb.js">
+		
+		<link href="../../../../_app/immutable/assets/0.dbac244e.css" rel="stylesheet">
+		<link href="../../../../_app/immutable/assets/2.7003dda6.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.14e2260b.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/scheduler.63274e7e.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.7cfa083e.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.a9b1b2ed.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.d9809aad.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.e1105dad.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.ebdbf35e.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/20.d2dfe15b.js">
 	</head>
 	<body>
-		<div>
-
-
-
-<div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1>
-		<h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>
-	
-<nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li>
-		<li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li>
-		<li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li>
-		<li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul>
-</nav>
-</div>
-
-<main class="svelte-1l5lemn"><h1>Web Journey without JavaScript</h1>
-<p>An exploration into developing a full web journey without JavaScript.</p>
-<p>I’m not overly keen on JavaScript (or dynamic languages in general), but the true motivation here is layering, specifically the repetition of business logic in 2 places.</p>
-<h2>Vision</h2>
-<ul><li>Want all business logic to reside <em>only</em> on the server, since we can’t trust anything handled client side.</li>
-<li>Need interactivity in the browser, else it will be a poor user experience, but this needs to be data-driven and not contain business logic.</li></ul>
-<h2>Initial thoughts</h2>
-<p>WebAssembly is now available as an alternative to JavaScript in the browser, for many use cases. There are limits, most notably the inability to interact directly with the DOM.
-So the solution will require some JavaScript plumbing.</p>
-<p>The JavaScript elements should be limited to context-agnostic data-driven validation/display toggling, using a library such as <a href="https://validatejs.org/" rel="nofollow">validate.js</a>.</p>
-<h2>Design principles</h2>
-<ul><li>JavaScript is a pre-requisite, so beyond showing a nice message don’t worry about progressive enhancement.</li>
-<li>We can share code front and backend (if that makes sense) but we must write it only once</li>
-<li>All code must be testable</li>
-<li>The application must be responsive with no significant latency</li>
-<li></li></ul>
-<h2>Solution design</h2>
-<p>Easiest to think about this in terms of interface boundaries</p>
-<table><thead><tr><th>JavaScript</th>
-<th>WASM Frontend</th>
-<th>Backend</th>
-<th>Notes</th></tr></thead>
-<tbody><tr><td>onLoad setup</td>
-<td>setupForm</td>
-<td>getQuestionSet</td>
-<td>grab data from backend to generate form</td></tr>
-<tr><td>onChange validate</td>
-<td>-</td>
-<td>-</td>
-<td>perform simple validation in front end</td></tr>
-<tr><td>onChange update</td>
-<td>updateX</td>
-<td>-</td>
-<td>update central WASM model as they change</td></tr>
-<tr><td>onSubmit validate</td>
-<td>validateX</td>
-<td>-</td>
-<td>perform complex multifield validation</td></tr>
-<tr><td>onSubmit submit</td>
-<td>submitX</td>
-<td>submitX</td>
-<td>ensure validated, pass to backend</td></tr></tbody></table>
-<h3>QuestionSet data structure</h3>
-<p>There should be sufficient information in here for both display and simple validation.</p>
-<pre class="language-json"><!-- HTML_TAG_START --><code class="language-json"><span class="token punctuation">&#123;</span>
+		<div>   <div class="svelte-1yjh0wm"><header data-svelte-h="svelte-lgw146"><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>  <nav class="svelte-z3ooaf" data-svelte-h="svelte-4jee8c"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul> </nav> </div> <main class="svelte-1l5lemn"><h1 data-svelte-h="svelte-w9ztk1">Web Journey without JavaScript</h1> <p data-svelte-h="svelte-15536xk">An exploration into developing a full web journey without JavaScript.</p> <p data-svelte-h="svelte-swvcoi">I’m not overly keen on JavaScript (or dynamic languages in general), but the true motivation here is layering, specifically the repetition of business logic in 2 places.</p> <h2 data-svelte-h="svelte-v9m9xm">Vision</h2> <ul data-svelte-h="svelte-h3yjy0"><li>Want all business logic to reside <em>only</em> on the server, since we can’t trust anything handled client side.</li> <li>Need interactivity in the browser, else it will be a poor user experience, but this needs to be data-driven and not contain business logic.</li></ul> <h2 data-svelte-h="svelte-1wxhaew">Initial thoughts</h2> <p data-svelte-h="svelte-50rnx1">WebAssembly is now available as an alternative to JavaScript in the browser, for many use cases. There are limits, most notably the inability to interact directly with the DOM.
+So the solution will require some JavaScript plumbing.</p> <p data-svelte-h="svelte-1xiqc72">The JavaScript elements should be limited to context-agnostic data-driven validation/display toggling, using a library such as <a href="https://validatejs.org/" rel="nofollow">validate.js</a>.</p> <h2 data-svelte-h="svelte-1xq1aab">Design principles</h2> <ul data-svelte-h="svelte-10mve8k"><li>JavaScript is a pre-requisite, so beyond showing a nice message don’t worry about progressive enhancement.</li> <li>We can share code front and backend (if that makes sense) but we must write it only once</li> <li>All code must be testable</li> <li>The application must be responsive with no significant latency</li> <li></li></ul> <h2 data-svelte-h="svelte-v3xp0b">Solution design</h2> <p data-svelte-h="svelte-1pjvlci">Easiest to think about this in terms of interface boundaries</p> <table data-svelte-h="svelte-nqxco4"><thead><tr><th>JavaScript</th> <th>WASM Frontend</th> <th>Backend</th> <th>Notes</th></tr></thead> <tbody><tr><td>onLoad setup</td> <td>setupForm</td> <td>getQuestionSet</td> <td>grab data from backend to generate form</td></tr> <tr><td>onChange validate</td> <td>-</td> <td>-</td> <td>perform simple validation in front end</td></tr> <tr><td>onChange update</td> <td>updateX</td> <td>-</td> <td>update central WASM model as they change</td></tr> <tr><td>onSubmit validate</td> <td>validateX</td> <td>-</td> <td>perform complex multifield validation</td></tr> <tr><td>onSubmit submit</td> <td>submitX</td> <td>submitX</td> <td>ensure validated, pass to backend</td></tr></tbody></table> <h3 data-svelte-h="svelte-l23f1d">QuestionSet data structure</h3> <p data-svelte-h="svelte-1eiuy8n">There should be sufficient information in here for both display and simple validation.</p> <pre class="language-json"><!-- HTML_TAG_START --><code class="language-json"><span class="token punctuation">&#123;</span>
     <span class="token property">"question-set"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span> <span class="token comment">// questionset identifier, there may be many in a single journey</span>
     <span class="token property">"questions"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token punctuation">&#123;</span>
@@ -99,60 +41,32 @@ So the solution will require some JavaScript plumbing.</p>
         <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
         <span class="token comment">// ...</span>
     <span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
-<h3>Validate &amp; submit</h3>
-<ul><li>Should have already performed simple validation in the browser</li>
-<li>Should already have all required values from the questionset submitted during navigation</li>
-<li>Assume neither of these things are true, validate in full.<br>
-This can mean running validation twice, but the client side stuff was for the user’s benefit and we didn’t write it by hand for this journey, the underlying data which drives it was generated in the backend.</li></ul>
-<ol><li>All fields in questionset answered, click submit button.</li>
-<li>JavaScript onSubmit() code calls WebAssembly ProcessQuestionSet() which returns error string or &quot;&quot;.</li>
-<li>JavaScript either displays errors or navigates onwards (can preload next page while waiting for response)</li>
-<li>Wasm applies business logic and passes data on for further processing if required</li></ol>
-<ul><li>Page URLs and navigation are the domain of the JS.</li>
-<li>Data, session and persistence are the domain of the backend &amp; wasm frontend
-These 2 aspects aren’t entirely independent…</li></ul>
-<p>If we choose to go down the SPA route then we can consider the WASM memory as the session data.<br>
+<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre> <h3 data-svelte-h="svelte-laoeq">Validate &amp; submit</h3> <ul data-svelte-h="svelte-3lueom"><li>Should have already performed simple validation in the browser</li> <li>Should already have all required values from the questionset submitted during navigation</li> <li>Assume neither of these things are true, validate in full.<br>
+This can mean running validation twice, but the client side stuff was for the user’s benefit and we didn’t write it by hand for this journey, the underlying data which drives it was generated in the backend.</li></ul> <ol data-svelte-h="svelte-1p7hdnj"><li>All fields in questionset answered, click submit button.</li> <li>JavaScript onSubmit() code calls WebAssembly ProcessQuestionSet() which returns error string or &quot;&quot;.</li> <li>JavaScript either displays errors or navigates onwards (can preload next page while waiting for response)</li> <li>Wasm applies business logic and passes data on for further processing if required</li></ol> <ul data-svelte-h="svelte-1b0av20"><li>Page URLs and navigation are the domain of the JS.</li> <li>Data, session and persistence are the domain of the backend &amp; wasm frontend
+These 2 aspects aren’t entirely independent…</li></ul> <p data-svelte-h="svelte-1cu3lrl">If we choose to go down the SPA route then we can consider the WASM memory as the session data.<br>
 We also have the option here to break up the questionSet into as many or as few chunks as we like.
-We can even combine questionSets within the same business logic, since all exist in session data together.</p>
-<p>If we choose to go down the multipage route then we need to call out to a persistence layer in between pages.
+We can even combine questionSets within the same business logic, since all exist in session data together.</p> <p data-svelte-h="svelte-1cc34jm">If we choose to go down the multipage route then we need to call out to a persistence layer in between pages.
 This persistence layer could be in the browser (localStorage/sessionStorage) or backend via an async API call, either way this should be handled by WASM.
-Any time we need to look at data spanning questionSets (pages in this scenario) we need to also perform data retrieval steps to pull in data from other pages, this starts to feel messy so SPA seems preferable all things considered.</p>
-<h3>Conclusion</h3>
-<ul><li>Layer separation is clear and there is no code duplication.</li>
-<li>Browser-based data-annotation-driven validation is proven and well known</li>
-<li>The practicalities of interop for questionSet submission to be proven, can’t add too much latency.</li>
-<li>WASM to backend APIs via REST or gRPC to be considered - not clear on security in WASM</li></ul></main>
-
-
-<footer class="svelte-1g9mmpv"><p>This is my site, there are many like it but this one is mine.</p>
-	<p>If you don&#39;t like it, you know where the close button is.</p>
-	<a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a>
-	<a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a>
-	<a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a>
-	<p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
+Any time we need to look at data spanning questionSets (pages in this scenario) we need to also perform data retrieval steps to pull in data from other pages, this starts to feel messy so SPA seems preferable all things considered.</p> <h3 data-svelte-h="svelte-d7kqkf">Conclusion</h3> <ul data-svelte-h="svelte-jq9n91"><li>Layer separation is clear and there is no code duplication.</li> <li>Browser-based data-annotation-driven validation is proven and well known</li> <li>The practicalities of interop for questionSet submission to be proven, can’t add too much latency.</li> <li>WASM to backend APIs via REST or gRPC to be considered - not clear on security in WASM</li></ul></main>  <footer class="svelte-1g9mmpv" data-svelte-h="svelte-zr9zc5"><p>This is my site, there are many like it but this one is mine.</p> <p>If you don&#39;t like it, you know where the close button is.</p> <a href="https://www.linkedin.com/in/mtempleheald" target="_blank" class="svelte-1g9mmpv">Mark Temple-Heald</a> <a href="https://mtempleheald.github.io" target="_blank" class="svelte-1g9mmpv">Home</a> <a href="https://github.com/mtempleheald" target="_blank" class="svelte-1g9mmpv">GitHub</a> <p>Mindful meanderings manifest more manageable machinations. Manoeuvring murky multifaceted
 		modernism means meticulously managing many mistakes, misconceptions, misunderstandings. Measured
-		multipronged musings, mechanical movements, may maximise meritorious magnificence.
-	</p>
-</footer>
-
-
+		multipronged musings, mechanical movements, may maximise meritorious magnificence.</p> </footer> 
 			
 			<script>
 				{
-					__sveltekit_1e1anfa = {
-						env: {},
+					__sveltekit_fm2sxp = {
 						base: new URL("../../../..", location).pathname.slice(0, -1),
-						element: document.currentScript.parentElement
+						env: {}
 					};
+
+					const element = document.currentScript.parentElement;
 
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.8a79d891.js"),
-						import("../../../../_app/immutable/entry/app.071afef5.js")
+						import("../../../../_app/immutable/entry/start.14e2260b.js"),
+						import("../../../../_app/immutable/entry/app.a9b1b2ed.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_1e1anfa.element, {
+						kit.start(app, element, {
 							node_ids: [0, 2, 20],
 							data,
 							form: null,
