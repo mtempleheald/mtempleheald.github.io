@@ -235,17 +235,21 @@
 
 <div class="match">
 	<table>
-		<tr><td>avg</td><td>{player1_avg}</td></tr>
-		<tr><td>180s</td><td>{player1_180s}</td></tr>
-		<tr><td>140s</td><td>{player1_140s}</td></tr>
-		<tr><td>100s</td><td>{player1_100s}</td></tr>
+		<tbody>
+			<tr><td>avg</td><td>{player1_avg}</td></tr>
+			<tr><td>180s</td><td>{player1_180s}</td></tr>
+			<tr><td>140s</td><td>{player1_140s}</td></tr>
+			<tr><td>100s</td><td>{player1_100s}</td></tr>
+		</tbody>
 	</table>
-	<div class="filler" />
+	<div class="filler"></div>
 	<table>
-		<tr><td>avg</td><td>{player2_avg}</td></tr>
-		<tr><td>180s</td><td>{player2_180s}</td></tr>
-		<tr><td>140s</td><td>{player2_140s}</td></tr>
-		<tr><td>100s</td><td>{player2_100s}</td></tr>
+		<tbody>
+			<tr><td>avg</td><td>{player2_avg}</td></tr>
+			<tr><td>180s</td><td>{player2_180s}</td></tr>
+			<tr><td>140s</td><td>{player2_140s}</td></tr>
+			<tr><td>100s</td><td>{player2_100s}</td></tr>
+		</tbody>
 	</table>
 </div>
 

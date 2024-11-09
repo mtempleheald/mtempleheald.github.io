@@ -1,3 +1,8 @@
+<script>
+	/** @type {{children?: import('svelte').Snippet}} */
+	let { children } = $props();
+</script>
+
 <svelte:head>
 	<meta
 		name="viewport"
@@ -5,4 +10,4 @@
 	/>
 </svelte:head>
 
-<slot />
+{@render children?.()}
