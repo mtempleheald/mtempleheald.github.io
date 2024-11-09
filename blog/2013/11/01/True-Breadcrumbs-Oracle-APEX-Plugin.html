@@ -6,20 +6,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		
-		<link href="../../../../_app/immutable/assets/0.dbac244e.css" rel="stylesheet">
-		<link href="../../../../_app/immutable/assets/2.7003dda6.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.14e2260b.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/scheduler.63274e7e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.7cfa083e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.a9b1b2ed.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.d9809aad.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.e1105dad.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.ebdbf35e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/11.e2af3855.js">
+		<link href="../../../../_app/immutable/assets/0.GqRAowUm.css" rel="stylesheet">
+		<link href="../../../../_app/immutable/assets/2.0064yJqm.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.CLIxsdvV.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.B0aSSQeQ.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/scheduler.Cp24rM3s.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.CnbeEuoy.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.CkxK-9SL.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.8PyStYit.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.CXBMA209.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/11.B9kbm-i9.js">
 	</head>
 	<body>
 		<div>   <div class="svelte-1yjh0wm"><header data-svelte-h="svelte-lgw146"><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>  <nav class="svelte-z3ooaf" data-svelte-h="svelte-4jee8c"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul> </nav> </div> <main class="svelte-1l5lemn"><p data-svelte-h="svelte-1g6o666">I was getting irritated with breadcrumbs in APEX, specifically having to maintain a separate list for both breadcrumbs and “normal” navigation.<br>
-What I wanted was:</p> <ul data-svelte-h="svelte-8yckyx"><li>every time you moved to a new page, remember the previous one as a parent</li> <li>if you move to a page you’d already been to, reset to that point.</li></ul> <p data-svelte-h="svelte-4agabx">So when a new version of APEX came out, I looked into the new plug-in development feature, this is the result.</p> <p data-svelte-h="svelte-g9wjun">The idea is simple, consisting of the following elements:</p> <ul data-svelte-h="svelte-1gr55ht"><li>Add a Region to Page 0 of the application referencing the plug-in, this renders a new breadcrumb element on each render (page load)</li> <li>Add navigation to the application<ul><li>I used a list (which has no notion of breadcrumbs), implemented on each page for demonstration purposes</li> <li>This could equally well be chart navigation, interactive reports, etc</li></ul></li> <li>An APEX collection to store the current state of the breadcrumbs</li></ul> <p data-svelte-h="svelte-10ei818">For the record, I’m not suggesting that this is a particularly good approach, it doesn’t cater for session state management and it is another server process to execute, which will obviously affect performance, but <a href="https://apex.oracle.com/pls/apex/f?p=55790:1::::::" rel="nofollow">it works</a>.</p> <h3 data-svelte-h="svelte-jvii0s">Creating a Plug-In</h3> <p data-svelte-h="svelte-1vuhwpj">Creating a plug-in is as simple as creating a package which exposes a function with the right signature, in this case, for a Region plug-in:</p> <pre class="language-sql"><!-- HTML_TAG_START --><code class="language-sql"><span class="token keyword">FUNCTION</span> render <span class="token punctuation">(</span>p_region              <span class="token operator">IN</span> apex_plugin<span class="token punctuation">.</span>t_region
+What I wanted was:</p> <ul data-svelte-h="svelte-8yckyx"><li>every time you moved to a new page, remember the previous one as a parent</li> <li>if you move to a page you’d already been to, reset to that point.</li></ul> <p data-svelte-h="svelte-4agabx">So when a new version of APEX came out, I looked into the new plug-in development feature, this is the result.</p> <p data-svelte-h="svelte-g9wjun">The idea is simple, consisting of the following elements:</p> <ul data-svelte-h="svelte-1ln7myf"><li>Add a Region to Page 0 of the application referencing the plug-in, this renders a new breadcrumb element on each render (page load)</li> <li>Add navigation to the application
+<ul><li>I used a list (which has no notion of breadcrumbs), implemented on each page for demonstration purposes</li> <li>This could equally well be chart navigation, interactive reports, etc</li></ul></li> <li>An APEX collection to store the current state of the breadcrumbs</li></ul> <p data-svelte-h="svelte-10ei818">For the record, I’m not suggesting that this is a particularly good approach, it doesn’t cater for session state management and it is another server process to execute, which will obviously affect performance, but <a href="https://apex.oracle.com/pls/apex/f?p=55790:1::::::" rel="nofollow">it works</a>.</p> <h3 data-svelte-h="svelte-jvii0s">Creating a Plug-In</h3> <p data-svelte-h="svelte-1vuhwpj">Creating a plug-in is as simple as creating a package which exposes a function with the right signature, in this case, for a Region plug-in:</p> <pre class="language-sql"><!-- HTML_TAG_START --><code class="language-sql"><span class="token keyword">FUNCTION</span> render <span class="token punctuation">(</span>p_region              <span class="token operator">IN</span> apex_plugin<span class="token punctuation">.</span>t_region
                 <span class="token punctuation">,</span>p_plugin              <span class="token operator">IN</span> apex_plugin<span class="token punctuation">.</span>t_plugin
                 <span class="token punctuation">,</span>p_is_printer_friendly <span class="token operator">IN</span> <span class="token keyword">BOOLEAN</span><span class="token punctuation">)</span>
   <span class="token keyword">RETURN</span> apex_plugin<span class="token punctuation">.</span>t_region_render_result</code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-nskdg5">Implementing the plug-in is even easier, simply add a plug-in Shared Component to the application, referencing the PL/SQL package, in this case:
@@ -184,9 +185,8 @@ Render Procedure/Function Name = true_breadcrumbs.render</p> <h3 data-svelte-h="
 			
 			<script>
 				{
-					__sveltekit_fm2sxp = {
-						base: new URL("../../../..", location).pathname.slice(0, -1),
-						env: {}
+					__sveltekit_1rsnseo = {
+						base: new URL("../../../..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
@@ -194,8 +194,8 @@ Render Procedure/Function Name = true_breadcrumbs.render</p> <h3 data-svelte-h="
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.14e2260b.js"),
-						import("../../../../_app/immutable/entry/app.a9b1b2ed.js")
+						import("../../../../_app/immutable/entry/start.CLIxsdvV.js"),
+						import("../../../../_app/immutable/entry/app.CnbeEuoy.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 11],

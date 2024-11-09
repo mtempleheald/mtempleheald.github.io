@@ -6,22 +6,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		
-		<link href="../../../../_app/immutable/assets/0.dbac244e.css" rel="stylesheet">
-		<link href="../../../../_app/immutable/assets/2.7003dda6.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.14e2260b.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/scheduler.63274e7e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.7cfa083e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.a9b1b2ed.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.d9809aad.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.e1105dad.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.ebdbf35e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/12.8c395ce5.js">
+		<link href="../../../../_app/immutable/assets/0.GqRAowUm.css" rel="stylesheet">
+		<link href="../../../../_app/immutable/assets/2.0064yJqm.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.CLIxsdvV.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.B0aSSQeQ.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/scheduler.Cp24rM3s.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.CnbeEuoy.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.CkxK-9SL.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.8PyStYit.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.CXBMA209.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/12.BjBWeHEw.js">
 	</head>
 	<body>
 		<div>   <div class="svelte-1yjh0wm"><header data-svelte-h="svelte-lgw146"><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>  <nav class="svelte-z3ooaf" data-svelte-h="svelte-4jee8c"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul> </nav> </div> <main class="svelte-1l5lemn"><p data-svelte-h="svelte-dyq3a7">I was recently involved in an upgrade from BizTalk 2013 to BizTalk 2016.<br>
 After upgrade all of our SpecFlow system tests started failing.</p> <p data-svelte-h="svelte-yi9o4j">The error manifests itself in the Event Viewer Application Logs as:</p> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">System.IO.FileNotFoundException: Could not load file or assembly
 &#39;Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342&#39;
-or one of its dependencies. The system cannot find the file specified.</code><!-- HTML_TAG_END --></pre> <h3 data-svelte-h="svelte-14wj9gd">Dependencies</h3> <p data-svelte-h="svelte-bbjsfz">So I dug into this in order to understand the problem and how to fix it, it turns out that:</p> <ul data-svelte-h="svelte-1r9dp0"><li>Biztalk 2013 has a dependency on <a href="https://www.oracle.com/technetwork/topics/dotnet/index-085163.html" rel="nofollow">Oracle Data Provider for .NET</a> version 11.2.<ul><li>Oracle version 11.2.0.x.x == Oracle.dataaccess.dll 4.112.x.x</li></ul></li> <li>BizTalk 2016 has the same dependency but on Oracle version 12.1.<ul><li>Oracle version 12.1.0.x.x == Oracle.dataaccess.dll 4.121.x.x</li></ul></li></ul> <p data-svelte-h="svelte-wfq5rj">When it comes to Oracle database connectivity:</p> <ul data-svelte-h="svelte-17nr4p3"><li>a newer client should be able to connect to an older database</li> <li>an older client may not be able to connect to a newer database</li></ul> <p data-svelte-h="svelte-10a4m33">In this case the client is the oracle.dataaccess.dll library used by BizTalk, aligned to Oracle database 12.1.<br>
+or one of its dependencies. The system cannot find the file specified.</code><!-- HTML_TAG_END --></pre> <h3 data-svelte-h="svelte-14wj9gd">Dependencies</h3> <p data-svelte-h="svelte-bbjsfz">So I dug into this in order to understand the problem and how to fix it, it turns out that:</p> <ul data-svelte-h="svelte-bqjbfk"><li>Biztalk 2013 has a dependency on <a href="https://www.oracle.com/technetwork/topics/dotnet/index-085163.html" rel="nofollow">Oracle Data Provider for .NET</a> version 11.2.
+<ul><li>Oracle version 11.2.0.x.x == Oracle.dataaccess.dll 4.112.x.x</li></ul></li> <li>BizTalk 2016 has the same dependency but on Oracle version 12.1.
+<ul><li>Oracle version 12.1.0.x.x == Oracle.dataaccess.dll 4.121.x.x</li></ul></li></ul> <p data-svelte-h="svelte-wfq5rj">When it comes to Oracle database connectivity:</p> <ul data-svelte-h="svelte-17nr4p3"><li>a newer client should be able to connect to an older database</li> <li>an older client may not be able to connect to a newer database</li></ul> <p data-svelte-h="svelte-10a4m33">In this case the client is the oracle.dataaccess.dll library used by BizTalk, aligned to Oracle database 12.1.<br>
 Well that’s OK then, because our target servers are running Oracle 11.2 which is older.<br>
 At the time of writing there are 3 download options from Oracle’s site:</p> <ul data-svelte-h="svelte-1tsvyi0"><li>DB version 11gR2 11.2.0.3.20</li> <li>DB version 12cR1 12.1.0.2.4 (closest match, only differs by minor version)</li> <li>DB version 12cR2 12.2.0.1.0</li></ul> <h3 data-svelte-h="svelte-1ae8k70">Installation</h3> <p data-svelte-h="svelte-1fqmop7">After installation we end up with the following GACced assemblies:</p> <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">C:WindowsMicrosoft.NETassemblyGAC_32Oracle.DataAccess4.0_4.121.2.0__89b483f429c47342
 C:WindowsMicrosoft.NETassemblyGAC_64Oracle.DataAccess4.0_4.112.2.0__89b483f429c47342C:WindowsMicrosoft.NETassemblyGAC_32Policy.4.121.Oracle.DataAccess4.0_4.121.2.0__89b483f429c47342</code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-1f42co1">The last of these provides an assembly bindingRedirect:</p> <pre class="language-xml"><!-- HTML_TAG_START --><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bindingRedirect</span> <span class="token attr-name">oldVersion</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4.121.0.0-4.121.2.0<span class="token punctuation">"</span></span> <span class="token attr-name">newVersion</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4.121.2.0<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></code><!-- HTML_TAG_END --></pre> <p data-svelte-h="svelte-pl57pb">Great, so BizTalk’s reference to oracle.dataaccess.dll 4.121.1.0 will resolve to 4.121.4.0 and all should be fine.<br>
@@ -35,9 +37,8 @@ We’d like to be sure that BizTalk, our automated deployment scripts and Systes
 			
 			<script>
 				{
-					__sveltekit_fm2sxp = {
-						base: new URL("../../../..", location).pathname.slice(0, -1),
-						env: {}
+					__sveltekit_1rsnseo = {
+						base: new URL("../../../..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
@@ -45,8 +46,8 @@ We’d like to be sure that BizTalk, our automated deployment scripts and Systes
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.14e2260b.js"),
-						import("../../../../_app/immutable/entry/app.a9b1b2ed.js")
+						import("../../../../_app/immutable/entry/start.CLIxsdvV.js"),
+						import("../../../../_app/immutable/entry/app.CnbeEuoy.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 12],

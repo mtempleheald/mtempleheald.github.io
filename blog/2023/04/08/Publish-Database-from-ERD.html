@@ -6,16 +6,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		
-		<link href="../../../../_app/immutable/assets/0.dbac244e.css" rel="stylesheet">
-		<link href="../../../../_app/immutable/assets/2.7003dda6.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.14e2260b.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/scheduler.63274e7e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/singletons.7cfa083e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.a9b1b2ed.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.d9809aad.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.e1105dad.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.ebdbf35e.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/24.36db129a.js">
+		<link href="../../../../_app/immutable/assets/0.GqRAowUm.css" rel="stylesheet">
+		<link href="../../../../_app/immutable/assets/2.0064yJqm.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.CLIxsdvV.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.B0aSSQeQ.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/scheduler.Cp24rM3s.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.CnbeEuoy.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/index.CkxK-9SL.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.8PyStYit.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.CXBMA209.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/24.BOU7ZL7-.js">
 	</head>
 	<body>
 		<div>   <div class="svelte-1yjh0wm"><header data-svelte-h="svelte-lgw146"><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header>  <nav class="svelte-z3ooaf" data-svelte-h="svelte-4jee8c"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul> </nav> </div> <main class="svelte-1l5lemn"><h1 data-svelte-h="svelte-tkkn75">Publish Database from ERD</h1> <p data-svelte-h="svelte-r9hd">I’m focusing here only on a relational database, typically a suitable choice for my use cases.<br>
@@ -37,12 +37,14 @@ Effectively I’d advise making multiple DB models if supporting multiple DB pro
 Use the naming convention <em>liquibase-change-###</em>, 999 DB changes should be enough for most projects.<br>
 Liquibase uses the id, author and filename to track changes - <a href="https://www.liquibase.com/how-liquibase-works" rel="nofollow">How Liquibase works</a><br>
 Keep the changelogs alongside the ERD model in source code, this lets ERD Editor load older changelogs to guarantee correct generation of new changelogs.<br>
-To apply multiple chainsets automatically, which we will need for automation, it is necessary to manually configure a master changelog <code>liquibase-change.xml</code>.</li> <li>Configure liquibase using a <em data-svelte-h="svelte-zuyoau">liquibase.properties</em> file in the same folder:  <pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">classpath: /liquibase/changelog
+To apply multiple chainsets automatically, which we will need for automation, it is necessary to manually configure a master changelog <code>liquibase-change.xml</code>.</li> <li>Configure liquibase using a <em data-svelte-h="svelte-zuyoau">liquibase.properties</em> file in the same folder:  
+<pre class="language-undefined"><!-- HTML_TAG_START --><code class="language-undefined">classpath: /liquibase/changelog
 changeLogFile: changelog.xml
 url: jdbc:sqlserver://localhost:1433;database=master;encrypt=true;trustServerCertificate=true
 username: sa
 password: yourStrong(!)Password
-# liquibaseProLicenseKey=&lt;PASTE LB PRO LICENSE KEY HERE&gt;</code><!-- HTML_TAG_END --></pre>This example is using the defaults for a <a href="https://hub.docker.com/_/microsoft-mssql-server" rel="nofollow" data-svelte-h="svelte-1wl82bc">SQL Server docker</a> container, although the <a href="https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html" rel="nofollow" data-svelte-h="svelte-1erdglk">Liquibase recommendation</a> is to pass these as arguments.  Passing by argument is also required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing, so this defaultsFile is kept just to simplify any manual test processes locally.<br>
+# liquibaseProLicenseKey=&lt;PASTE LB PRO LICENSE KEY HERE&gt;</code><!-- HTML_TAG_END --></pre>
+This example is using the defaults for a <a href="https://hub.docker.com/_/microsoft-mssql-server" rel="nofollow" data-svelte-h="svelte-1wl82bc">SQL Server docker</a> container, although the <a href="https://docs.liquibase.com/workflows/liquibase-community/using-liquibase-and-docker.html" rel="nofollow" data-svelte-h="svelte-1erdglk">Liquibase recommendation</a> is to pass these as arguments.  Passing by argument is also required for running multiple test sets in parallel since only one Docker container at a time can respond on a given port, even if we reuse credentials for testing, so this defaultsFile is kept just to simplify any manual test processes locally.<br>
 We require <code data-svelte-h="svelte-ztbupi">encrypt=true and trustServerCertificate=true</code> to resolve firewall and SSL errors respectively, encountered whilst applying test changeset.</li> <li data-svelte-h="svelte-bp05u8">We can now run liquibase commands, e.g. help<br> <code>docker run --rm --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties --help</code><br> <code>--rm</code> ensures that the docker container is removed after completion of the script (see debugging)<br> <code>-net=host</code> ensures that the liquibase container can talk outside of the Docker bridge network (e.g. to connect to a Docker hosted DB).  In hindsight it is better to use internal network alias on the SQL container to connect from liquibase.<br> <code>-v</code> maps our local folder (Windows in this example) to the root of Liquibase’s changelog tree volume.<br> <code>--defaultsFile</code> tells Liquibase to use our properties file, which in turn tells it where to find changelogs and how to connect to the DB.<br> <code>--help</code> tells Liquibase to show us its help documentation, including available commands</li> <li data-svelte-h="svelte-19264jc">Debugging - if any of our commands fail we can investigate by launching Liquibase with a built-in in-memory DB:<br> <code>docker run --net=host -v &quot;C:\Path\To\Folder\Containing\changelogs&quot;:/liquibase/changelog liquibase/liquibase --defaultsFile=/liquibase/changelog/liquibase.properties init start-h2</code><br>
 In a separate command window find the running container using <code>docker ps</code><br>
 Jump inside it using <code>docker exec -it &lt;container_id&gt; bash</code>, you should see your files within <code>/changelog</code><br>
@@ -97,9 +99,8 @@ All of the above is checked in to a private GitHub repo for now, I may make this
 			
 			<script>
 				{
-					__sveltekit_fm2sxp = {
-						base: new URL("../../../..", location).pathname.slice(0, -1),
-						env: {}
+					__sveltekit_1rsnseo = {
+						base: new URL("../../../..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
@@ -107,8 +108,8 @@ All of the above is checked in to a private GitHub repo for now, I may make this
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.14e2260b.js"),
-						import("../../../../_app/immutable/entry/app.a9b1b2ed.js")
+						import("../../../../_app/immutable/entry/start.CLIxsdvV.js"),
+						import("../../../../_app/immutable/entry/app.CnbeEuoy.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 24],
