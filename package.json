@@ -9,8 +9,9 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^2.0.3",
-		"@sveltejs/kit": "^1.30.4",
+		"@sveltejs/adapter-static": "^3.0.0",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.61.0",
 		"@typescript-eslint/parser": "^5.61.0",
 		"eslint": "^8.40.0",
@@ -22,7 +23,7 @@
 		"svelte": "^4.2.19",
 		"tslib": "^2.6.0",
 		"typescript": "^5.1.6",
-		"vite": "^4.5.5"
+		"vite": "^5.0.0"
 	},
 	"type": "module",
 	"dependencies": {

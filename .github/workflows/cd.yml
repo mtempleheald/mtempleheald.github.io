@@ -18,7 +18,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: '16'
+          node-version: '22'
       - name: Install web dependencies
         run: npm ci # Do not modify package-lock.json
       - name: Compile website
