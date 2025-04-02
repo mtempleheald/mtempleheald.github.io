@@ -8,20 +8,20 @@
 		
 		<link href="../../../../_app/immutable/assets/0.CeAKPTyx.css" rel="stylesheet">
 		<link href="../../../../_app/immutable/assets/2.0064yJqm.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.DxYbdQzJ.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.kSMNIOPS.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/runtime.B66Dd-K4.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.DDaLO4FQ.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/render.D2dCr97A.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/svelte-head.DYsiZHa6.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/disclose-version.1SaWgZ9i.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/if.CfNm2cX5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/store.D3T1jxJj.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.CvPlwEee.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/snippet.C97Lud49.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.hpuXszS9.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/legacy.8a7pGasK.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/17.kG2Hrzw_.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.C79-xvMf.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.DaZGqSlT.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/runtime.BZuNgBny.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.D8fn-cW0.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/render.CeUcSJ3F.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/svelte-head.BoBMsJEW.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/disclose-version.BZtIaq82.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/if.Cocn_Tq8.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/store.DX2XIyjU.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.DYHUpUh2.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/snippet.Cy8K4we5.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.D9cpv9Rn.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/legacy.CtV6FHWp.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/17.Dj8rejA1.js">
 	</head>
 	<body>
 		<div><!--[--><!--[--><!----><!--[--><!----><div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header> <nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul></nav><!----></div><!----> <main class="svelte-1l5lemn"><!----><h1>Modern Software Development</h1> <p>I’ve been working professionally as an Enterprise software developer for 12 years now and I’ve been dabbling with personal projects a lot longer than that. I believe in well architected solutions rather than hacking things together quickly, but I’m also pragmatic.<br> My motivation is to solve real business issues in an effective way, ensuring that the solution is supportable and sufficiently performant (not code for code’s sake).</p> <p>At this moment I believe that the process of developing software is fundamentally broken and I’m seriously contemplating my options.<br> Let’s look at how we got here and where we need to be heading…</p> <h2>Loose history of programming</h2> <p>To understand the current state of something it is important to know how we got to this point.<br> <a href="https://www.youtube.com/watch?v=6YbK8o9rZfI" rel="nofollow">Richard Feldman - Next Paradigm Shift in Programming</a> provides quite a good summary of the history of programming, with a very obvious functional programming bias, in summary:</p> <ol><li>Imperative programming - tell the computer what to do and how to do it, there were no other options in the early days</li> <li>Modular programming - imperative programming broken down into logical structures to make it easier to read and reuse, supported by all modern languages.</li> <li>Functional programming - take a value (or function) and return a value (or function). Clear separation of data from behaviour. Hardware was not ready for the data requirements of immutability and distributed computing.</li> <li>Object-Oriented programming - data and behaviour intrinsically linked together. Became the top paradigm and stayed there for years, as can be seen in any list of the top programming languages. Many people incorrectly consider OOP the only programming style.</li> <li>Functional programming comeback - hardware now ready, addressing issues about reasoning, performance and mutability concerns.</li></ol> <h2>Loose history of the SDLC</h2> <p>Early on programming was difficult, time booking of hardware required, mistakes expensive, shortcuts impossible, no choice but to do things properly first time.</p> <p>Software estates become larger and more complex, the technical parts “solved” now moving onto wider business solutions. Designs primarily led by technical team, only seen by the business owners on release, partly because tooling didn’t provide any other alternatives.</p> <p>Tooling evolves, the business starts to expect more visibility and accountability, “back of a fag packet” specifications no longer cut it.<br> We become truly waterfall in nature as the designs must be signed off prior to development starting.<br> The ownership starts to shift to the business from the technical side and a gradual reduction is seen in the respect afforded to engineers.
@@ -43,7 +43,7 @@ Badly written microservices are not supportable, don’t even consider microserv
 			
 			<script>
 				{
-					__sveltekit_m01ql0 = {
+					__sveltekit_1fqzuke = {
 						base: new URL("../../../..", location).pathname.slice(0, -1)
 					};
 
@@ -52,8 +52,8 @@ Badly written microservices are not supportable, don’t even consider microserv
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.DxYbdQzJ.js"),
-						import("../../../../_app/immutable/entry/app.DDaLO4FQ.js")
+						import("../../../../_app/immutable/entry/start.C79-xvMf.js"),
+						import("../../../../_app/immutable/entry/app.D8fn-cW0.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 17],

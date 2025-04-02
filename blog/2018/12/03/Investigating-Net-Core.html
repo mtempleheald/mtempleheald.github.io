@@ -8,21 +8,21 @@
 		
 		<link href="../../../../_app/immutable/assets/0.CeAKPTyx.css" rel="stylesheet">
 		<link href="../../../../_app/immutable/assets/2.0064yJqm.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.DxYbdQzJ.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.kSMNIOPS.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/runtime.B66Dd-K4.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.DDaLO4FQ.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/render.D2dCr97A.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/svelte-head.DYsiZHa6.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/disclose-version.1SaWgZ9i.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/if.CfNm2cX5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/store.D3T1jxJj.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.CvPlwEee.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/snippet.C97Lud49.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.hpuXszS9.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/legacy.8a7pGasK.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/15.Io-S1NNY.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/html.DcSxObny.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.C79-xvMf.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.DaZGqSlT.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/runtime.BZuNgBny.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.D8fn-cW0.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/render.CeUcSJ3F.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/svelte-head.BoBMsJEW.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/disclose-version.BZtIaq82.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/if.Cocn_Tq8.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/store.DX2XIyjU.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.DYHUpUh2.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/snippet.Cy8K4we5.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.D9cpv9Rn.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/legacy.CtV6FHWp.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/15.DVq3V3v2.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/html.BY5OYTWt.js">
 	</head>
 	<body>
 		<div><!--[--><!--[--><!----><!--[--><!----><div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header> <nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul></nav><!----></div><!----> <main class="svelte-1l5lemn"><!----><p>I’ve been working with .NET Framework for the last few years, mostly BizTalk but also some MVC and microservices.<br> With the latest releases Microsoft indicate that <a href="https://blogs.msdn.microsoft.com/dotnet/2018/10/04/update-on-net-core-3-0-and-net-framework-4-8/" rel="nofollow">.NET Framework will be around for a while but if you want newest features go for .NET Core</a>.<br> Microsoft themselves are using .NET Core rather than .NET Framework for Azure functions and more, there’s a very clear direction when considering <a href="https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server?view=aspnetcore-2.1" rel="nofollow">microservices, containers or performance</a>.<br> With .NET Core 2.2 and the preview of .NET Core 3 publicly available now seems like a good time to give .NET Core a try.</p> <h2>Installation and Configuration</h2> <p>I can see why developers like IDEs if they’re trying to optimise their performance in a language which the IDE supports, however I’ve never found the writing of code to be the bottleneck and find that tool wizardry can often be detrimental to understanding. As a result I like to avoid bloated IDEs where possible and stick with a relatively basic editor with syntax highlighting. I now use VS Code almost exclusively for my personal projects, it remains lightweight and fast, yet there seems to be an extension available for virtually everything. To get .NET Core up and running in VS Code was as simple as:</p> <ol><li><a href="https://www.microsoft.com/net/download/all" rel="nofollow">Install .NET Core</a></li> <li><a href="https://code.visualstudio.com/download" rel="nofollow">Install VS Code</a></li> <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp" rel="nofollow">Install VS Code C# Extension</a></li> <li>Optionally add C:\Program Files\dotnet to the %PATH% and restart VS Code sessions</li></ol> <h2>Getting started</h2> <p>Everything in .NET Core seems to be done on the command line, using the dotnet command, nothing unusual here.<br> Templates are available for quick start, to view these use <code>dotnet new</code>.<br> Let’s start with a basic class library <code>dotnet new classlib -o ClassLib</code>, this generates the following structure:</p> <ul><li>ClassLib <ul><li>bin <ul><li>Debug <ul><li>netstandard2.0</li></ul></li></ul></li> <li>obj <ul><li>Debug <ul><li>netstandard2.0</li></ul></li></ul></li> <li>Class1.cs</li> <li>ClassLib.csproj</li></ul></li></ul> <p>No surprises here, except that obj/Debug is full before I’ve built the project, <a href="https://news.ycombinator.com/item?id=15756054#15757125" rel="nofollow">not just a surprise to me</a>.<br> It turns out that these are generated files as we’d expect, however they are generated from the command <code>dotnet restore</code> which is called from many other commands, including <code>dotnet new</code>.</p> <p>I feel that it is important to understand all of the moving parts in any codebase, for this project that means looking at the csproj file:</p> <pre class="language-xml"><!----><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Project</span> <span class="token attr-name">Sdk</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Microsoft.NET.Sdk<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -95,7 +95,7 @@ In others I feel less positive, see the encouraged use of bootstrap and jQuery a
 			
 			<script>
 				{
-					__sveltekit_m01ql0 = {
+					__sveltekit_1fqzuke = {
 						base: new URL("../../../..", location).pathname.slice(0, -1)
 					};
 
@@ -104,8 +104,8 @@ In others I feel less positive, see the encouraged use of bootstrap and jQuery a
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.DxYbdQzJ.js"),
-						import("../../../../_app/immutable/entry/app.DDaLO4FQ.js")
+						import("../../../../_app/immutable/entry/start.C79-xvMf.js"),
+						import("../../../../_app/immutable/entry/app.D8fn-cW0.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 15],

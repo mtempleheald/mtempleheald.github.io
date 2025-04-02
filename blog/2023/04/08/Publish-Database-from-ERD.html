@@ -8,21 +8,21 @@
 		
 		<link href="../../../../_app/immutable/assets/0.CeAKPTyx.css" rel="stylesheet">
 		<link href="../../../../_app/immutable/assets/2.0064yJqm.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.DxYbdQzJ.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.kSMNIOPS.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/runtime.B66Dd-K4.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.DDaLO4FQ.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/render.D2dCr97A.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/svelte-head.DYsiZHa6.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/disclose-version.1SaWgZ9i.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/if.CfNm2cX5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/store.D3T1jxJj.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.CvPlwEee.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/snippet.C97Lud49.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.hpuXszS9.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/legacy.8a7pGasK.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/24.CBqdZmXd.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/html.DcSxObny.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.C79-xvMf.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.DaZGqSlT.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/runtime.BZuNgBny.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.D8fn-cW0.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/render.CeUcSJ3F.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/svelte-head.BoBMsJEW.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/disclose-version.BZtIaq82.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/if.Cocn_Tq8.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/store.DX2XIyjU.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.DYHUpUh2.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/snippet.Cy8K4we5.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.D9cpv9Rn.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/legacy.CtV6FHWp.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/24.WysM7biW.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/html.BY5OYTWt.js">
 	</head>
 	<body>
 		<div><!--[--><!--[--><!----><!--[--><!----><div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header> <nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul></nav><!----></div><!----> <main class="svelte-1l5lemn"><!----><h1>Publish Database from ERD</h1> <p>I’m focusing here only on a relational database, typically a suitable choice for my use cases.<br> I often find that blogs/tutorials/demos always skip over the data aspect of solutions.<br> In my experience managing code is easy, managing data is hard.  Unless your data is transient in nature database changes require careful thought.</p> <p>My key requirements in an effective data design strategy are:</p> <ol><li><strong>Visualisation</strong> - I want to see an ERD or something similar, without this understanding a non-trivial database is going to be hard.<br> This needs to be versioned with the code, which rules out Visio and other binary representations.</li> <li><strong>Automation</strong> - The ERD and the production database should be linked via automated means.<br> Out-of-date documentation is sometimes worse than no documentation at all.<br> This rules out EF Core migrations (even if not using EF Core for production code).</li> <li><strong>Testability</strong> - Not so much a feature of the database, but I need to know that DB changes do not break things.<br> This means that integration tests must use the real database, on the same version as production, also during local dev, which leads me towards Docker.</li> <li><strong>Provider-agnostic</strong> - I have seen what vendor lock-in leads to and I don’t like it, we must maintain control of our applications.<br> In reality it is impossible to avoid this completely, but simple things like adhering to <a href="https://learnsql.com/blog/history-of-sql-standards/" rel="nofollow">SQL Standards</a> can help reduce the impact of migration.  I only want tables, indexes, constraints and possibly views, all logic will be in the application code.
@@ -69,7 +69,7 @@ public void Dispose()
 			
 			<script>
 				{
-					__sveltekit_m01ql0 = {
+					__sveltekit_1fqzuke = {
 						base: new URL("../../../..", location).pathname.slice(0, -1)
 					};
 
@@ -78,8 +78,8 @@ public void Dispose()
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.DxYbdQzJ.js"),
-						import("../../../../_app/immutable/entry/app.DDaLO4FQ.js")
+						import("../../../../_app/immutable/entry/start.C79-xvMf.js"),
+						import("../../../../_app/immutable/entry/app.D8fn-cW0.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 24],

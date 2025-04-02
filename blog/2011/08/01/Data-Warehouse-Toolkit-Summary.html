@@ -8,20 +8,20 @@
 		
 		<link href="../../../../_app/immutable/assets/0.CeAKPTyx.css" rel="stylesheet">
 		<link href="../../../../_app/immutable/assets/2.0064yJqm.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.DxYbdQzJ.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.kSMNIOPS.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/runtime.B66Dd-K4.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.DDaLO4FQ.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/render.D2dCr97A.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/svelte-head.DYsiZHa6.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/disclose-version.1SaWgZ9i.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/if.CfNm2cX5.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/store.D3T1jxJj.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.CvPlwEee.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/snippet.C97Lud49.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.hpuXszS9.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/chunks/legacy.8a7pGasK.js">
-		<link rel="modulepreload" href="../../../../_app/immutable/nodes/10.B8GrOyGw.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/start.C79-xvMf.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/entry.DaZGqSlT.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/runtime.BZuNgBny.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/entry/app.D8fn-cW0.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/render.CeUcSJ3F.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/svelte-head.BoBMsJEW.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/disclose-version.BZtIaq82.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/if.Cocn_Tq8.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/store.DX2XIyjU.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/0.DYHUpUh2.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/snippet.Cy8K4we5.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/2.D9cpv9Rn.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/chunks/legacy.CtV6FHWp.js">
+		<link rel="modulepreload" href="../../../../_app/immutable/nodes/10.BRG4P3td.js">
 	</head>
 	<body>
 		<div><!--[--><!--[--><!----><!--[--><!----><div class="svelte-1yjh0wm"><header><h1 class="svelte-1yjh0wm">Mark Temple-Heald</h1> <h2 class="svelte-1yjh0wm">the right tool for the job</h2></header> <nav class="svelte-z3ooaf"><ul class="svelte-z3ooaf"><li class="svelte-z3ooaf"><a href="/" class="navAnchor">Home</a></li> <li class="svelte-z3ooaf"><a href="/blog" class="navAnchor">Blog</a></li> <li class="svelte-z3ooaf"><a href="/topic" class="navAnchor">Topic</a></li> <li class="svelte-z3ooaf"><a href="/about" class="navAnchor">About</a></li></ul></nav><!----></div><!----> <main class="svelte-1l5lemn"><!----><p>I recently read the <em>The Data Warehouse Toolkit (Second Edition)</em> before embarking on a project to implement a new data warehouse.<br> I recommend reading this book, it is clear, detailed and accessible, but here is a super succinct summary for my own benefit.</p> <h4>Fact tables</h4> <ul><li>few columns, many rows</li> <li>always at lowest level (granular) detail <ul><li>lowest level of detail required for business reporting, not necessarily the lowest level grain held by the source system</li></ul></li> <li>typically try to avoid semi-additive facts (e.g. balance)</li> <li>always avoid to-date totals, not consistent with the grain</li> <li>try to avoid textual facts <ul><li>tend to be filtered out into a separate dimension (mini dimension)</li></ul></li></ul> <h4>Factless fact tables</h4> <ul><li>convenient representation of many-many relationships between dimensions, even if there is no obvious numeric fact at that level</li> <li>may wish to add artificial fact (always == 1) to clarify queries</li></ul> <h4>Coverage tables</h4> <ul><li>special form of factless fact table</li> <li>one row per dimension Cartesian product, regardless of occupation, flag to indicate available/ in use</li> <li>There is a data overhead involved in doing this so it is only for special uses</li></ul> <h4>Dimension tables</h4> <ul><li>few rows, many columns</li> <li>denormalised extensively – few rows => small impact in size compared with performance improvements</li> <li>Avoid snowflaking (normalising of dimensions) – will slow queries</li> <li>Need surrogate key (SKey) to uniquely identify a row even if a suitable business key exists, future proofing</li> <li>Need getSKey function for each dim (based on natural key)</li> <li>Cater for null values using a “-1” entry</li> <li>Typically expect 5-15 dimensions per dimensional model</li></ul> <h4>Date dimension</h4> <ul><li>1 row per day</li> <li>Day, week, month, quarter, year info on each line</li> <li>Easier filtering/ formatting than SQL date conversion functions</li> <li>The ONLY dimension with a meaningful key – in date order</li> <li>This predictability is important for partitioning, backups and restorations, whereby all rows relating to a date range should be partitioned together</li></ul> <h4>Data Modelling Approach</h4> <ul><li>Separate ERD(s) into business processes &amp; model separately</li> <li>Many-many tables become facts</li> <li>Denormalise remaining tables – become dimensions</li> <li>Convert identifiers into meaningful data e.g. ‘M’ becomes ‘Male’</li> <li>Agree on these “conformed” dimensions and seek to reuse</li> <li>Likewise seek to use conformed facts with standard, meaningful attributes</li></ul> <h4>Maintaining the DW Bus Matrix</h4> <ul><li>Business process (data mart = set of closely-related fact tables) vs common dimensions. This is a very high level planning aid (p79)</li> <li>Enables coherent vision of DW architecture</li> <li>Can extend to include fact table/ granularity/ facts for full picture. This is more closely tied to the implementation phase (p321)</li></ul> <h4>Conformed dimensions</h4> <ul><li>Agreed business nomenclature to avoid redundancy and inaccuracy</li> <li>Common columns are identical</li> <li>1 may have extra columns e.g. confidential information</li> <li>1 may have extra rows (subset of data) –be careful re. referential integrity</li></ul> <h4>Slowly Changing Dimensions (SCD)</h4> <ul><li>Type 1 – overwrite old version – lose history</li> <li>Type 2 – create new dim row – keep history but cannot look at both together</li> <li>Type 3 – consider 2 (or 3…) previous versions <ul><li>require fact column for each version</li> <li>can compare versions as of date X</li></ul></li> <li>Combinations of the above</li></ul> <h4>Role-Playing dimensions</h4> <ul><li>When need 2 dates on a table need 2 references to Date Dim.</li> <li>Cant refer to same table twice so use views instead</li> <li>Applicable to other dimensions but common with date dimension</li></ul> <h4>Dimension Outriggers</h4> <ul><li>Constitutes normalisation of dimensions – use sparingly</li> <li>Useful when dimensions of significantly differing grain and main dimension is large<br> e.g. customers + demographics (age, gender etc)</li> <li>Location is a valid candidate for an outrigger – can use GIS tools too</li></ul> <h4>Degenerate dimensions</h4> <ul><li>Number left in fact table without corresponding dim table.
@@ -34,7 +34,7 @@ then may need 2 sets of dates (operational/ booking)</li></ul> <h4>Late-arriving
 			
 			<script>
 				{
-					__sveltekit_m01ql0 = {
+					__sveltekit_1fqzuke = {
 						base: new URL("../../../..", location).pathname.slice(0, -1)
 					};
 
@@ -43,8 +43,8 @@ then may need 2 sets of dates (operational/ booking)</li></ul> <h4>Late-arriving
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../../../../_app/immutable/entry/start.DxYbdQzJ.js"),
-						import("../../../../_app/immutable/entry/app.DDaLO4FQ.js")
+						import("../../../../_app/immutable/entry/start.C79-xvMf.js"),
+						import("../../../../_app/immutable/entry/app.D8fn-cW0.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 10],
